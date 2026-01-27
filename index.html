@@ -177,6 +177,8 @@
     .answer.selected { border-color: var(--primary); background: #e6f2ff; }
     .inner-wrap { display: flex; align-items: center; gap: 1.2rem; }
     .image img { height: 52px; width: auto; }
+    /* Smaller icons only for Question 7 */
+    #q7 .image img { height: 32px; }
     .text { font-size: 1.12rem; font-weight: 500; }
     input[type="radio"], input[type="checkbox"] { display: none; }
     .radio, .checkbox {
@@ -576,7 +578,7 @@
         </div>
       </div>
 
-      <!-- Question 7 -->
+      <!-- Question 7 (icons are smaller here) -->
       <div id="q7" class="q-box" data-num="7">
         <div class="q-header">
           Pick the applications your company’s employees use for corporate email and cloud applications
@@ -913,7 +915,6 @@
       const box = document.getElementById(`q${q}`);
       let selectedTexts = [];
 
-      // Collect all checked inputs
       const checkedInputs = box.querySelectorAll('input:checked');
       if (checkedInputs.length === 0) {
         alert("Please answer this question to move to the next one");
@@ -936,12 +937,10 @@
       if (currentQuestion <= totalQuestions) {
         document.getElementById(`q${currentQuestion}`).classList.add('active');
       } else {
-        // Show calculating page
         document.getElementById('final').style.display = 'block';
         setTimeout(() => {
           document.getElementById('progress-bar').style.width = '100%';
         }, 100);
-
         setTimeout(showResultsPage, 3000);
       }
       updateUI();
@@ -1085,7 +1084,6 @@
       document.getElementById(`tab-${tabId}`).classList.add('active');
     }
 
-    // PDF download
     document.addEventListener('DOMContentLoaded', () => {
       const pdfBtn = document.getElementById('pdfBtn');
       if (pdfBtn) {
@@ -1205,7 +1203,6 @@
       URL.revokeObjectURL(url);
     }
 
-    // Selection highlight
     document.querySelectorAll('.answer input').forEach(inp => {
       inp.addEventListener('change', () => {
         const answerEl = inp.closest('.answer');
@@ -1219,12 +1216,10 @@
       });
     });
 
-    // Exclusive checkbox logic (improved)
     function setupExclusive(questionId) {
       const none = document.querySelector(`#${questionId} .uncheck-all input`);
       if (!none) return;
 
-      // When "none" is checked → uncheck others
       none.addEventListener('change', function() {
         if (this.checked) {
           document.querySelectorAll(`#${questionId} input[type="checkbox"]:not(.uncheck-all input)`).forEach(inp => {
@@ -1234,7 +1229,6 @@
         }
       });
 
-      // When any other is checked → uncheck "none"
       document.querySelectorAll(`#${questionId} input[type="checkbox"]:not(.uncheck-all input)`).forEach(inp => {
         inp.addEventListener('change', function() {
           if (this.checked) {
