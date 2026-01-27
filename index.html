@@ -177,6 +177,8 @@
     .answer.selected { border-color: var(--primary); background: #e6f2ff; }
     .inner-wrap { display: flex; align-items: center; gap: 1.2rem; }
     .image img { height: 52px; width: auto; }
+    /* Smaller images ONLY for Question 7 */
+    #q7 .image img { height: 32px; }
     .text { font-size: 1.12rem; font-weight: 500; }
     input[type="radio"], input[type="checkbox"] { display: none; }
     .radio, .checkbox {
@@ -414,261 +416,10 @@
           <button class="button next" onclick="nextQuestion(1)">NEXT →</button>
         </div>
       </div>
-      <!-- Question 2 -->
-      <div id="q2" class="q-box" data-num="2">
-        <div class="q-header">
-          Your organization’s security policy allows remote access to corporate applications
-          <div class="sub">Choose all that apply</div>
-        </div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q2">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q02-01.svg" alt=""></div>
-              <div class="text">From personal mobile devices</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q2">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q02-02.svg" alt=""></div>
-              <div class="text">From personal laptops</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q2">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q02-03.svg" alt=""></div>
-              <div class="text">By third parties (contractors, consultants or partners)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q2">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q02-04.svg" alt=""></div>
-              <div class="text">Employees with company managed laptops and/or mobile devices</div>
-            </div>
-          </label>
-          <label class="answer uncheck-all">
-            <input type="checkbox" name="q2">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q02-05.svg" alt=""></div>
-              <div class="text">We do not allow any remote access</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(2)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(2)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Question 3 -->
-      <div id="q3" class="q-box" data-num="3">
-        <div class="q-header">
-          Connecting remote users to corporate applications in your company requires
-          <div class="sub">Choose all that apply</div>
-        </div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q3">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q03-01.svg" alt=""></div>
-              <div class="text">VPN connection</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q3">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q03-02.svg" alt=""></div>
-              <div class="text">SASE connection (cloud-based service)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q3">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/Group-4547.svg" alt=""></div>
-              <div class="text">Multi-Factor Authentication (MFA) or Identification Provider (IDP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q3">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q03-03.svg" alt=""></div>
-              <div class="text">Device risk posture check</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(3)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(3)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Question 4 -->
-      <div id="q4" class="q-box" data-num="4">
-        <div class="q-header">How have you been scaling remote access to corporate applications and networks?</div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q4">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q04-01.svg" alt=""></div>
-              <div class="text">Using on-prem security services</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q4">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q04-02.svg" alt=""></div>
-              <div class="text">Using cloud-based security services</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q4">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/Group163568.svg" alt=""></div>
-              <div class="text">Both on-prem and cloud-based security services</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(4)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(4)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Question 5 -->
-      <div id="q5" class="q-box" data-num="5">
-        <div class="q-header">
-          How do you protect remote users while they are browsing the internet?
-          <div class="sub">Choose all that apply</div>
-        </div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q5">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q05-03.svg" alt=""></div>
-              <div class="text">Sanitize potentially malicious downloads</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q5">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q05-01.svg" alt=""></div>
-              <div class="text">Restrict access to certain websites (e.g. block access to adult and gambling sites)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q5">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q05-04.svg" alt=""></div>
-              <div class="text">Prevent access to URLs known as malicious</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q5">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q05-02.svg" alt=""></div>
-              <div class="text">Real-time scanning of online forms for phishing prevention</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q5">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q05-05.svg" alt=""></div>
-              <div class="text">Enter corporate credentials to non-business websites</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q5">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q05-06.svg" alt=""></div>
-              <div class="text">Scan for data leakage</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(5)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(5)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Question 6 -->
-      <div id="q6" class="q-box" data-num="6">
-        <div class="q-header">
-          How do you prevent sensitive business data from leaking outside the corporate?
-          <div class="sub">Choose all that apply</div>
-        </div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q6">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q06-01.svg" alt=""></div>
-              <div class="text">Disk encryption on endpoint devices</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q06-02.svg" alt=""></div>
-              <div class="text">Scan email and office applications for sensitive content before it is shared externally</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q06-05.svg" alt=""></div>
-              <div class="text">Permit the safe use of GenAI tools</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q06-03.svg" alt=""></div>
-              <div class="text">Scan files for sensitive content before uploaded to external websites/messaging apps</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q06-04.svg" alt=""></div>
-              <div class="text">Scan content that’s uploaded in the browser</div>
-            </div>
-          </label>
-          <label class="answer uncheck-all">
-            <input type="checkbox" name="q6">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"></div>
-              <div class="text">I don't know</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(6)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(6)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Question 7 -->
+
+      <!-- Questions 2–6 unchanged – keep your original code here -->
+
+      <!-- Question 7 – images are now smaller -->
       <div id="q7" class="q-box" data-num="7">
         <div class="q-header">
           Pick the applications your company’s employees use for corporate email and cloud applications
@@ -729,220 +480,13 @@
           <button class="button next" onclick="nextQuestion(7)">NEXT →</button>
         </div>
       </div>
-      <!-- Question 8 -->
-      <div id="q8" class="q-box" data-num="8">
-        <div class="q-header">
-          In the case of a ransomware attack, my organization’s endpoint protection can:
-          <div class="sub">Choose all that apply</div>
-        </div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q8">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q08-03.svg" alt=""></div>
-              <div class="text">Automatically detect and stop the attack</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q8">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q08-04.svg" alt=""></div>
-              <div class="text">Quarantine the infected endpoint</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q8">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q08-01.svg" alt=""></div>
-              <div class="text">Recover ransomware-encrypted files</div>
-            </div>
-          </label>
-          <label class="answer uncheck-all">
-            <input type="checkbox" name="q8">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q08-02.svg" alt=""></div>
-              <div class="text">None of the above</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(8)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(8)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Question 9 -->
-      <div id="q9" class="q-box" data-num="9">
-        <div class="q-header">
-          Which of the following security solutions are being used in your company?
-          <div class="sub">Choose all that apply</div>
-        </div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-02.svg" alt=""></div>
-              <div class="text">NGAV /EPP</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-04.svg" alt=""></div>
-              <div class="text">EDR / XDR / MDR</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-03.svg" alt=""></div>
-              <div class="text">Mobile Threat Defense (MTD)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-05.svg" alt=""></div>
-              <div class="text">Email security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-08.svg" alt=""></div>
-              <div class="text">Cloud based application posture check</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-07.svg" alt=""></div>
-              <div class="text">Collaboration apps security (OneDrive,Teams, etc.)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-06.svg" alt=""></div>
-              <div class="text">Secure Web Gateway</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-01.svg" alt=""></div>
-              <div class="text">Cloud-based security services (SASE)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q9">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-09.svg" alt=""></div>
-              <div class="text">Endpoint & mobile vulnerability mgmt</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(9)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(9)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Question 10 -->
-      <div id="q10" class="q-box" data-num="10">
-        <div class="q-header">
-          How many security vendors do you use to secure remote internet access, corporate access, email, endpoint and mobile devices?
-        </div>
-        <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q10-01.svg" alt=""></div>
-              <div class="text">1-3</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q10-02.svg" alt=""></div>
-              <div class="text">4-6</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q10-03.svg" alt=""></div>
-              <div class="text">7-9</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="image"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/q10-04.svg" alt=""></div>
-              <div class="text">10 and over</div>
-            </div>
-          </label>
-        </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(10)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(10)">NEXT →</button>
-        </div>
-      </div>
-      <!-- Calculating your score page (3-second auto-transition) -->
-      <div id="final" class="q-box last-box" style="display:none;">
-        <div class="image">
-          <img src="https://assessment.checkpoint.com/wp-content/themes/resilient-th/img/progress-circle.png" alt="Progress">
-        </div>
-        <div class="title">Calculating your score</div>
-        <div class="text">PROGRESS</div>
-        <div class="progress-border">
-          <div id="progress-bar"></div>
-        </div>
-      </div>
-      <!-- Results page (stays open forever) -->
-      <div id="results" class="q-box" style="display:none;">
-        <div class="q-header">Your Cyber Security Maturity Results</div>
-        <div class="score-summary" id="total-score">Maturity Score: Calculating...</div>
-        <div class="interpretation" id="interpretation-text">Evaluating your posture...</div>
-        <div class="category-breakdown">
-          <h3>Category Breakdown</h3>
-          <table class="results-table" style="margin-top:1rem;">
-            <thead><tr><th>Category</th><th>Score</th><th>Max</th></tr></thead>
-            <tbody id="category-scores"></tbody>
-          </table>
-        </div>
-        <table class="results-table">
-          <thead><tr><th>Question</th><th>Your Answer</th></tr></thead>
-          <tbody id="results-body"></tbody>
-        </table>
-        <div class="recommendations">
-          <h2 style="text-align:center; margin-bottom:2rem;">More about your security gaps and how to close them</h2>
-          <div class="tab-list" id="tab-list"></div>
-          <div id="tab-contents"></div>
-        </div>
-        <div class="btn-box-wrap" style="margin-top: 3rem; justify-content: center; flex-wrap: wrap;">
-          <button class="button" onclick="location.reload()">Retake Assessment</button>
-          <button class="pdf-button" id="pdfBtn">Download PDF Report</button>
-        </div>
-      </div>
+
+      <!-- Questions 8–10, final, results – keep your original code here -->
+
     </div>
   </div>
-  <!-- Background layers – FIXED -->
+
+  <!-- Background layers -->
   <div class="bg-parallax active" data-num="home" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png);"></div>
   <div class="bg-parallax" data-num="1" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q01-bg.png);"></div>
   <div class="bg-parallax" data-num="2" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q02-bg.png);"></div>
@@ -954,10 +498,13 @@
   <div class="bg-parallax" data-num="8" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q08-bg.png);"></div>
   <div class="bg-parallax" data-num="9" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-bg.png);"></div>
   <div class="bg-parallax" data-num="10" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q10-bg.png);"></div>
+
   <footer>
     <p>© 2025 CHECK POINT. All Rights Reserved.</p>
   </footer>
+
   <script>
+    // Your original script – no changes needed (already has no pre-selected answers)
     let currentQuestion = 0;
     const totalQuestions = 10;
     let answers = {};
@@ -1001,12 +548,10 @@
       if (currentQuestion <= totalQuestions) {
         document.getElementById(`q${currentQuestion}`).classList.add('active');
       } else {
-        // Show calculating page with 3-second timeout
         document.getElementById('final').style.display = 'block';
         setTimeout(() => {
           document.getElementById('progress-bar').style.width = '100%';
         }, 100);
-        // After 3 seconds, show final results page (which stays open forever)
         setTimeout(showResultsPage, 3000);
       }
       updateUI();
@@ -1126,7 +671,6 @@
       document.querySelector(`[onclick="openTab('${tabId}')"]`).classList.add('active');
       document.getElementById(`tab-${tabId}`).classList.add('active');
     }
-    // Improved PDF download - prevent any reload/redirect
     document.addEventListener('DOMContentLoaded', () => {
       const pdfBtn = document.getElementById('pdfBtn');
       if (pdfBtn) {
@@ -1219,7 +763,6 @@
           y = 20;
         }
       });
-      // Use blob to avoid triggering reload in some browsers
       const pdfBlob = doc.output('blob');
       const url = URL.createObjectURL(pdfBlob);
       const a = document.createElement('a');
@@ -1230,7 +773,6 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-    // Selection highlight
     document.querySelectorAll('.answer input').forEach(inp => {
       inp.addEventListener('change', () => {
         const answerEl = inp.closest('.answer');
@@ -1242,7 +784,6 @@
         }
       });
     });
-    // Exclusive logic
     function setupExclusive(questionId) {
       const none = document.querySelector(`#${questionId} .uncheck-all input`);
       if (!none) return;
