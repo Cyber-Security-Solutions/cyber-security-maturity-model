@@ -177,8 +177,6 @@
     .answer.selected { border-color: var(--primary); background: #e6f2ff; }
     .inner-wrap { display: flex; align-items: center; gap: 1.2rem; }
     .image img { height: 52px; width: auto; }
-    /* Smaller icons only for Question 7 */
-    #q7 .image img { height: 32px; }
     .text { font-size: 1.12rem; font-weight: 500; }
     input[type="radio"], input[type="checkbox"] { display: none; }
     .radio, .checkbox {
@@ -225,19 +223,121 @@
       pointer-events: none;
     }
     .bg-parallax.active { opacity: 1; }
+    /* Checkpoint-style recommendations */
+    .recommendations {
+      margin: 3rem 0;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .tab-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .tab-item {
+      cursor: pointer;
+      padding: 1rem 1.5rem;
+      background: #f0f7ff;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+      flex: 1 1 180px;
+      text-align: center;
+    }
+    .tab-item.active, .tab-item:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .risk-score-circle {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 1.5rem;
+    }
+    .risk-score-circle svg {
+      width: 100%;
+      height: 100%;
+    }
+    .risk-score-circle .circle-bg {
+      fill: none;
+      stroke: var(--light-blue);
+      stroke-width: 15;
+    }
+    .risk-score-circle .circle {
+      fill: none;
+      stroke: var(--red);
+      stroke-width: 15;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    .risk-score-circle .percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--red);
+    }
+    .risk-list h4, .rec-list h4 {
+      margin: 1.5rem 0 1rem;
+      color: #333;
+    }
+    .risk-list ul, .rec-list ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .risk-list li, .rec-list li {
+      margin-bottom: 1rem;
+      padding-left: 1.8rem;
+      position: relative;
+    }
+    .risk-list li:before {
+      content: "•";
+      color: var(--red);
+      position: absolute;
+      left: 0;
+      font-size: 1.8rem;
+    }
+    .learn-more-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      transition: all 0.3s;
+    }
+    .learn-more-btn:hover {
+      background: #004080;
+      transform: translateY(-2px);
+    }
     footer { text-align: center; padding: 2.5rem 1rem; color: #666; background: #f8f8f8; }
     @media (max-width: 900px) {
       .sidebar { width: 60px; }
       .main-content { margin-left: 60px; padding: 70px 4% 40px; }
       .q-box { padding: 2.8rem 2rem; }
       .answer-wrap { grid-template-columns: 1fr; }
+      .tab-list { flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <div id="white-bg"></div>
   <div id="question-bg"></div>
-
   <nav class="navbar-top">
     <div class="nav-flex">
       <div class="nav-logo">
@@ -245,7 +345,6 @@
       </div>
     </div>
   </nav>
-
   <section id="home">
     <video class="banner-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png">
       <source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af" type="video/mp4">
@@ -257,7 +356,6 @@
       </div>
     </div>
   </section>
-
   <div id="assessment" class="assessment-container">
     <div class="sidebar">
       <div class="number active" data-num="1">1</div>
@@ -271,12 +369,10 @@
       <div class="number" data-num="9">9</div>
       <div class="number" data-num="10">10</div>
     </div>
-
     <div class="main-content">
       <div id="questions-progress-border">
         <div id="questions-progress-bar"></div>
       </div>
-
       <!-- Question 1 -->
       <div id="q1" class="q-box active" data-num="1">
         <div class="q-header">What % of your organization’s employees work from home at least 2 days a week?</div>
@@ -318,7 +414,6 @@
           <button class="button next" onclick="nextQuestion(1)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 2 -->
       <div id="q2" class="q-box" data-num="2">
         <div class="q-header">
@@ -372,7 +467,6 @@
           <button class="button next" onclick="nextQuestion(2)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 3 -->
       <div id="q3" class="q-box" data-num="3">
         <div class="q-header">
@@ -418,7 +512,6 @@
           <button class="button next" onclick="nextQuestion(3)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 4 -->
       <div id="q4" class="q-box" data-num="4">
         <div class="q-header">How have you been scaling remote access to corporate applications and networks?</div>
@@ -453,7 +546,6 @@
           <button class="button next" onclick="nextQuestion(4)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 5 -->
       <div id="q5" class="q-box" data-num="5">
         <div class="q-header">
@@ -515,7 +607,6 @@
           <button class="button next" onclick="nextQuestion(5)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 6 -->
       <div id="q6" class="q-box" data-num="6">
         <div class="q-header">
@@ -577,8 +668,7 @@
           <button class="button next" onclick="nextQuestion(6)">NEXT →</button>
         </div>
       </div>
-
-      <!-- Question 7 (icons are smaller here) -->
+      <!-- Question 7 -->
       <div id="q7" class="q-box" data-num="7">
         <div class="q-header">
           Pick the applications your company’s employees use for corporate email and cloud applications
@@ -639,7 +729,6 @@
           <button class="button next" onclick="nextQuestion(7)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 8 -->
       <div id="q8" class="q-box" data-num="8">
         <div class="q-header">
@@ -685,7 +774,6 @@
           <button class="button next" onclick="nextQuestion(8)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 9 -->
       <div id="q9" class="q-box" data-num="9">
         <div class="q-header">
@@ -771,7 +859,6 @@
           <button class="button next" onclick="nextQuestion(9)">NEXT →</button>
         </div>
       </div>
-
       <!-- Question 10 -->
       <div id="q10" class="q-box" data-num="10">
         <div class="q-header">
@@ -816,8 +903,7 @@
           <button class="button next" onclick="nextQuestion(10)">NEXT →</button>
         </div>
       </div>
-
-      <!-- Calculating your score page -->
+      <!-- Calculating your score page (3-second auto-transition) -->
       <div id="final" class="q-box last-box" style="display:none;">
         <div class="image">
           <img src="https://assessment.checkpoint.com/wp-content/themes/resilient-th/img/progress-circle.png" alt="Progress">
@@ -828,8 +914,7 @@
           <div id="progress-bar"></div>
         </div>
       </div>
-
-      <!-- Results page -->
+      <!-- Results page (stays open forever) -->
       <div id="results" class="q-box" style="display:none;">
         <div class="q-header">Your Cyber Security Maturity Results</div>
         <div class="score-summary" id="total-score">Maturity Score: Calculating...</div>
@@ -857,8 +942,7 @@
       </div>
     </div>
   </div>
-
-  <!-- Background layers -->
+  <!-- Background layers – FIXED -->
   <div class="bg-parallax active" data-num="home" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png);"></div>
   <div class="bg-parallax" data-num="1" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q01-bg.png);"></div>
   <div class="bg-parallax" data-num="2" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q02-bg.png);"></div>
@@ -870,39 +954,31 @@
   <div class="bg-parallax" data-num="8" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q08-bg.png);"></div>
   <div class="bg-parallax" data-num="9" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q09-bg.png);"></div>
   <div class="bg-parallax" data-num="10" style="background-image: ur[](https://assessment.checkpoint.com/wp-content/uploads/2024/08/q10-bg.png);"></div>
-
   <footer>
     <p>© 2025 CHECK POINT. All Rights Reserved.</p>
   </footer>
-
   <script>
     let currentQuestion = 0;
     const totalQuestions = 10;
     let answers = {};
     let totalScore = 0;
-
     function updateUI() {
       const isQuestion = currentQuestion >= 1 && currentQuestion <= totalQuestions;
       const isFinalPages = document.getElementById('final').style.display === 'block' || document.getElementById('results').style.display === 'block';
-
       document.getElementById('question-bg').classList.toggle('active', isQuestion);
       document.getElementById('white-bg').classList.toggle('active', isFinalPages);
-
       document.querySelectorAll('.sidebar .number').forEach(el => {
         el.classList.toggle('active', parseInt(el.dataset.num) === currentQuestion);
       });
-
       document.querySelectorAll('.bg-parallax').forEach(el => {
         const active = (currentQuestion === 0 && el.dataset.num === 'home') ||
                        (currentQuestion >= 1 && currentQuestion <= totalQuestions && el.dataset.num == currentQuestion);
         el.classList.toggle('active', active);
       });
-
       if (isQuestion) {
         document.getElementById('questions-progress-bar').style.width = ((currentQuestion) / totalQuestions * 100) + '%';
       }
     }
-
     function startAssessment() {
       document.getElementById('home').style.display = 'none';
       document.getElementById('assessment').style.display = 'flex';
@@ -910,42 +986,31 @@
       document.getElementById('q1').classList.add('active');
       updateUI();
     }
-
     function nextQuestion(q) {
       const box = document.getElementById(`q${q}`);
-      let selectedTexts = [];
-
-      const checkedInputs = box.querySelectorAll('input:checked');
-      if (checkedInputs.length === 0) {
+      const checked = box.querySelector('input:checked');
+      if (!checked) {
         alert("Please answer this question to move to the next one");
         return;
       }
-
-      checkedInputs.forEach(inp => {
-        const label = inp.closest('.answer');
-        const textEl = label.querySelector('.text');
-        if (textEl) {
-          selectedTexts.push(textEl.textContent.trim());
-        }
-      });
-
-      answers[`q${q}`] = selectedTexts.length === 1 ? selectedTexts[0] : selectedTexts;
-
+      const label = checked.closest('.answer');
+      const text = label.querySelector('.text').textContent.trim();
+      answers[`q${q}`] = text;
       box.classList.remove('active');
       currentQuestion = q + 1;
-
       if (currentQuestion <= totalQuestions) {
         document.getElementById(`q${currentQuestion}`).classList.add('active');
       } else {
+        // Show calculating page with 3-second timeout
         document.getElementById('final').style.display = 'block';
         setTimeout(() => {
           document.getElementById('progress-bar').style.width = '100%';
         }, 100);
+        // After 3 seconds, show final results page (which stays open forever)
         setTimeout(showResultsPage, 3000);
       }
       updateUI();
     }
-
     function prevQuestion(q) {
       if (q <= 1) return;
       document.getElementById(`q${q}`).classList.remove('active');
@@ -953,34 +1018,23 @@
       document.getElementById(`q${currentQuestion}`).classList.add('active');
       updateUI();
     }
-
     function showResultsPage() {
       document.getElementById('final').style.display = 'none';
       document.getElementById('results').style.display = 'block';
       updateUI();
-
       const scores = {
         q1: answers.q1 === "Up to 10%" ? 10 : (answers.q1 === "11%-50%" ? 7 : (answers.q1 === "51%-80%" ? 4 : 1)),
-        q2: (Array.isArray(answers.q2) ? answers.q2 : []).includes("Employees with company managed laptops and/or mobile devices") ? 6 : 0 +
-            (Array.isArray(answers.q2) ? answers.q2 : []).includes("We do not allow any remote access") ? 10 : 0,
-        q3: (Array.isArray(answers.q3) ? answers.q3 : []).includes("Device risk posture check") ? 5 : 0 +
-            (Array.isArray(answers.q3) ? answers.q3 : []).includes("SASE connection (cloud-based service)") ? 5 : 0 +
-            (Array.isArray(answers.q3) ? answers.q3 : []).includes("Multi-Factor Authentication (MFA) or Identification Provider (IDP)") ? 3 : 0,
+        q2: (answers.q2?.includes("company managed") ? 6 : 0) + (answers.q2?.includes("We do not allow") ? 10 : 0),
+        q3: (answers.q3?.includes("Device risk posture check") ? 5 : 0) + (answers.q3?.includes("SASE") ? 5 : 0) + (answers.q3?.includes("Multi-Factor") ? 3 : 0),
         q4: (answers.q4 === "Using cloud-based security services" || answers.q4 === "Both on-prem and cloud-based security services") ? 10 : 3,
-        q5: (Array.isArray(answers.q5) ? answers.q5.length : 0) >= 3 ? 8 : ((Array.isArray(answers.q5) ? answers.q5.length : 0) >= 2 ? 5 : 2),
-        q6: (Array.isArray(answers.q6) ? answers.q6 : []).includes("Disk encryption on endpoint devices") ? 4 : 0 +
-            (Array.isArray(answers.q6) ? answers.q6 : []).includes("Scan files for sensitive content before uploaded to external websites/messaging apps") ? 4 : 0 +
-            (Array.isArray(answers.q6) ? answers.q6 : []).includes("Scan content that’s uploaded in the browser") ? 3 : 0,
-        q7: ((Array.isArray(answers.q7) ? answers.q7 : []).includes("Office365") || (Array.isArray(answers.q7) ? answers.q7 : []).includes("Google apps like Drive, Docs, Sheets and Meet")) ? 6 : 2,
-        q8: (Array.isArray(answers.q8) ? answers.q8 : []).includes("Recover ransomware-encrypted files") ? 8 : ((Array.isArray(answers.q8) ? answers.q8 : []).includes("Automatically detect and stop the attack") ? 5 : 1),
-        q9: (Array.isArray(answers.q9) ? answers.q9 : []).includes("EDR / XDR / MDR") ? 5 : 0 +
-            (Array.isArray(answers.q9) ? answers.q9 : []).includes("Cloud-based security services (SASE)") ? 5 : 0 +
-            ((Array.isArray(answers.q9) ? answers.q9.length : 0) >= 5 ? 3 : 0),
+        q5: (answers.q5?.length >= 3 ? 8 : (answers.q5?.length >= 2 ? 5 : 2)),
+        q6: (answers.q6?.includes("Disk encryption") ? 4 : 0) + (answers.q6?.includes("Scan files") ? 4 : 0) + (answers.q6?.includes("Scan content") ? 3 : 0),
+        q7: (answers.q7?.includes("Office365") || answers.q7?.includes("Google apps") ? 6 : 2),
+        q8: (answers.q8?.includes("Recover ransomware-encrypted files") ? 8 : (answers.q8?.includes("Automatically detect") ? 5 : 1)),
+        q9: (answers.q9?.includes("EDR / XDR / MDR") ? 5 : 0) + (answers.q9?.includes("Cloud-based security services (SASE)") ? 5 : 0) + (answers.q9?.length >= 5 ? 3 : 0),
         q10: answers.q10 === "1-3" ? 10 : (answers.q10 === "4-6" ? 6 : 2)
       };
-
       totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-
       const categories = {
         "Remote Workforce": scores.q1 + scores.q2,
         "Access & Connectivity": scores.q3 + scores.q4,
@@ -988,7 +1042,6 @@
         "Data Protection & Endpoint": scores.q6 + scores.q8,
         "Vendor Consolidation & Tools": scores.q7 + scores.q9 + scores.q10
       };
-
       let interpretation = "";
       if (totalScore >= 80) {
         interpretation = "Excellent – Your organization demonstrates a strong cyber security posture with modern practices and consolidated tools. Maintain vigilance and continue monitoring emerging threats.";
@@ -999,28 +1052,21 @@
       } else {
         interpretation = "Needs Improvement – Your current setup shows significant exposure. Urgent action is recommended in modernizing remote access, enabling strong endpoint recovery, and consolidating security vendors.";
       }
-
       document.getElementById('total-score').textContent = `Maturity Score: ${totalScore}/100`;
       document.getElementById('interpretation-text').textContent = interpretation;
-
       let catHtml = '';
       for (const [cat, score] of Object.entries(categories)) {
         catHtml += `<tr><td>${cat}</td><td>${score}</td><td>20</td></tr>`;
       }
       document.getElementById('category-scores').innerHTML = catHtml;
-
       let ansHtml = '';
       for (let i = 1; i <= totalQuestions; i++) {
-        const ans = Array.isArray(answers[`q${i}`]) 
-          ? answers[`q${i}`].join(', ') 
-          : (answers[`q${i}`] || "No answer selected");
+        const ans = answers[`q${i}`] || "No answer selected";
         ansHtml += `<tr><td>Question ${i}</td><td>${ans}</td></tr>`;
       }
       document.getElementById('results-body').innerHTML = ansHtml;
-
       renderRecommendations(categories);
     }
-
     function renderRecommendations(categoryScores) {
       const categories = [
         { id: "email", name: "Email Security", icon: "https://assessment.checkpoint.com/wp-content/uploads/2024/08/mail.svg", vulnerable: 0 },
@@ -1030,7 +1076,6 @@
         { id: "access", name: "Secure Access", icon: "https://assessment.checkpoint.com/wp-content/uploads/2024/08/caticon.svg", vulnerable: Math.round((20 - (categoryScores["Access & Connectivity"] || 10)) * 5) },
         { id: "saas", name: "SaaS Security", icon: "https://assessment.checkpoint.com/wp-content/uploads/2024/08/SaaS.svg", vulnerable: 0 }
       ];
-
       let tabList = '';
       let tabContent = '';
       categories.forEach((cat, index) => {
@@ -1072,18 +1117,16 @@
           </div>
         `;
       });
-
       document.getElementById('tab-list').innerHTML = tabList;
       document.getElementById('tab-contents').innerHTML = tabContent;
     }
-
     function openTab(tabId) {
       document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelector(`[onclick="openTab('${tabId}')"]`).classList.add('active');
       document.getElementById(`tab-${tabId}`).classList.add('active');
     }
-
+    // Improved PDF download - prevent any reload/redirect
     document.addEventListener('DOMContentLoaded', () => {
       const pdfBtn = document.getElementById('pdfBtn');
       if (pdfBtn) {
@@ -1094,37 +1137,28 @@
         });
       }
     });
-
     function downloadPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
       const margin = 20;
-
       doc.setFontSize(20);
       doc.setTextColor(0, 85, 165);
       doc.text("Cyber Security Maturity Assessment Report", pageWidth / 2, 25, { align: "center" });
-
       doc.setFontSize(14);
       doc.setTextColor(0);
       doc.text(`Generated on: ${new Date().toLocaleString()}`, pageWidth - margin, 35, { align: "right" });
-
       doc.line(margin, 40, pageWidth - margin, 40);
-
       doc.setFontSize(16);
       doc.text("Overall Maturity Score", margin, 55);
-
       doc.setFontSize(24);
       doc.setTextColor(0, 85, 165);
       doc.text(document.getElementById('total-score').textContent, margin, 70);
-
       doc.setFontSize(12);
       doc.setTextColor(0);
       const interpLines = doc.splitTextToSize(document.getElementById('interpretation-text').textContent, pageWidth - margin * 2);
       doc.text(interpLines, margin, 85);
-
       let y = 85 + interpLines.length * 7 + 10;
-
       doc.setFontSize(14);
       doc.text("Category Breakdown", margin, y);
       y += 10;
@@ -1133,7 +1167,6 @@
       y += 7;
       doc.line(margin, y, pageWidth - margin, y);
       y += 7;
-
       document.querySelectorAll('#category-scores tr').forEach(row => {
         const cells = row.querySelectorAll('td');
         if (cells.length === 3) {
@@ -1146,13 +1179,11 @@
           y += 7;
         }
       });
-
       y += 10;
       doc.setFontSize(14);
       doc.text("Your Answers", margin, y);
       y += 10;
       doc.setFontSize(11);
-
       document.querySelectorAll('#results-body tr').forEach(row => {
         const cells = row.querySelectorAll('td');
         if (cells.length === 2) {
@@ -1168,20 +1199,17 @@
           }
         }
       });
-
       y += 15;
       doc.setFontSize(14);
       doc.text("Security Recommendations", margin, y);
       y += 10;
       doc.setFontSize(11);
-
       const recText = [
         "• Consider Checkpoint Harmony for unified protection across email, endpoint, web, mobile and access.",
         "• Deploy advanced threat prevention, EDR/XDR, and ransomware recovery capabilities.",
         "• Move to cloud-based SASE/ZTNA with device posture checks and MFA.",
         "• Consolidate vendors to reduce complexity, cost, and blind spots."
       ];
-
       recText.forEach(line => {
         const lines = doc.splitTextToSize(line, pageWidth - margin * 2);
         doc.text(lines, margin, y);
@@ -1191,7 +1219,7 @@
           y = 20;
         }
       });
-
+      // Use blob to avoid triggering reload in some browsers
       const pdfBlob = doc.output('blob');
       const url = URL.createObjectURL(pdfBlob);
       const a = document.createElement('a');
@@ -1202,12 +1230,11 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-
+    // Selection highlight
     document.querySelectorAll('.answer input').forEach(inp => {
       inp.addEventListener('change', () => {
         const answerEl = inp.closest('.answer');
         answerEl.classList.toggle('selected', inp.checked);
-
         if (inp.type === 'radio') {
           document.querySelectorAll(`#q${currentQuestion} .answer`).forEach(a => {
             if (a !== answerEl) a.classList.remove('selected');
@@ -1215,11 +1242,10 @@
         }
       });
     });
-
+    // Exclusive logic
     function setupExclusive(questionId) {
       const none = document.querySelector(`#${questionId} .uncheck-all input`);
       if (!none) return;
-
       none.addEventListener('change', function() {
         if (this.checked) {
           document.querySelectorAll(`#${questionId} input[type="checkbox"]:not(.uncheck-all input)`).forEach(inp => {
@@ -1228,21 +1254,10 @@
           });
         }
       });
-
-      document.querySelectorAll(`#${questionId} input[type="checkbox"]:not(.uncheck-all input)`).forEach(inp => {
-        inp.addEventListener('change', function() {
-          if (this.checked) {
-            none.checked = false;
-            none.closest('.answer').classList.remove('selected');
-          }
-        });
-      });
     }
-
     setupExclusive('q2');
     setupExclusive('q6');
     setupExclusive('q8');
-
     updateUI();
   </script>
 </body>
