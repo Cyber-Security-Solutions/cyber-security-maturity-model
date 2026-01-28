@@ -13,7 +13,11 @@
       --light-blue: #AADAFF;
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -21,7 +25,6 @@
       color: #000;
       line-height: 1.5;
       overflow-x: hidden;
-      position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -54,7 +57,10 @@
       margin: 0 auto;
     }
 
-    .nav-logo img { height: 36px; width: auto; }
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+    }
 
     #home {
       position: relative;
@@ -68,7 +74,8 @@
     .banner-video {
       position: absolute;
       inset: 0;
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       z-index: 1;
     }
@@ -77,7 +84,6 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 0 5%;
       max-width: 880px;
     }
 
@@ -197,8 +203,16 @@
       width: 100%;
     }
 
-    .image img { height: 32px; width: auto; flex-shrink: 0; }
-    .text { font-size: 1.05rem; font-weight: 500; }
+    .image img {
+      height: 32px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .text {
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
 
     input[type="radio"], input[type="checkbox"] { display: none; }
 
@@ -275,7 +289,6 @@
     .tab-item.active, .tab-item:hover {
       background: var(--primary);
       color: white;
-      border-color: var(--primary);
     }
 
     .tab-content { display: none; }
@@ -348,7 +361,7 @@
     }
 
     /* ───────────────────────────────────────────────
-       MEDIA QUERIES – Mobile-first improvements
+       MEDIA QUERIES
     ─────────────────────────────────────────────── */
 
     @media (max-width: 1024px) {
@@ -1095,9 +1108,7 @@
             <input type="radio" name="q13">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a01.svg" alt=""></div>
               <div class="text">Active-Passive firewalls are deployed in<br>Highly Available clusters</div>
             </div>
           </label>
@@ -1105,9 +1116,7 @@
             <input type="radio" name="q13">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a02.svg" alt=""></div>
               <div class="text">firewalls with load balancers from<br>another vendor are deployed</div>
             </div>
           </label>
@@ -1115,9 +1124,7 @@
             <input type="radio" name="q13">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a03.svg" alt=""></div>
               <div class="text">Active-Active firewalls are deployed from<br>a single vendor</div>
             </div>
           </label>
@@ -1125,9 +1132,7 @@
             <input type="radio" name="q13">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a04.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q03a04.svg" alt=""></div>
               <div class="text">Not sure</div>
             </div>
           </label>
@@ -1149,9 +1154,7 @@
             <input type="checkbox" name="q14">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a01.svg" alt=""></div>
               <div class="text">Software-defined<br>Networking (SDN)</div>
             </div>
           </label>
@@ -1159,9 +1162,7 @@
             <input type="checkbox" name="q14">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a02.svg" alt=""></div>
               <div class="text">Service chaining using<br>NSX/Cisco/ACI/OpenStack</div>
             </div>
           </label>
@@ -1169,9 +1170,7 @@
             <input type="checkbox" name="q14">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a03.svg" alt=""></div>
               <div class="text">Dedicated policy<br>layers</div>
             </div>
           </label>
@@ -1179,9 +1178,7 @@
             <input type="checkbox" name="q14">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a04.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a04.svg" alt=""></div>
               <div class="text">Agile and automated<br>policy</div>
             </div>
           </label>
@@ -1189,9 +1186,7 @@
             <input type="checkbox" name="q14">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a05.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a05.svg" alt=""></div>
               <div class="text">Business logic policy</div>
             </div>
           </label>
@@ -1199,9 +1194,7 @@
             <input type="checkbox" name="q14">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a06.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q04a06.svg" alt=""></div>
               <div class="text">Not Sure</div>
             </div>
           </label>
@@ -1223,9 +1216,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a01.svg" alt=""></div>
               <div class="text">Sandboxing</div>
             </div>
           </label>
@@ -1233,9 +1224,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a02.svg" alt=""></div>
               <div class="text">File Sanitization (CDR)</div>
             </div>
           </label>
@@ -1243,9 +1232,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a03.svg" alt=""></div>
               <div class="text">Malware DNA</div>
             </div>
           </label>
@@ -1253,9 +1240,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a04.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a04.svg" alt=""></div>
               <div class="text">Next Generation Web<br>Application Firewall</div>
             </div>
           </label>
@@ -1263,9 +1248,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a05.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a05.svg" alt=""></div>
               <div class="text">Anti-malware</div>
             </div>
           </label>
@@ -1273,9 +1256,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a06.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a06.svg" alt=""></div>
               <div class="text">Kubernetes runtime<br>security</div>
             </div>
           </label>
@@ -1283,9 +1264,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a07.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a07.svg" alt=""></div>
               <div class="text">Cloud-native<br>vulnerability scanning</div>
             </div>
           </label>
@@ -1293,9 +1272,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a08.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a08.svg" alt=""></div>
               <div class="text">Real-time threat intelligence<br>to prevent zero-day attacks</div>
             </div>
           </label>
@@ -1303,9 +1280,7 @@
             <input type="checkbox" name="q15">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a09.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q05a09.svg" alt=""></div>
               <div class="text">Not sure</div>
             </div>
           </label>
@@ -1327,9 +1302,7 @@
             <input type="checkbox" name="q16">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a01.svg" alt=""></div>
               <div class="text">Posture management</div>
             </div>
           </label>
@@ -1337,9 +1310,7 @@
             <input type="checkbox" name="q16">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a02.svg" alt=""></div>
               <div class="text">Vulnerability<br>scanning</div>
             </div>
           </label>
@@ -1347,9 +1318,7 @@
             <input type="checkbox" name="q16">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a03.svg" alt=""></div>
               <div class="text">Least privileged<br>access</div>
             </div>
           </label>
@@ -1357,9 +1326,7 @@
             <input type="checkbox" name="q16">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a04.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a04.svg" alt=""></div>
               <div class="text">Threat prevention</div>
             </div>
           </label>
@@ -1367,9 +1334,7 @@
             <input type="checkbox" name="q16">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a05.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a05.svg" alt=""></div>
               <div class="text">Not sure</div>
             </div>
           </label>
@@ -1377,9 +1342,7 @@
             <input type="checkbox" name="q16">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a06.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q06a06.svg" alt=""></div>
               <div class="text">Not using cloud for<br>workloads</div>
             </div>
           </label>
@@ -1401,9 +1364,7 @@
             <input type="checkbox" name="q17">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a01.svg" alt=""></div>
               <div class="text">Web Application<br>Firewall (WAF)</div>
             </div>
           </label>
@@ -1411,9 +1372,7 @@
             <input type="checkbox" name="q17">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a02.svg" alt=""></div>
               <div class="text">API security</div>
             </div>
           </label>
@@ -1421,9 +1380,7 @@
             <input type="checkbox" name="q17">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a03.svg" alt=""></div>
               <div class="text">DDoS and BOT<br>attack protections</div>
             </div>
           </label>
@@ -1431,9 +1388,7 @@
             <input type="checkbox" name="q17">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a04.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a04.svg" alt=""></div>
               <div class="text">Intrusion Prevention<br>System (IPS)</div>
             </div>
           </label>
@@ -1441,9 +1396,7 @@
             <input type="checkbox" name="q17">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a05.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a05.svg" alt=""></div>
               <div class="text">Network security<br>access list</div>
             </div>
           </label>
@@ -1451,9 +1404,7 @@
             <input type="checkbox" name="q17">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a06.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q07a06.svg" alt=""></div>
               <div class="text">Not sure</div>
             </div>
           </label>
@@ -1474,9 +1425,7 @@
             <input type="radio" name="q18">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q08a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q08a01.svg" alt=""></div>
               <div class="text">Yes</div>
             </div>
           </label>
@@ -1484,9 +1433,7 @@
             <input type="radio" name="q18">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q08a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q08a02.svg" alt=""></div>
               <div class="text">No</div>
             </div>
           </label>
@@ -1494,9 +1441,7 @@
             <input type="radio" name="q18">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q08a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q08a03.svg" alt=""></div>
               <div class="text">Not sure</div>
             </div>
           </label>
@@ -1517,9 +1462,7 @@
             <input type="radio" name="q19">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q09a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q09a01.svg" alt=""></div>
               <div class="text">One</div>
             </div>
           </label>
@@ -1527,9 +1470,7 @@
             <input type="radio" name="q19">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q09a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q09a02.svg" alt=""></div>
               <div class="text">Multiple</div>
             </div>
           </label>
@@ -1537,9 +1478,7 @@
             <input type="radio" name="q19">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q09a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q09a03.svg" alt=""></div>
               <div class="text">Not sure</div>
             </div>
           </label>
@@ -1560,9 +1499,7 @@
             <input type="radio" name="q20">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q10a01.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q10a01.svg" alt=""></div>
               <div class="text">Fully unified</div>
             </div>
           </label>
@@ -1570,9 +1507,7 @@
             <input type="radio" name="q20">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q10a02.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q10a02.svg" alt=""></div>
               <div class="text">Managed through<br>separate tools</div>
             </div>
           </label>
@@ -1580,9 +1515,7 @@
             <input type="radio" name="q20">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="image">
-                <img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q10a03.svg" alt="">
-              </div>
+              <div class="image"><img src="https://data-center-assessment.checkpoint.com/wp-content/uploads/2022/01/q10a03.svg" alt=""></div>
               <div class="text">Not sure</div>
             </div>
           </label>
