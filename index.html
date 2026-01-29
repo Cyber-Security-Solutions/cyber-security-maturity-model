@@ -6,7 +6,6 @@
   <title>Cyber Security Maturity Model – Check Point</title>
   <meta name="description" content="Secure your business today by assessing your cyber security maturity with our quick assessment." />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --primary: #0055a5;
@@ -317,14 +316,6 @@
       background: var(--primary);
       border-radius: 10px;
       transition: width 1s ease-out;
-    }
-    
-    .chart-container {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      margin: 2rem 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
     .recommendations-grid {
@@ -2046,11 +2037,6 @@
           <div class="maturity-level" id="maturity-level">Calculating...</div>
         </div>
         
-        <div class="chart-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem;">Security Pillars Maturity</h3>
-          <canvas id="pillarsChart" height="120"></canvas>
-        </div>
-        
         <h3 style="margin: 2rem 0 1rem;">Detailed Assessment Results</h3>
         <table class="pillars-table" id="pillars-table">
           <thead>
@@ -2621,9 +2607,6 @@
       // Display pillar scores in table
       displayPillarScores(pillarScores);
       
-      // Create bar chart
-      createBarChart(pillarScores);
-      
       // Generate recommendations
       generateRecommendations(pillarScores);
     }
@@ -2727,63 +2710,6 @@
       if (percentage >= 80) return '#2E7D32'; // Green
       if (percentage >= 60) return '#FF9800'; // Orange
       return '#D32F2F'; // Red
-    }
-
-    function createBarChart(pillarScores) {
-      const ctx = document.getElementById('pillarsChart').getContext('2d');
-      const pillars = Object.keys(pillarScores);
-      const percentages = pillars.map(pillar => pillarScores[pillar].percentage);
-      const colors = percentages.map(pct => getScoreColor(pct));
-      
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: pillars,
-          datasets: [{
-            label: 'Maturity %',
-            data: percentages,
-            backgroundColor: colors,
-            borderColor: colors.map(color => color.replace('0.8', '1')),
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
-              title: {
-                display: true,
-                text: 'Maturity Percentage (%)'
-              }
-            },
-            x: {
-              ticks: {
-                autoSkip: false,
-                maxRotation: 45,
-                minRotation: 45
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  const pillar = context.label;
-                  const score = pillarScores[pillar].score;
-                  const maxScore = pillarScores[pillar].maxScore;
-                  return `${pillar}: ${context.raw}% (${score}/${maxScore})`;
-                }
-              }
-            }
-          }
-        }
-      });
     }
 
     function generateRecommendations(pillarScores) {
