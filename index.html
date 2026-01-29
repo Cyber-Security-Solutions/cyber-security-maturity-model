@@ -6,11 +6,15 @@
   <title>Cyber Security Maturity Model – Check Point</title>
   <meta name="description" content="Secure your business today by assessing your cyber security maturity with our quick assessment." />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --primary: #0055a5;
       --red: #B70E4E;
       --light-blue: #AADAFF;
+      --green: #2E7D32;
+      --orange: #FF9800;
+      --dark-red: #D32F2F;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -130,44 +134,44 @@
       background: #ffffff;
       color: #000;
       border-radius: 16px;
-      padding: 2.5rem 2.5rem; /* Reduced from 3.5rem 3rem */
+      padding: 2.5rem 2.5rem;
       box-shadow: 0 10px 35px rgba(0,0,0,0.2);
       display: none;
       border: 1px solid #e8e8e8;
     }
     .q-box.active { display: block; }
     .q-header {
-      font-size: 1.8rem; /* Reduced from 1.95rem */
+      font-size: 1.8rem;
       font-weight: 700;
-      margin-bottom: 1.5rem; /* Reduced from 2rem */
+      margin-bottom: 1.5rem;
       line-height: 1.3;
     }
     .sub { 
-      font-size: 1rem; /* Reduced from 1.1rem */
+      font-size: 1rem;
       color: #555; 
       margin-top: 0.3rem; 
-      margin-bottom: 1.2rem; /* Reduced from 1.5rem */
+      margin-bottom: 1.2rem;
       font-weight: 500;
     }
     .answer-wrap {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1rem; /* Reduced from 1.3rem */
-      margin-bottom: 2rem; /* Reduced from 2.5rem */
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
     @media (min-width: 900px) {
       .answer-wrap { grid-template-columns: repeat(2, 1fr); }
     }
     .answer {
-      padding: 1.2rem 1.8rem 1.2rem 2.2rem; /* Reduced padding significantly */
+      padding: 1.2rem 1.8rem 1.2rem 2.2rem;
       border: 2px solid #d0d0d0;
-      border-radius: 10px; /* Reduced from 12px */
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.22s;
       background: #f9f9f9;
       display: flex;
       align-items: center;
-      min-height: 70px; /* Reduced from 84px */
+      min-height: 70px;
       touch-action: manipulation;
     }
     .answer:hover { border-color: var(--primary); background: #f0f7ff; }
@@ -175,62 +179,62 @@
     .inner-wrap {
       display: flex;
       align-items: center;
-      gap: 1.2rem; /* Slightly reduced */
+      gap: 1.2rem;
       width: 100%;
     }
     @media (max-width: 768px) {
       .inner-wrap { gap: 1rem; }
       .answer { 
-        padding: 1rem 1.5rem 1rem 1.8rem; /* Reduced for mobile */
-        min-height: 65px; /* Reduced from 90px */
+        padding: 1rem 1.5rem 1rem 1.8rem;
+        min-height: 65px;
       }
       .q-box {
-        padding: 2rem 2rem; /* Reduced for mobile */
+        padding: 2rem 2rem;
       }
       .q-header {
-        font-size: 1.6rem; /* Reduced for mobile */
+        font-size: 1.6rem;
       }
     }
     .text { 
-      font-size: 1rem; /* Reduced from 1.05rem */
+      font-size: 1rem;
       font-weight: 500; 
-      line-height: 1.4; /* Reduced from 1.45 */
+      line-height: 1.4;
       flex: 1;
       min-width: 0;
     }
     input[type="radio"], input[type="checkbox"] { display: none; }
     .radio, .checkbox {
-      width: 22px; /* Reduced from 26px */
-      height: 22px; /* Reduced from 26px */
-      border: 2px solid #888; /* Reduced from 2.5px */
+      width: 22px;
+      height: 22px;
+      border: 2px solid #888;
       border-radius: 50%;
       background: white;
       flex-shrink: 0;
       position: relative;
-      margin-right: 0.8rem; /* Reduced from 1rem */
+      margin-right: 0.8rem;
     }
     .checkbox { 
-      border-radius: 5px; /* Reduced from 6px */
+      border-radius: 5px;
       margin-right: 0.8rem;
     }
     input:checked + .radio::after,
     input:checked + .checkbox::after {
       content: "";
       position: absolute;
-      inset: 5px; /* Reduced from 6px */
+      inset: 5px;
       background: var(--primary);
       border-radius: inherit;
     }
     .btn-box-wrap {
       display: flex;
       justify-content: space-between;
-      margin-top: 2rem; /* Reduced from 2.5rem */
+      margin-top: 2rem;
       gap: 1rem;
       flex-wrap: wrap;
     }
     .last-box {
       text-align: center;
-      padding: 5rem 2rem 3rem; /* Reduced from 6rem 2rem 4rem */
+      padding: 5rem 2rem 3rem;
       border-radius: 16px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     }
@@ -238,81 +242,131 @@
     .last-box .text { font-size: 1.2rem; margin: 1rem 0 1.5rem; color: #555; }
     .progress-border { height: 14px; background: #e0e0e0; border-radius: 7px; margin: 2rem auto; max-width: 440px; overflow: hidden; }
     #progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 2.8s ease-out; }
-    .recommendations {
-      margin: 2.5rem 0; /* Reduced from 3rem */
-      padding: 1.8rem; /* Reduced from 2rem */
-      background: #fff;
-      border-radius: 12px;
+    
+    /* Results Page Specific Styles */
+    .results-summary {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .overall-score {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .maturity-level {
+      font-size: 1.5rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    
+    .pillars-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .tab-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem; /* Reduced from 0.9rem */
-      margin-bottom: 1.8rem; /* Reduced from 2rem */
+    
+    .pillars-table th {
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem;
+      text-align: left;
+      font-weight: 600;
     }
-    .tab-item {
-      cursor: pointer;
-      padding: 1.2rem 1.5rem; /* Reduced from 1.4rem 1.8rem */
-      background: #f0f7ff;
-      border-radius: 8px; /* Reduced from 10px */
-      border: 2px solid transparent;
-      transition: all 0.3s;
-      flex: 1 1 160px; /* Reduced from 180px */
+    
+    .pillars-table td {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .pillars-table tr:hover {
+      background: #f9f9f9;
+    }
+    
+    .pillars-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .pillar-name {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .score-cell {
       text-align: center;
-      min-width: 140px; /* Reduced from 160px */
       font-weight: 600;
     }
-    .tab-item.active, .tab-item:hover {
+    
+    .score-bar-container {
+      width: 100%;
+      height: 20px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    
+    .score-bar {
+      height: 100%;
       background: var(--primary);
-      color: white;
-      border-color: var(--primary);
+      border-radius: 10px;
+      transition: width 1s ease-out;
     }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .risk-score-circle {
-      position: relative;
-      width: 140px; /* Reduced from 160px */
-      height: 140px; /* Reduced from 160px */
-      margin: 0 auto 1.5rem; /* Reduced from 1.8rem */
+    
+    .chart-container {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .risk-score-circle svg { width: 100%; height: 100%; }
-    .risk-score-circle .circle-bg {
-      fill: none;
-      stroke: var(--light-blue);
-      stroke-width: 14; /* Reduced from 16 */
+    
+    .recommendations-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
-    .risk-score-circle .circle {
-      fill: none;
-      stroke: var(--red);
-      stroke-width: 14; /* Reduced from 16 */
-      stroke-linecap: round;
-      transform: rotate(-90deg);
-      transform-origin: 50% 50%;
+    
+    @media (min-width: 768px) {
+      .recommendations-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
-    .risk-score-circle .percentage {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.2rem; /* Reduced from 2.6rem */
-      font-weight: bold;
-      color: var(--red);
+    
+    .recommendation-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     }
-    .learn-more-btn {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 0.9rem 2rem; /* Reduced from 1rem 2.2rem */
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 1.5rem; /* Reduced from 2rem */
-      transition: all 0.3s;
+    
+    .recommendation-card h4 {
+      color: var(--primary);
+      margin-bottom: 0.8rem;
     }
-    .learn-more-btn:hover {
-      background: #004080;
-      transform: translateY(-2px);
+    
+    .recommendation-card ul {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+    
+    .recommendation-card li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .download-section {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid #eee;
     }
   </style>
 </head>
@@ -345,6 +399,7 @@
         </div>
       </div>
 
+      <!-- All 26 Questions (keeping all your existing question HTML) -->
       <!-- Question 1 -->
       <div id="q1" class="q-box active" data-num="1">
         <div class="q-header">To what extent are advanced network protections deployed across all sites?</div>
@@ -1985,23 +2040,519 @@
 
       <!-- Results page -->
       <div id="results" class="q-box" style="display:none;">
-        <div class="q-header">Your Cyber Security Maturity Results</div>
-        <div class="score-summary" id="total-score">Maturity Score: Calculating...</div>
-        <div class="interpretation" id="interpretation-text">Evaluating your posture...</div>
+        <div class="results-summary">
+          <div class="q-header">Your Cyber Security Maturity Results</div>
+          <div class="overall-score" id="overall-score">0%</div>
+          <div class="maturity-level" id="maturity-level">Calculating...</div>
+        </div>
+        
+        <div class="chart-container">
+          <h3 style="text-align: center; margin-bottom: 1.5rem;">Security Pillars Maturity</h3>
+          <canvas id="pillarsChart" height="120"></canvas>
+        </div>
+        
+        <h3 style="margin: 2rem 0 1rem;">Detailed Assessment Results</h3>
+        <table class="pillars-table" id="pillars-table">
+          <thead>
+            <tr>
+              <th>Security Pillar</th>
+              <th>Your Score</th>
+              <th>Maximum Score</th>
+              <th>Maturity %</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody id="pillars-body">
+            <!-- Will be populated by JavaScript -->
+          </tbody>
+        </table>
+        
         <div class="recommendations">
           <h2 style="text-align:center; margin-bottom:2rem;">Recommendations</h2>
-          <div class="tab-list" id="tab-list"></div>
-          <div id="tab-contents"></div>
+          <div class="recommendations-grid" id="recommendations-grid">
+            <!-- Will be populated by JavaScript -->
+          </div>
         </div>
-        <div class="btn-box-wrap" style="margin-top: 3rem; justify-content: center;">
-          <button class="button" onclick="location.reload()">Retake Assessment</button>
-          <button class="pdf-button" id="pdfBtn">Download PDF Report</button>
+        
+        <div class="download-section">
+          <div class="btn-box-wrap" style="justify-content: center;">
+            <button class="button" onclick="location.reload()">Retake Assessment</button>
+            <button class="pdf-button" id="pdfBtn" onclick="generatePDF()">Download PDF Report</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    // Scoring configuration
+    const scoringConfig = {
+      q1: {
+        maxScore: 50,
+        pillar: 'Network Security',
+        answers: {
+          'Next-Generation Firewall (NGFW)': 5,
+          'Intrusion Detection/Prevention Systems (IDS/IPS)': 5,
+          'Network Segmentation and Microsegmentation': 5,
+          'Network Access Control (NAC)': 5,
+          'DNS and Content Filtering': 5,
+          'User Entity Behavioural Analysis': 5,
+          'Deception Technologies (e.g., honeypots)': 5,
+          'SASE Secure Remote Access': 5,
+          'VPN Secure Remote Access': 5,
+          'Network Traffic Analysis (NTA)': 5
+        }
+      },
+      q2: {
+        maxScore: 10,
+        pillar: 'Network Security',
+        answers: {
+          'We use a fully scalable, elastic security solution that dynamically adds capacity (e.g., cloud-like auto-scaling firewalls or security fabric)': 10,
+          'We use clustering or load balancing across multiple fixed security appliances from a single vendor': 6,
+          'We manually purchase and deploy additional firewalls/appliances when capacity is reached': 3,
+          'We do not have a scalable approach — capacity is fixed and often becomes a bottleneck': 0
+        }
+      },
+      q3: {
+        maxScore: 5,
+        pillar: 'Network Security',
+        answers: {
+          'Active-active firewalls are deployed from a single vendor': 5,
+          'Active-passive firewalls are deployed in highly available clusters': 2,
+          'Firewalls with load balancers from another vendor are deployed': 2,
+          'Not sure': 0
+        }
+      },
+      q4: {
+        maxScore: 25,
+        pillar: 'Network Security',
+        answers: {
+          'Software-defined Networking': 5,
+          'Agile and automated policy': 5,
+          'Business logic policy': 5,
+          'Service chaining using NSX/Cisco/ACI/OpenStack': 5,
+          'Dedicated policy layers': 5,
+          'Not sure': 0
+        }
+      },
+      q5: {
+        maxScore: 40,
+        pillar: 'Network Security',
+        answers: {
+          'Sandboxing': 5,
+          'Next Generation Web Application Firewall': 5,
+          'Cloud-native vulnerability scanning': 5,
+          'Real-time threat intelligence to prevent zero-day attacks': 5,
+          'Kubernetes runtime security': 5,
+          'Anti-malware': 5,
+          'File sanitization (CDR)': 5,
+          'Malware DNA': 5,
+          'Not sure': 0
+        }
+      },
+      q6: {
+        maxScore: 20,
+        pillar: 'Workspace Security',
+        answers: {
+          'Posture management': 5,
+          'Threat prevention': 5,
+          'Vulnerability scanning': 5,
+          'Least privileged access': 5,
+          'Not using cloud for workloads': 0,
+          'Not sure': 0
+        }
+      },
+      q7: {
+        maxScore: 15,
+        pillar: 'Workspace Security',
+        answers: {
+          'Fully unified': 15,
+          'Managed through separate tools': 5,
+          'Not sure': 0
+        }
+      },
+      q8: {
+        maxScore: 12,
+        pillar: 'Workspace Security',
+        answers: {
+          'Up to 10%': 12,
+          '11%–50%': 8,
+          '51%–80%': 4,
+          'Over 80%': 1
+        }
+      },
+      q9: {
+        maxScore: 15,
+        pillar: 'Workspace Security',
+        answers: {
+          'We do not allow any remote access': 15,
+          'Employees with company managed laptops and/or mobile devices only': 10,
+          'From personal mobile devices': 4,
+          'From personal laptops': 4,
+          'By third parties (contractors, consultants or partners)': 3
+        }
+      },
+      q10: {
+        maxScore: 20,
+        pillar: 'Workspace Security',
+        answers: {
+          'SASE connection (cloud-based service)': 5,
+          'Device risk posture check': 5,
+          'Multi-factor authentication': 5,
+          'VPN connection': 5
+        }
+      },
+      q11: {
+        maxScore: 30,
+        pillar: 'Workspace Security',
+        answers: {
+          'Sanitize potentially malicious downloads': 5,
+          'Real-time scanning of online forms for phishing prevention': 5,
+          'Stop entering corporate credentials to non-business websites': 5,
+          'Restrict access to certain websites (e.g. block access to adult and gambling sites)': 5,
+          'Scan for data leakage': 5,
+          'Prevent access to URLs known as malicious': 5
+        }
+      },
+      q12: {
+        maxScore: 25,
+        pillar: 'Workspace Security',
+        answers: {
+          'Disk encryption on endpoint devices': 5,
+          'Scan files for sensitive content before uploaded to external websites/messaging apps': 5,
+          'Scan content that\'s uploaded in the browser': 5,
+          'Scan email and office applications for sensitive content before it is shared externally': 5,
+          'Permit safe use of Generative AI tools': 5,
+          'I don\'t know': 0
+        }
+      },
+      q13: {
+        maxScore: 12,
+        pillar: 'Workspace Security',
+        answers: {
+          'Office 365 + Google apps + Teams/SharePoint/OneDrive': 12,
+          'Gmail + Google Workspace': 10,
+          'Mixed modern SaaS (Office 365/Google + Zoom/Slack/Dropbox)': 8,
+          'On-premises email (Microsoft Exchange) only': 5,
+          'Other apps only (Zoom/Slack/Dropbox etc.)': 6
+        }
+      },
+      q14: {
+        maxScore: 24,
+        pillar: 'Workspace Security',
+        answers: {
+          'Recover ransomware-encrypted files': 10,
+          'Automatically detect and stop the attack': 7,
+          'Quarantine the infected endpoint': 7,
+          'None of the above': 0
+        }
+      },
+      q15: {
+        maxScore: 45,
+        pillar: 'Workspace Security',
+        answers: {
+          'Endpoint Detection and Response / Extended Detection and Response / Managed Detection and Response (EDR/XDR/MDR)': 6,
+          'Next-Generation Antivirus / Endpoint Protection Platform (NGAV/EPP)': 5,
+          'Cloud-based security services (SASE)': 6,
+          'Email security': 5,
+          'Secure web gateway': 5,
+          'Mobile threat defence': 5,
+          'Endpoint and mobile vulnerability management': 5,
+          'Cloud-based application posture check': 4,
+          'Collaboration apps security': 4
+        }
+      },
+      q16: {
+        maxScore: 20,
+        pillar: 'Workspace Security',
+        answers: {
+          '1–3 vendors': 20,
+          '4–6 vendors': 12,
+          '7–9 vendors': 6,
+          '10+ vendors': 2
+        }
+      },
+      q17: {
+        maxScore: 50,
+        pillar: 'Workspace Security',
+        answers: {
+          'Endpoint Detection and Response (EDR)': 5,
+          'Antivirus / Anti-malware': 5,
+          'Full Disk Encryption + Removable Device Encryption': 5,
+          'Application Control': 5,
+          'Posture Management (vulnerability) with Patch Management': 5,
+          'USB / Peripheral Control': 5,
+          'Browser Security with Content Filtering and Data Loss Prevention': 5,
+          'Mobile Device Management (MDM) + Mobile Device Security': 5,
+          'Local Firewall and Host-based Intrusion Detection System': 5,
+          'Device Policy Configuration and Control': 5
+        }
+      },
+      q18: {
+        maxScore: 50,
+        pillar: 'Cloud Security',
+        answers: {
+          'Cloud Security Posture Management (CSPM)': 5,
+          'Cloud Workload Protection Platform (CWPP)': 5,
+          'Cloud Infrastructure Entitlement Management (CIEM)': 5,
+          'Encryption of Data at Rest and in Transit': 5,
+          'Network Segmentation': 5,
+          'Cloud Firewall': 5,
+          'Cloud Web Application Firewall': 5,
+          'Container Security + Serverless (e.g., image scanning, runtime protection)': 5,
+          'Cloud-Native Application Protection Platform (CNAPP)': 5,
+          'Cloud Access Security Broker (CASB)': 5
+        }
+      },
+      q19: {
+        maxScore: 50,
+        pillar: 'Application Security',
+        answers: {
+          'Web Application Firewall (WAF)': 5,
+          'Static and Dynamic Application Security Testing (SAST/DAST)': 5,
+          'Software Composition Analysis (SCA)': 5,
+          'Secure Software Development Life Cycle Practices': 5,
+          'API Security': 5,
+          'Large Language Model Security': 5,
+          'Code Signing and Integrity Checks': 5,
+          'DevSecOps Integration': 5,
+          'Penetration Testing': 5,
+          'OWASP Top 10 Mitigation': 5
+        }
+      },
+      q20: {
+        maxScore: 50,
+        pillar: 'Email and Collaboration Security',
+        answers: {
+          'Email Security in place': 5,
+          'Phishing Protection and Simulation': 5,
+          'Attachment Sandboxing + Encrypted Attachments': 5,
+          'URL Rewriting and Click Protection': 5,
+          'DMARC, DKIM, SPF Enforcement': 5,
+          'Data Leakage Prevention (DLP) for Email and Collaboration': 5,
+          'Email Encryption': 5,
+          'Collaboration Tool Monitoring (e.g., Teams, Slack)': 5,
+          'Impersonation and Spoofing Detection': 5,
+          'User Awareness Training': 5
+        }
+      },
+      q21: {
+        maxScore: 46,
+        pillar: 'Data Security',
+        answers: {
+          'Data Classification and Labeling': 5,
+          'Data Loss Prevention (DLP)': 5,
+          'Encryption (at rest, in transit, and in use)': 5,
+          'Tokenization and Masking': 5,
+          'Data Access Governance': 1,
+          'Data Discovery and Mapping': 5,
+          'Data Residency and Sovereignty Controls': 5,
+          'Secure Data Disposal': 5,
+          'Privacy Impact Assessments (PIAs)': 5,
+          'User Activity Monitoring on Sensitive Data': 5
+        }
+      },
+      q22: {
+        maxScore: 50,
+        pillar: 'External Risk Management',
+        answers: {
+          'Vendor Risk Assessments': 5,
+          'Continuous Attack Surface Monitoring': 5,
+          'Vulnerability Management + Exposure Validation': 5,
+          'Risk Management': 5,
+          'Dark Web Scanning for Sensitive Information': 5,
+          'Threat Intelligence': 5,
+          'Digital Brand and Risk Protection + Phishing / Social Media': 5,
+          'Third-Party Access Controls': 5,
+          'Continuous Monitoring of Vendors': 5,
+          'Onboarding/Offboarding Procedures': 5
+        }
+      },
+      q23: {
+        maxScore: 50,
+        pillar: 'Identity and Access Management',
+        answers: {
+          'Multi-Factor Authentication (MFA)': 5,
+          'Single Sign-On (SSO)': 5,
+          'Privileged Access Management (PAM)': 5,
+          'Role-Based Access Control (RBAC)': 5,
+          'Just-In-Time (JIT) Access': 5,
+          'Identity Federation and Federation Protocols (SAML, OIDC)': 5,
+          'User Lifecycle Management': 5,
+          'Access Reviews and Recertification': 5,
+          'Password Policy Enforcement': 5,
+          'Behavioral Biometrics / Risk-Based Authentication': 5
+        }
+      },
+      q24: {
+        maxScore: 50,
+        pillar: 'Security Monitoring & Threat Intelligence',
+        answers: {
+          'Security Information and Event Management (SIEM)': 5,
+          'Security Orchestration, Automation and Response (SOAR)': 5,
+          'Threat Intelligence Integration': 5,
+          'User and Entity Behavior Analytics (UEBA)': 5,
+          'Log Aggregation and Retention': 5,
+          'Anomaly Detection': 5,
+          'Deception Technologies': 5,
+          'Threat Hunting Capabilities': 5,
+          'Real-time Alerting and Correlation': 5,
+          'MITRE ATT&CK Mapping': 5
+        }
+      },
+      q25: {
+        maxScore: 50,
+        pillar: 'Incident Response & Recovery',
+        answers: {
+          'Incident Response Plan (IRP)': 5,
+          'Tabletop Exercises and Simulations': 5,
+          'Forensics and Evidence Collection Tools': 5,
+          'Crisis Communication Plan': 5,
+          'Automated Virtual Patching': 5,
+          'Business Continuity Plan (BCP)': 5,
+          'Disaster Recovery Plan (DRP)': 5,
+          'Playbooks for Common Scenarios': 5,
+          'Post-Incident Review Process': 5,
+          'Ransomware Response Protocols': 5
+        }
+      },
+      q26: {
+        maxScore: 50,
+        pillar: 'Security Operations',
+        answers: {
+          'Business Impact Analyses': 5,
+          'Risk Assessments': 5,
+          'Vulnerability Assessments': 5,
+          'Penetration Testing': 5,
+          'Continuous Threat and Exposure Management': 5,
+          'Unified Management': 5,
+          'AI Assisted Security Tools + Management + Detect + Respond': 5,
+          'Open Garden Platform': 5,
+          'Security Operations Center (SOC)': 5,
+          'Shared Indicators of Compromise': 5
+        }
+      }
+    };
+
+    // Pillar mapping for aggregation
+    const pillarMapping = {
+      'Network Security': ['q1', 'q2', 'q3', 'q4', 'q5'],
+      'Workspace Security': ['q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17'],
+      'Cloud Security': ['q18'],
+      'Application Security': ['q19'],
+      'Email and Collaboration Security': ['q20'],
+      'Data Security': ['q21'],
+      'External Risk Management': ['q22'],
+      'Identity and Access Management': ['q23'],
+      'Security Monitoring & Threat Intelligence': ['q24'],
+      'Incident Response & Recovery': ['q25'],
+      'Security Operations': ['q26']
+    };
+
+    // Recommendations for each pillar
+    const recommendations = {
+      'Network Security': {
+        low: [
+          'Implement Next-Generation Firewall (NGFW) for advanced threat protection',
+          'Deploy Intrusion Prevention Systems (IPS) for real-time threat detection',
+          'Implement network segmentation to limit lateral movement of threats',
+          'Consider implementing SASE for secure remote access'
+        ],
+        medium: [
+          'Enhance network monitoring with User Entity Behavior Analytics (UEBA)',
+          'Implement deception technologies for early threat detection',
+          'Optimize network performance with scalable security solutions',
+          'Consider Zero Trust Network Access (ZTNA) architecture'
+        ],
+        high: [
+          'Implement full network automation and orchestration',
+          'Deploy advanced network traffic analysis with AI/ML',
+          'Optimize network resilience with active-active clustering',
+          'Consider implementing SD-WAN with integrated security'
+        ]
+      },
+      'Workspace Security': {
+        low: [
+          'Implement basic endpoint protection (EDR/NGAV)',
+          'Establish device management policies',
+          'Implement basic remote access security',
+          'Deploy mobile device management (MDM)'
+        ],
+        medium: [
+          'Enhance endpoint protection with advanced EDR/XDR',
+          'Implement comprehensive vulnerability management',
+          'Deploy secure web gateway for remote users',
+          'Implement data loss prevention (DLP) for endpoints'
+        ],
+        high: [
+          'Implement XDR for cross-layer threat detection',
+          'Deploy advanced threat hunting capabilities',
+          'Implement automated incident response',
+          'Consider unified endpoint security platform'
+        ]
+      },
+      'Cloud Security': {
+        low: [
+          'Implement basic cloud security posture management',
+          'Enable encryption for data at rest and in transit',
+          'Implement cloud firewall rules',
+          'Establish cloud access security policies'
+        ],
+        medium: [
+          'Deploy Cloud Workload Protection Platform (CWPP)',
+          'Implement container security scanning',
+          'Enable cloud-native application protection',
+          'Implement cloud infrastructure entitlement management'
+        ],
+        high: [
+          'Implement full Cloud-Native Application Protection Platform (CNAPP)',
+          'Deploy advanced CIEM for identity governance',
+          'Implement automated cloud security orchestration',
+          'Consider cloud security posture automation'
+        ]
+      },
+      'Application Security': {
+        low: [
+          'Implement Web Application Firewall (WAF)',
+          'Establish basic application security testing',
+          'Implement OWASP Top 10 mitigation',
+          'Enable basic API security controls'
+        ],
+        medium: [
+          'Implement comprehensive SAST/DAST testing',
+          'Integrate security into CI/CD pipelines',
+          'Implement advanced API security controls',
+          'Deploy software composition analysis (SCA)'
+        ],
+        high: [
+          'Implement advanced application security monitoring',
+          'Deploy runtime application self-protection (RASP)',
+          'Implement AI-powered application security',
+          'Consider DevSecOps automation and orchestration'
+        ]
+      },
+      'Email and Collaboration Security': {
+        low: [
+          'Implement basic email security with spam filtering',
+          'Enable basic phishing protection',
+          'Establish email encryption policies',
+          'Implement basic collaboration tool security'
+        ],
+        medium: [
+          'Deploy advanced phishing simulation and training',
+          'Implement email sandboxing for attachments',
+          'Enable URL rewriting and click protection',
+          'Implement DLP for email and collaboration'
+        ],
+        high: [
+          'Implement AI-powered email threat detection',
+          'Deploy advanced impersonation detection',
+          'Implement real-time collaboration monitoring',
+          'Consider unified email and collaboration security'
+        ]
+      }
+    };
+
     let currentQuestion = 0;
     const totalQuestions = 26;
     let answers = {};
@@ -2057,46 +2608,235 @@
       document.getElementById('results').style.display = 'block';
       updateUI();
 
-      // Simple scoring (5 points per selection for most questions)
-      let totalScore = 0;
+      // Calculate scores for each pillar
+      const pillarScores = calculatePillarScores();
+      
+      // Calculate overall score
+      const overallScore = calculateOverallScore(pillarScores);
+      
+      // Display overall score
+      document.getElementById('overall-score').textContent = `${overallScore}%`;
+      document.getElementById('maturity-level').textContent = getMaturityLevel(overallScore);
+      
+      // Display pillar scores in table
+      displayPillarScores(pillarScores);
+      
+      // Create bar chart
+      createBarChart(pillarScores);
+      
+      // Generate recommendations
+      generateRecommendations(pillarScores);
+    }
+
+    function calculatePillarScores() {
+      const pillarScores = {};
+      
+      // Initialize all pillars
+      Object.keys(pillarMapping).forEach(pillar => {
+        pillarScores[pillar] = {
+          score: 0,
+          maxScore: 0,
+          percentage: 0
+        };
+      });
+      
+      // Calculate scores for each question
       for (let i = 1; i <= totalQuestions; i++) {
-        const selected = answers[`q${i}`] || [];
-        totalScore += selected.length * 5;
+        const questionKey = `q${i}`;
+        const selectedAnswers = answers[questionKey] || [];
+        const config = scoringConfig[questionKey];
+        
+        if (!config) continue;
+        
+        const pillar = config.pillar;
+        
+        // Calculate score for this question
+        let questionScore = 0;
+        selectedAnswers.forEach(answerText => {
+          if (config.answers[answerText] !== undefined) {
+            questionScore += config.answers[answerText];
+          }
+        });
+        
+        // For radio questions, ensure we don't exceed max
+        if (document.querySelector(`input[name="${questionKey}"][type="radio"]`)) {
+          questionScore = Math.min(questionScore, config.maxScore);
+        }
+        
+        // Update pillar scores
+        pillarScores[pillar].score += questionScore;
+        pillarScores[pillar].maxScore += config.maxScore;
       }
-      const maxScore = 1086;
+      
+      // Calculate percentages
+      Object.keys(pillarScores).forEach(pillar => {
+        const pillarData = pillarScores[pillar];
+        pillarData.percentage = pillarData.maxScore > 0 
+          ? Math.round((pillarData.score / pillarData.maxScore) * 100) 
+          : 0;
+      });
+      
+      return pillarScores;
+    }
 
-      document.getElementById('total-score').textContent = `Maturity Score: ${totalScore} / ${maxScore}`;
+    function calculateOverallScore(pillarScores) {
+      let totalScore = 0;
+      let totalMaxScore = 0;
+      
+      Object.keys(pillarScores).forEach(pillar => {
+        totalScore += pillarScores[pillar].score;
+        totalMaxScore += pillarScores[pillar].maxScore;
+      });
+      
+      return totalMaxScore > 0 ? Math.round((totalScore / totalMaxScore) * 100) : 0;
+    }
 
-      let interpretation = totalScore >= 900 ? "Excellent – Advanced maturity." :
-                           totalScore >= 700 ? "Strong – Good coverage." :
-                           totalScore >= 500 ? "Moderate – Foundational protections." :
-                           "Needs Improvement – Significant gaps.";
+    function getMaturityLevel(percentage) {
+      if (percentage >= 85) return 'Advanced Maturity';
+      if (percentage >= 70) return 'Established Maturity';
+      if (percentage >= 50) return 'Developing Maturity';
+      if (percentage >= 30) return 'Initial Maturity';
+      return 'Limited Maturity';
+    }
 
-      document.getElementById('interpretation-text').textContent = interpretation;
+    function displayPillarScores(pillarScores) {
+      const tableBody = document.getElementById('pillars-body');
+      tableBody.innerHTML = '';
+      
+      Object.keys(pillarScores).forEach(pillar => {
+        const data = pillarScores[pillar];
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td class="pillar-name">${pillar}</td>
+          <td class="score-cell">${data.score}</td>
+          <td class="score-cell">${data.maxScore}</td>
+          <td class="score-cell"><strong>${data.percentage}%</strong></td>
+          <td>
+            <div class="score-bar-container">
+              <div class="score-bar" style="width: ${data.percentage}%; background: ${getScoreColor(data.percentage)};"></div>
+            </div>
+          </td>
+        `;
+        
+        tableBody.appendChild(row);
+      });
+    }
 
-      // Simple recommendations
-      const riskPercent = Math.round((1 - totalScore / maxScore) * 100);
-      document.getElementById('tab-list').innerHTML = '<div class="tab-item active">Your Results</div>';
-      document.getElementById('tab-contents').innerHTML = `
-        <div class="tab-content active">
-          <div class="risk-score-circle">
-            <svg viewBox="0 0 144 144">
-              <path class="circle-bg" d="M72 8.338 a 63.662 63.662 0 0 1 0 127.324 a 63.662 63.662 0 0 1 0 -127.324" />
-              <path class="circle" stroke-dasharray="${riskPercent * 4}, 400" d="M72 8.338 a 63.662 63.662 0 0 1 0 127.324 a 63.662 63.662 0 0 1 0 -127.324" />
-            </svg>
-            <div class="percentage">${riskPercent}% Risk</div>
-          </div>
-          <div class="rec-list">
-            <h4>Recommendations</h4>
+    function getScoreColor(percentage) {
+      if (percentage >= 80) return '#2E7D32'; // Green
+      if (percentage >= 60) return '#FF9800'; // Orange
+      return '#D32F2F'; // Red
+    }
+
+    function createBarChart(pillarScores) {
+      const ctx = document.getElementById('pillarsChart').getContext('2d');
+      const pillars = Object.keys(pillarScores);
+      const percentages = pillars.map(pillar => pillarScores[pillar].percentage);
+      const colors = percentages.map(pct => getScoreColor(pct));
+      
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: pillars,
+          datasets: [{
+            label: 'Maturity %',
+            data: percentages,
+            backgroundColor: colors,
+            borderColor: colors.map(color => color.replace('0.8', '1')),
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Maturity Percentage (%)'
+              }
+            },
+            x: {
+              ticks: {
+                autoSkip: false,
+                maxRotation: 45,
+                minRotation: 45
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const pillar = context.label;
+                  const score = pillarScores[pillar].score;
+                  const maxScore = pillarScores[pillar].maxScore;
+                  return `${pillar}: ${context.raw}% (${score}/${maxScore})`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function generateRecommendations(pillarScores) {
+      const recommendationsGrid = document.getElementById('recommendations-grid');
+      recommendationsGrid.innerHTML = '';
+      
+      // Get top 3 pillars with lowest scores
+      const sortedPillars = Object.keys(pillarScores)
+        .map(pillar => ({
+          name: pillar,
+          percentage: pillarScores[pillar].percentage
+        }))
+        .sort((a, b) => a.percentage - b.percentage)
+        .slice(0, 3);
+      
+      sortedPillars.forEach(pillar => {
+        const level = pillar.percentage < 40 ? 'low' : pillar.percentage < 70 ? 'medium' : 'high';
+        
+        if (recommendations[pillar.name] && recommendations[pillar.name][level]) {
+          const card = document.createElement('div');
+          card.className = 'recommendation-card';
+          
+          card.innerHTML = `
+            <h4>${pillar.name}</h4>
             <ul>
-              <li>Consolidate security vendors for better visibility.</li>
-              <li>Adopt unified platforms like Check Point Infinity.</li>
-              <li>Enhance advanced threat prevention and zero-trust access.</li>
-              <li>Implement comprehensive DLP, encryption, and incident response.</li>
+              ${recommendations[pillar.name][level].map(rec => `<li>${rec}</li>`).join('')}
             </ul>
-          </div>
-          <a href="https://www.checkpoint.com" target="_blank" class="learn-more-btn">Learn More About Check Point</a>
-        </div>`;
+          `;
+          
+          recommendationsGrid.appendChild(card);
+        }
+      });
+      
+      // Add a general recommendation card
+      const generalCard = document.createElement('div');
+      generalCard.className = 'recommendation-card';
+      generalCard.innerHTML = `
+        <h4>General Recommendations</h4>
+        <ul>
+          <li>Consider consolidating security vendors for better visibility and management</li>
+          <li>Implement a unified security management platform</li>
+          <li>Conduct regular security awareness training for all employees</li>
+          <li>Establish a continuous improvement process for security controls</li>
+          <li>Consider engaging with Check Point for a comprehensive security assessment</li>
+        </ul>
+      `;
+      recommendationsGrid.appendChild(generalCard);
+    }
+
+    function generatePDF() {
+      // Basic PDF generation implementation
+      alert('PDF generation would be implemented here. This would typically use jsPDF or similar library to generate a comprehensive report with all assessment results.');
+      // In production, you would implement full PDF generation with the detailed results
     }
 
     document.addEventListener('DOMContentLoaded', () => {
