@@ -707,19 +707,30 @@
     }
     
     .pdf-header {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 30px;
+      border-bottom: 2px solid #0055a5;
+      padding-bottom: 15px;
     }
     
     .pdf-header h1 {
       color: #0055a5;
-      font-size: 28px;
-      margin-bottom: 10px;
+      font-size: 24px;
+      margin: 0;
+    }
+    
+    .pdf-logo {
+      height: 40px;
+      width: auto;
     }
     
     .pdf-date {
       color: #666;
       font-size: 14px;
+      text-align: right;
+      margin-top: 5px;
     }
     
     .pdf-section {
@@ -737,6 +748,9 @@
     .pdf-score-summary {
       text-align: center;
       margin-bottom: 30px;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 10px;
     }
     
     .pdf-overall-score {
@@ -819,9 +833,6 @@
       background: white;
       font-family: Arial, sans-serif;
       box-sizing: border-box;
-    }
-    
-    .pdf-page-1, .pdf-page-2, .pdf-page-3 {
       position: absolute;
       left: -9999px;
       top: 0;
@@ -2553,7 +2564,7 @@
         </div>
       </div>
       <!-- Question 29 - AI Security: Runtime Monitoring -->
-      <div id="q29" class="q-box" data-num="29">
+ <div id="q29" class="q-box" data-num="29">
         <div class="q-header">How effectively does your organization implement runtime monitoring and protection mechanisms for AI systems, such as anomaly detection, input validation, and real-time threat response?</div>
         <div class="answer-wrap">
           <label class="answer">
@@ -2604,6 +2615,7 @@
           <button class="button next" onclick="nextQuestion(29)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 30 - AI Security: GenAI Governance -->
       <div id="q30" class="q-box" data-num="30">
         <div class="q-header">To what extent has your organization developed and enforced governance frameworks for GenAI applications, including model approval processes, ethical guidelines, and audit trails?</div>
@@ -2649,6 +2661,7 @@
           <button class="button next" onclick="nextQuestion(30)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 31 - AI Security: DLP Controls -->
       <div id="q31" class="q-box" data-num="31">
         <div class="q-header">How comprehensively does your organization apply DLP controls to AI-related data, such as classification, encryption, and monitoring for exfiltration risks?</div>
@@ -2694,6 +2707,7 @@
           <button class="button next" onclick="nextQuestion(31)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 32 - AI Security: AI Data Centers -->
       <div id="q32" class="q-box" data-num="32">
         <div class="q-header">What is the maturity of your organization's security measures for AI data centers, covering access controls, vulnerability management, and resilience against physical/cyber threats?</div>
@@ -2739,6 +2753,7 @@
           <button class="button next" onclick="nextQuestion(32)">SUBMIT →</button>
         </div>
       </div>
+      
       <!-- Calculating page -->
       <div id="final" class="q-box last-box" style="display:none;">
         <div class="title">Calculating your score</div>
@@ -2790,7 +2805,7 @@
           </div>
         </div>
        
-        <!-- Email Form - RESTORED on desktop version -->
+        <!-- Email Form -->
         <div class="email-form">
           <h3>📧 Get Your Personalized Report Emailed to You</h3>
           <p>Enter your email address to receive a copy of your security maturity report with tailored recommendations:</p>
@@ -2815,11 +2830,12 @@
   </div>
 
   <!-- Hidden PDF Page 1 - Summary and Pillar Results -->
-  <div id="pdf-page-1" class="pdf-page pdf-page-1">
+  <div id="pdf-page-1" class="pdf-page">
     <div class="pdf-header">
+      <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
       <h1>Cyber Security Maturity Assessment Report</h1>
-      <div class="pdf-date" id="pdf-date-1"></div>
     </div>
+    <div class="pdf-date" id="pdf-date-1"></div>
     
     <div class="pdf-score-summary">
       <div class="pdf-overall-score" id="pdf-overall-score-1">0%</div>
@@ -2850,11 +2866,12 @@
   </div>
 
   <!-- Hidden PDF Page 2 - Recommendations (First Half) -->
-  <div id="pdf-page-2" class="pdf-page pdf-page-2">
+  <div id="pdf-page-2" class="pdf-page">
     <div class="pdf-header">
+      <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
       <h1>Cyber Security Maturity Assessment Report</h1>
-      <div class="pdf-date" id="pdf-date-2"></div>
     </div>
+    <div class="pdf-date" id="pdf-date-2"></div>
     
     <div class="pdf-section">
       <h2>Personalized Recommendations (Page 2 of 3)</h2>
@@ -2869,11 +2886,12 @@
   </div>
 
   <!-- Hidden PDF Page 3 - Recommendations (Second Half) -->
-  <div id="pdf-page-3" class="pdf-page pdf-page-3">
+  <div id="pdf-page-3" class="pdf-page">
     <div class="pdf-header">
+      <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
       <h1>Cyber Security Maturity Assessment Report</h1>
-      <div class="pdf-date" id="pdf-date-3"></div>
     </div>
+    <div class="pdf-date" id="pdf-date-3"></div>
     
     <div class="pdf-section">
       <h2>Personalized Recommendations (Page 3 of 3)</h2>
@@ -2896,7 +2914,7 @@
     // Password for accessing the assessment
     const CORRECT_PASSWORD = 'asdfghjkl';
 
-    // Question to Pillar Mapping (exactly as per your table)
+    // Question to Pillar Mapping
     const questionPillarMapping = {
       q1: 'Hybrid Mesh Network Security',
       q2: 'Hybrid Mesh Network Security',
@@ -2941,7 +2959,7 @@
       'General'
     ];
 
-    // Scoring configuration with weighted answers for personalized results
+    // Scoring configuration with weighted answers
     const scoringConfig = {
       q1: { maxScore: 50, answers: {
         'Next-Generation Firewall (NGFW)': 5,
@@ -3196,7 +3214,6 @@
         'Security Operations Center (SOC)': 5,
         'Shared Indicators of Compromise': 5
       }},
-      // AI Security Questions - Fixed scoring to ensure scores don't exceed max
       q29: { maxScore: 5, answers: {
         'No AI models to protect': 0,
         'No runtime protections; reliant on basic firewalls or none at all.': 1,
@@ -3261,14 +3278,14 @@
         { text: 'Establish comprehensive onboarding/offboarding procedures', priority: 'low', threshold: 90 }
       ],
       'AI Security': [
-        { text: 'Implement runtime monitoring for AI systems with anomaly detection', priority: 'critical', threshold: 20 },
-        { text: 'Establish governance frameworks for GenAI applications with model approval processes', priority: 'critical', threshold: 25 },
-        { text: 'Deploy DLP controls for AI-related data and model protection', priority: 'high', threshold: 35 },
-        { text: 'Secure AI data centers with enhanced access controls and regular audits', priority: 'high', threshold: 45 },
-        { text: 'Implement automated threat response for AI workloads with metrics tracking', priority: 'medium', threshold: 55 },
+        { text: 'Implement runtime monitoring for AI systems with anomaly detection and input validation', priority: 'critical', threshold: 20 },
+        { text: 'Establish governance frameworks for GenAI applications with model approval processes and ethical guidelines', priority: 'critical', threshold: 25 },
+        { text: 'Deploy DLP controls for AI-related data including classification, encryption, and exfiltration monitoring', priority: 'high', threshold: 35 },
+        { text: 'Secure AI data centers with enhanced access controls, vulnerability management, and regular audits', priority: 'high', threshold: 45 },
+        { text: 'Implement automated threat response for AI workloads with metrics tracking effectiveness', priority: 'medium', threshold: 55 },
         { text: 'Integrate AI governance with risk assessments and compliance reporting', priority: 'medium', threshold: 65 },
         { text: 'Deploy AI-assisted vulnerability scanning for AI infrastructure', priority: 'low', threshold: 75 },
-        { text: 'Implement zero-trust architecture for AI systems with quantum-resistant encryption', priority: 'low', threshold: 85 }
+        { text: 'Implement zero-trust architecture for AI systems with quantum-resistant encryption and automated failover', priority: 'low', threshold: 85 }
       ],
       'General': [
         { text: 'Consolidate security vendors for better visibility and management', priority: 'medium', threshold: 30 },
@@ -3286,7 +3303,6 @@
     let answers = {};
     let overallScore = 0;
     let pillarScores = {};
-    let generatedPDF = null;
 
     function checkPassword() {
       const password = document.getElementById('passwordInput').value;
@@ -3474,15 +3490,19 @@
       const noRecommendationsDiv = document.getElementById('no-recommendations');
       const recommendationsHeader = document.getElementById('recommendations-header');
       recommendationsGrid.innerHTML = '';
+      
       if (overallScore === 100) {
         recommendationsHeader.style.display = 'none';
         recommendationsGrid.style.display = 'none';
         noRecommendationsDiv.style.display = 'block';
         return;
       }
+      
       recommendationsHeader.style.display = 'block';
       recommendationsGrid.style.display = 'grid';
       noRecommendationsDiv.style.display = 'none';
+      
+      // Get all pillars with data
       const pillarsWithData = mainPillars
         .filter(pillar => pillarScores[pillar] && pillarScores[pillar].maxScore > 0)
         .map(pillar => ({
@@ -3490,36 +3510,25 @@
           percentage: pillarScores[pillar].percentage
         }))
         .sort((a, b) => a.percentage - b.percentage);
-      let pillarsToShow = 4;
-      if (overallScore < 30) {
-        pillarsToShow = pillarsWithData.length;
-      } else if (overallScore < 50) {
-        pillarsToShow = Math.min(5, pillarsWithData.length);
-      } else if (overallScore < 70) {
-        pillarsToShow = Math.min(4, pillarsWithData.length);
-      } else if (overallScore < 85) {
-        pillarsToShow = Math.min(3, pillarsWithData.length);
-      }
+      
+      // Show recommendations for ALL pillars that need improvement (below 80%)
       const pillarsNeedingImprovement = pillarsWithData.filter(pillar => pillar.percentage < 80);
-      const pillarsForRecommendations = pillarsNeedingImprovement.slice(0, pillarsToShow);
-      pillarsForRecommendations.forEach(pillar => {
+      
+      pillarsNeedingImprovement.forEach(pillar => {
         const percentage = pillar.percentage;
         const pillarRecs = pillarRecommendations[pillar.name];
+        
         if (pillarRecs) {
+          // Get recommendations where current percentage is below threshold
           const applicableRecs = pillarRecs.filter(rec => percentage < rec.threshold);
+          
+          // Sort by priority
           const priorityOrder = { critical: 1, high: 2, medium: 3, low: 4 };
           applicableRecs.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-          let recsToShow = 3;
-          if (percentage < 30) {
-            recsToShow = Math.min(5, applicableRecs.length);
-          } else if (percentage < 50) {
-            recsToShow = Math.min(4, applicableRecs.length);
-          } else if (percentage < 70) {
-            recsToShow = Math.min(3, applicableRecs.length);
-          } else {
-            recsToShow = Math.min(2, applicableRecs.length);
-          }
-          const displayedRecs = applicableRecs.slice(0, recsToShow);
+          
+          // Show up to 3 recommendations per pillar
+          const displayedRecs = applicableRecs.slice(0, 3);
+          
           if (displayedRecs.length > 0) {
             const card = document.createElement('div');
             card.className = 'recommendation-card';
@@ -3535,6 +3544,8 @@
           }
         }
       });
+      
+      // If no recommendations at all, show a message
       if (recommendationsGrid.children.length === 0) {
         const infoCard = document.createElement('div');
         infoCard.className = 'recommendation-card';
@@ -3653,7 +3664,7 @@
         pdfPillarsBody.appendChild(row);
       });
       
-      // Prepare recommendations
+      // Prepare recommendations - include ALL pillars that need improvement
       const pillarsWithData = mainPillars
         .filter(pillar => pillarScores[pillar] && pillarScores[pillar].maxScore > 0)
         .map(pillar => ({
@@ -3664,15 +3675,10 @@
       
       const pillarsNeedingImprovement = pillarsWithData.filter(pillar => pillar.percentage < 80);
       
-      // Split recommendations into two pages
-      const recommendations1 = document.getElementById('pdf-recommendations-1');
-      const recommendations2 = document.getElementById('pdf-recommendations-2');
-      recommendations1.innerHTML = '';
-      recommendations2.innerHTML = '';
+      // Generate recommendation items
+      const recommendationItems = [];
       
-      const midpoint = Math.ceil(pillarsNeedingImprovement.length / 2);
-      
-      pillarsNeedingImprovement.forEach((pillar, index) => {
+      pillarsNeedingImprovement.forEach(pillar => {
         const percentage = pillar.percentage;
         const pillarRecs = pillarRecommendations[pillar.name];
         if (pillarRecs) {
@@ -3680,10 +3686,10 @@
           const priorityOrder = { critical: 1, high: 2, medium: 3, low: 4 };
           applicableRecs.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
           const displayedRecs = applicableRecs.slice(0, 3);
+          
           if (displayedRecs.length > 0) {
-            const recSection = document.createElement('div');
-            recSection.className = 'pdf-recommendation';
-            let recHTML = `<h3>${pillar.name} (Current Maturity: ${percentage}%)</h3>`;
+            let recHTML = `<div class="pdf-recommendation">`;
+            recHTML += `<h3>${pillar.name} (Current Maturity: ${percentage}%)</h3>`;
             displayedRecs.forEach(rec => {
               let bgColor = '';
               if (rec.priority === 'critical') bgColor = '#d32f2f';
@@ -3693,28 +3699,28 @@
               let textColor = (rec.priority === 'high' || rec.priority === 'medium') ? '#000000' : '#ffffff';
               recHTML += `<div class="pdf-recommendation-item" style="background: ${bgColor}; color: ${textColor};">${rec.text}</div>`;
             });
-            recSection.innerHTML = recHTML;
-            
-            // Split between page 2 and page 3
-            if (index < midpoint) {
-              recommendations1.appendChild(recSection);
-            } else {
-              recommendations2.appendChild(recSection);
-            }
+            recHTML += `</div>`;
+            recommendationItems.push(recHTML);
           }
         }
       });
       
+      // Split recommendations between page 2 and page 3
+      const midpoint = Math.ceil(recommendationItems.length / 2);
+      
+      document.getElementById('pdf-recommendations-1').innerHTML = recommendationItems.slice(0, midpoint).join('');
+      document.getElementById('pdf-recommendations-2').innerHTML = recommendationItems.slice(midpoint).join('');
+      
       // Handle case with no recommendations
-      if (pillarsNeedingImprovement.length === 0) {
+      if (recommendationItems.length === 0) {
         const noRecMsg = '<p>Excellent security posture! No recommendations at this time.</p>';
-        recommendations1.innerHTML = noRecMsg;
-        recommendations2.innerHTML = noRecMsg;
+        document.getElementById('pdf-recommendations-1').innerHTML = noRecMsg;
+        document.getElementById('pdf-recommendations-2').innerHTML = noRecMsg;
       }
       
       // Handle case where only one page of recommendations is needed
-      if (pillarsNeedingImprovement.length <= midpoint) {
-        recommendations2.innerHTML = '<p>Additional recommendations will appear here if needed.</p>';
+      if (recommendationItems.length <= midpoint) {
+        document.getElementById('pdf-recommendations-2').innerHTML = '<p>Additional recommendations will appear here if needed.</p>';
       }
     }
 
@@ -3783,4 +3789,3 @@
   </script>
 </body>
 </html>
-
