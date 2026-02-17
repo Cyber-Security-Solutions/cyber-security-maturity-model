@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Cyber Security Maturity Model – Check Point</title>
   <meta name="description" content="Secure your business today by assessing your cyber security maturity with our quick assessment." />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -82,20 +82,21 @@
       z-index: 2;
       background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
-      padding: 3rem;
+      padding: 2rem;
       max-width: 450px;
-      width: 100%;
+      width: 90%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       text-align: center;
     }
     .login-container h2 {
       color: var(--primary);
       margin-bottom: 1rem;
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
     .login-container p {
       color: #666;
       margin-bottom: 2rem;
+      font-size: 1rem;
     }
     .password-input {
       width: 100%;
@@ -156,6 +157,11 @@
       text-align: center;
       padding: 0 5%;
       max-width: 880px;
+    }
+    .home-header h2 {
+      font-size: 2rem;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     .button-wrapper {
       display: flex;
@@ -219,40 +225,42 @@
     }
     .q-box {
       max-width: 1200px;
-      margin: 0 auto 4rem;
+      margin: 0 auto 2rem;
       background: #ffffff;
       color: #000;
       border-radius: 16px;
-      padding: 2.5rem 2.5rem;
+      padding: 1.5rem;
       box-shadow: 0 10px 35px rgba(0,0,0,0.2);
       display: none;
       border: 1px solid #e8e8e8;
     }
     .q-box.active { display: block; }
     .q-header {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       line-height: 1.3;
     }
     .sub {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #555;
       margin-top: 0.3rem;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       font-weight: 500;
     }
     .answer-wrap {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
     }
     @media (min-width: 900px) {
       .answer-wrap { grid-template-columns: repeat(2, 1fr); }
+      .q-box { padding: 2.5rem; }
+      .q-header { font-size: 1.8rem; }
     }
     .answer {
-      padding: 1.2rem 1.8rem 1.2rem 2.2rem;
+      padding: 0.8rem 1rem;
       border: 2px solid #d0d0d0;
       border-radius: 10px;
       cursor: pointer;
@@ -260,7 +268,7 @@
       background: #f9f9f9;
       display: flex;
       align-items: center;
-      min-height: 70px;
+      min-height: 60px;
       touch-action: manipulation;
     }
     .answer:hover { border-color: var(--primary); background: #f0f7ff; }
@@ -268,24 +276,11 @@
     .inner-wrap {
       display: flex;
       align-items: center;
-      gap: 1.2rem;
+      gap: 0.8rem;
       width: 100%;
     }
-    @media (max-width: 768px) {
-      .inner-wrap { gap: 1rem; }
-      .answer {
-        padding: 1rem 1.5rem 1rem 1.8rem;
-        min-height: 65px;
-      }
-      .q-box {
-        padding: 2rem 2rem;
-      }
-      .q-header {
-        font-size: 1.6rem;
-      }
-    }
     .text {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
       line-height: 1.4;
       flex: 1;
@@ -293,87 +288,102 @@
     }
     input[type="radio"], input[type="checkbox"] { display: none; }
     .radio, .checkbox {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border: 2px solid #888;
       border-radius: 50%;
       background: white;
       flex-shrink: 0;
       position: relative;
-      margin-right: 0.8rem;
+      margin-right: 0.5rem;
     }
     .checkbox {
       border-radius: 5px;
-      margin-right: 0.8rem;
+      margin-right: 0.5rem;
     }
     input:checked + .radio::after,
     input:checked + .checkbox::after {
       content: "";
       position: absolute;
-      inset: 5px;
+      inset: 4px;
       background: var(--primary);
       border-radius: inherit;
     }
     .btn-box-wrap {
       display: flex;
       justify-content: space-between;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       gap: 1rem;
       flex-wrap: wrap;
     }
     .last-box {
       text-align: center;
-      padding: 5rem 2rem 3rem;
+      padding: 3rem 1.5rem;
       border-radius: 16px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     }
-    .last-box .title { font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; }
-    .last-box .text { font-size: 1.2rem; margin: 1rem 0 1.5rem; color: #555; }
+    .last-box .title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
+    .last-box .text { font-size: 1rem; margin: 1rem 0 1.5rem; color: #555; }
     .progress-border { height: 14px; background: #e0e0e0; border-radius: 7px; margin: 2rem auto; max-width: 440px; overflow: hidden; }
     #progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 2.8s ease-out; }
    
-    /* Results Page Specific Styles - MOBILE FRIENDLY */
+    /* Results Page Specific Styles - FULLY MOBILE FRIENDLY */
     .results-summary {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .results-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .results-logo img {
+      height: 40px;
+      width: auto;
     }
    
     .overall-score {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 0.5rem;
     }
    
     .maturity-level {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #555;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
    
     .pillars-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 2rem 0;
+      margin: 1.5rem 0;
       background: white;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
     }
    
     .pillars-table th {
       background: var(--primary);
       color: white;
-      padding: 1.2rem 0.8rem;
+      padding: 0.8rem 0.5rem;
       text-align: left;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
    
     .pillars-table td {
-      padding: 1rem 0.8rem;
+      padding: 0.8rem 0.5rem;
       border-bottom: 1px solid #eee;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
    
     .pillars-table tr:hover {
@@ -387,46 +397,53 @@
     .pillar-name {
       font-weight: 600;
       color: #333;
+      min-width: 150px;
     }
    
     .score-cell {
       text-align: center;
       font-weight: 600;
+      min-width: 50px;
     }
    
     .score-bar-container {
-      width: 100%;
-      height: 20px;
+      width: 100px;
+      height: 16px;
       background: #f0f0f0;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
-      margin-top: 0.5rem;
+      margin-top: 0.2rem;
     }
    
     .score-bar {
       height: 100%;
       background: var(--primary);
-      border-radius: 10px;
+      border-radius: 8px;
       transition: width 1s ease-out;
     }
    
     .recommendations-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
    
     @media (min-width: 768px) {
       .recommendations-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .overall-score { font-size: 3rem; }
+      .maturity-level { font-size: 1.5rem; }
+      .pillars-table th { padding: 1.2rem 0.8rem; font-size: 0.9rem; }
+      .pillars-table td { padding: 1rem 0.8rem; font-size: 0.9rem; }
+      .score-bar-container { width: 100%; }
     }
    
     .recommendation-card {
       background: white;
       border-radius: 10px;
-      padding: 1.5rem;
+      padding: 1.2rem;
       border-left: 4px solid var(--primary);
       box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     }
@@ -439,12 +456,13 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 0.5rem;
+      font-size: 1.1rem;
     }
    
     .priority-badge {
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.5rem;
       border-radius: 4px;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 600;
       white-space: nowrap;
     }
@@ -471,6 +489,7 @@
    
     .recommendation-card p {
       margin-bottom: 0.8rem;
+      font-size: 0.9rem;
     }
    
     .recommendation-list {
@@ -483,6 +502,7 @@
       padding: 0.5rem 0.8rem;
       border-radius: 4px;
       font-weight: 500;
+      font-size: 0.9rem;
     }
    
     .recommendation-critical {
@@ -507,35 +527,45 @@
    
     .download-section {
       text-align: center;
-      margin-top: 3rem;
-      padding-top: 2rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
       border-top: 2px solid #eee;
     }
    
     .no-recommendations {
       text-align: center;
-      padding: 3rem;
+      padding: 2rem 1rem;
       background: #f8f9fa;
       border-radius: 10px;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
    
     .no-recommendations h3 {
       color: var(--green);
       margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+   
+    .no-recommendations p {
+      font-size: 0.9rem;
     }
    
     .email-form {
       background: #f8f9fa;
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 10px;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
    
     .email-form h3 {
       margin-bottom: 1rem;
       color: var(--primary);
-      font-size: 1.3rem;
+      font-size: 1.2rem;
+    }
+   
+    .email-form p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
    
     .email-form input {
@@ -550,104 +580,40 @@
     .email-success {
       background: #d4edda;
       color: #155724;
-      padding: 1rem;
+      padding: 0.8rem;
       border-radius: 5px;
       margin-top: 1rem;
       display: none;
       text-align: center;
+      font-size: 0.9rem;
     }
    
     .email-error {
       background: #f8d7da;
       color: #721c24;
-      padding: 1rem;
+      padding: 0.8rem;
       border-radius: 5px;
       margin-top: 1rem;
       display: none;
       text-align: center;
+      font-size: 0.9rem;
     }
    
     .email-buttons {
       display: flex;
-      gap: 1rem;
+      gap: 0.8rem;
       justify-content: center;
       flex-wrap: wrap;
     }
    
-    /* Mobile responsiveness for tables */
-    @media (max-width: 768px) {
-      .pillars-table {
-        display: block;
-        overflow-x: auto;
-      }
-     
-      .pillars-table th,
-      .pillars-table td {
-        min-width: 120px;
-        padding: 0.8rem 0.5rem;
-      }
-     
-      .pillar-name {
-        min-width: 150px;
-      }
-     
-      .overall-score {
-        font-size: 2.5rem;
-      }
-     
-      .maturity-level {
-        font-size: 1.2rem;
-      }
-     
-      .email-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-     
-      .email-buttons .button,
-      .email-buttons .pdf-button,
-      .email-buttons .email-button {
-        width: 100%;
-        max-width: 300px;
-      }
-     
-      .q-header {
-        font-size: 1.4rem;
-      }
-     
-      .recommendation-card h4 {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-     
-      .priority-badge {
-        align-self: flex-start;
-      }
-    }
-   
-    @media (max-width: 480px) {
-      .pillars-table th,
-      .pillars-table td {
-        font-size: 0.8rem;
-        padding: 0.6rem 0.4rem;
-      }
-     
-      .overall-score {
-        font-size: 2rem;
-      }
-     
-      .maturity-level {
-        font-size: 1rem;
-      }
-     
-      .email-form {
-        padding: 1.5rem;
-      }
-     
-      .email-form h3 {
-        font-size: 1.1rem;
-      }
+    .email-buttons .button,
+    .email-buttons .pdf-button,
+    .email-buttons .email-button {
+      min-width: auto;
+      width: 100%;
+      max-width: 300px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
     }
    
     /* Loading spinner */
@@ -670,37 +636,22 @@
     .auto-email-notice {
       background: #e3f2fd;
       color: #1565c0;
-      padding: 1rem;
+      padding: 0.8rem;
       border-radius: 5px;
       margin-top: 1rem;
       text-align: center;
       display: none;
-    }
-   
-    /* For very small screens */
-    @media (max-width: 360px) {
-      .button, .pdf-button, .email-button {
-        min-width: 200px;
-        padding: 0.9rem 1.5rem;
-        font-size: 1rem;
-      }
-     
-      .email-form {
-        padding: 1rem;
-      }
-     
-      .recommendation-card {
-        padding: 1rem;
-      }
+      font-size: 0.9rem;
     }
 
     /* PDF Report Styles - Hidden from view */
-    .pdf-report {
+    .pdf-page {
       width: 210mm;
       min-height: 297mm;
       padding: 20mm;
       background: white;
       font-family: Arial, sans-serif;
+      box-sizing: border-box;
       position: absolute;
       left: -9999px;
       top: 0;
@@ -823,23 +774,6 @@
       border-top: 1px solid #ddd;
       color: #666;
       font-size: 12px;
-    }
-    
-    .page-break {
-      page-break-before: always;
-    }
-
-    /* Page containers for PDF multi-page capture */
-    .pdf-page {
-      width: 210mm;
-      min-height: 297mm;
-      padding: 20mm;
-      background: white;
-      font-family: Arial, sans-serif;
-      box-sizing: border-box;
-      position: absolute;
-      left: -9999px;
-      top: 0;
     }
   </style>
 </head>
@@ -2795,8 +2729,11 @@
         </div>
       </div>
       
-      <!-- Results page -->
+      <!-- Results page - FULLY MOBILE FRIENDLY with centered logo -->
       <div id="results" class="q-box" style="display:none;">
+        <div class="results-logo">
+          <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" alt="Check Point Logo">
+        </div>
         <div class="results-summary">
           <div class="q-header">Your Cyber Security Maturity Results</div>
           <div class="overall-score" id="overall-score">0%</div>
@@ -2807,14 +2744,14 @@
           📧 A copy of your assessment results has been sent to our security consultants for review.
         </div>
        
-        <h3 style="margin: 2rem 0 1rem;">Security Pillar Results</h3>
-        <div style="overflow-x: auto;">
+        <h3 style="margin: 1.5rem 0 1rem; font-size: 1.2rem;">Security Pillar Results</h3>
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
           <table class="pillars-table" id="pillars-table">
             <thead>
               <tr>
                 <th>Security Pillar</th>
-                <th>Your Score</th>
-                <th>Maximum Score</th>
+                <th>Score</th>
+                <th>Max</th>
                 <th>Maturity %</th>
                 <th>Progress</th>
               </tr>
@@ -2826,7 +2763,7 @@
         </div>
        
         <div class="recommendations">
-          <h2 style="text-align:center; margin-bottom:2rem;" id="recommendations-header">Personalized Recommendations</h2>
+          <h2 style="text-align:center; margin-bottom:1.5rem; font-size:1.3rem;" id="recommendations-header">Personalized Recommendations</h2>
           <div id="no-recommendations" class="no-recommendations" style="display:none;">
             <h3>🎉 Excellent Security Posture!</h3>
             <p>Congratulations! Your organization has achieved exceptional maturity across all security pillars based on your specific selections.</p>
