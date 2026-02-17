@@ -707,30 +707,34 @@
     }
     
     .pdf-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      text-align: center;
       margin-bottom: 30px;
       border-bottom: 2px solid #0055a5;
-      padding-bottom: 15px;
+      padding-bottom: 20px;
+    }
+    
+    .pdf-logo {
+      height: 50px;
+      width: auto;
+      margin-bottom: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .pdf-header h1 {
       color: #0055a5;
       font-size: 24px;
       margin: 0;
-    }
-    
-    .pdf-logo {
-      height: 40px;
-      width: auto;
+      text-align: center;
     }
     
     .pdf-date {
       color: #666;
       font-size: 14px;
-      text-align: right;
+      text-align: center;
       margin-top: 5px;
+      margin-bottom: 20px;
     }
     
     .pdf-section {
@@ -884,7 +888,7 @@
           <div id="question-progress-bar"></div>
         </div>
       </div>
-      <!-- Question 1 through 32 - keeping all questions as before -->
+      
       <!-- Question 1 -->
       <div id="q1" class="q-box active" data-num="1">
         <div class="q-header">To what extent are advanced network protections deployed across all sites?</div>
@@ -965,6 +969,7 @@
           <button class="button next" onclick="nextQuestion(1)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 2 -->
       <div id="q2" class="q-box" data-num="2">
         <div class="q-header">How do you scale security performance and capacity in your on-premises data center environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e-commerce events)?</div>
@@ -1003,6 +1008,7 @@
           <button class="button next" onclick="nextQuestion(2)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 3 -->
       <div id="q3" class="q-box" data-num="3">
         <div class="q-header">Does your firewall clustering provide full and active resiliency?</div>
@@ -1041,6 +1047,7 @@
           <button class="button next" onclick="nextQuestion(3)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 4 -->
       <div id="q4" class="q-box" data-num="4">
         <div class="q-header">How do you scale security performance and capacity in your on-premises data center environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e-commerce events)?</div>
@@ -1079,6 +1086,7 @@
           <button class="button next" onclick="nextQuestion(4)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 5 -->
       <div id="q5" class="q-box" data-num="5">
         <div class="q-header">Does your firewall clustering provide full and active resiliency?</div>
@@ -1117,6 +1125,7 @@
           <button class="button next" onclick="nextQuestion(5)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 6 -->
       <div id="q6" class="q-box" data-num="6">
         <div class="q-header">What do you currently use to automatically prevent sophisticated attacks that move laterally across macro and micro segments?</div>
@@ -1170,6 +1179,7 @@
           <button class="button next" onclick="nextQuestion(6)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 7 -->
       <div id="q7" class="q-box" data-num="7">
         <div class="q-header">Which of these Artificial Intelligence and Machine Learning technologies are you using to hunt down threats and preemptively look for the first stages of an attack?</div>
@@ -1244,6 +1254,7 @@
           <button class="button next" onclick="nextQuestion(7)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 8 -->
       <div id="q8" class="q-box" data-num="8">
         <div class="q-header">How do you secure workloads such as Kubernetes, containers, serverless?</div>
@@ -1297,6 +1308,7 @@
           <button class="button next" onclick="nextQuestion(8)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 9 -->
       <div id="q9" class="q-box" data-num="9">
         <div class="q-header">Do you have unified security and threat management for your on-premises and cloud environments?</div>
@@ -1328,6 +1340,7 @@
           <button class="button next" onclick="nextQuestion(9)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 10 -->
       <div id="q10" class="q-box" data-num="10">
         <div class="q-header">What percentage of your organization's employees work from home at least 2 days a week?</div>
@@ -1366,6 +1379,7 @@
           <button class="button next" onclick="nextQuestion(10)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 11 -->
       <div id="q11" class="q-box" data-num="11">
         <div class="q-header">Your organization's security policy allows remote access to corporate applications</div>
@@ -1412,6 +1426,7 @@
           <button class="button next" onclick="nextQuestion(11)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 12 -->
       <div id="q12" class="q-box" data-num="12">
         <div class="q-header">Connecting remote users to corporate applications in your company requires</div>
@@ -1451,6 +1466,7 @@
           <button class="button next" onclick="nextQuestion(12)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 13 -->
       <div id="q13" class="q-box" data-num="13">
         <div class="q-header">How do you protect remote users while they are browsing the internet?</div>
@@ -1504,6 +1520,7 @@
           <button class="button next" onclick="nextQuestion(13)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 14 -->
       <div id="q14" class="q-box" data-num="14">
         <div class="q-header">How do you prevent sensitive business data from leaking outside the corporate?</div>
@@ -1557,6 +1574,7 @@
           <button class="button next" onclick="nextQuestion(14)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 15 -->
       <div id="q15" class="q-box" data-num="15">
         <div class="q-header">Pick the applications your company's employees use for corporate email and cloud applications</div>
@@ -1602,6 +1620,7 @@
           <button class="button next" onclick="nextQuestion(15)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 16 -->
       <div id="q16" class="q-box" data-num="16">
         <div class="q-header">In the case of a ransomware attack, my organization's endpoint protection can:</div>
@@ -1641,6 +1660,7 @@
           <button class="button next" onclick="nextQuestion(16)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 17 -->
       <div id="q17" class="q-box" data-num="17">
         <div class="q-header">Which of the following security solutions are being used in your company?</div>
@@ -1715,6 +1735,7 @@
           <button class="button next" onclick="nextQuestion(17)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 18 -->
       <div id="q18" class="q-box" data-num="18">
         <div class="q-header">How many security vendors do you use to secure remote internet access, corporate access, email, identities, assets and data?</div>
@@ -1753,6 +1774,7 @@
           <button class="button next" onclick="nextQuestion(18)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 19 -->
       <div id="q19" class="q-box" data-num="19">
         <div class="q-header">What endpoint protections are in use?</div>
@@ -1834,6 +1856,7 @@
           <button class="button next" onclick="nextQuestion(19)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 20 -->
       <div id="q20" class="q-box" data-num="20">
         <div class="q-header">To what extent are advanced cloud protections deployed?</div>
@@ -1915,6 +1938,7 @@
           <button class="button next" onclick="nextQuestion(20)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 21 -->
       <div id="q21" class="q-box" data-num="21">
         <div class="q-header">To what extent are your applications protected?</div>
@@ -1996,6 +2020,7 @@
           <button class="button next" onclick="nextQuestion(21)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 22 -->
       <div id="q22" class="q-box" data-num="22">
         <div class="q-header">Do you have advanced email and collaboration protection?</div>
@@ -2077,6 +2102,7 @@
           <button class="button next" onclick="nextQuestion(22)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 23 -->
       <div id="q23" class="q-box" data-num="23">
         <div class="q-header">To what extent is the company's critical data secured?</div>
@@ -2158,6 +2184,7 @@
           <button class="button next" onclick="nextQuestion(23)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 24 -->
       <div id="q24" class="q-box" data-num="24">
         <div class="q-header">To what extent do you have visibility and remediation steps on external risk?</div>
@@ -2239,6 +2266,7 @@
           <button class="button next" onclick="nextQuestion(24)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 25 -->
       <div id="q25" class="q-box" data-num="25">
         <div class="q-header">How do you ensure identities are trusted and ensure only access to what is needed to fulfill your role in the company?</div>
@@ -2320,6 +2348,7 @@
           <button class="button next" onclick="nextQuestion(25)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 26 -->
       <div id="q26" class="q-box" data-num="26">
         <div class="q-header">To what extent does your company monitor security events and use threat intelligence?</div>
@@ -2401,6 +2430,7 @@
           <button class="button next" onclick="nextQuestion(26)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 27 -->
       <div id="q27" class="q-box" data-num="27">
         <div class="q-header">To what extent do you have incident response and recovery?</div>
@@ -2482,6 +2512,7 @@
           <button class="button next" onclick="nextQuestion(27)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 28 -->
       <div id="q28" class="q-box" data-num="28">
         <div class="q-header">Operational security projects?</div>
@@ -2563,8 +2594,9 @@
           <button class="button next" onclick="nextQuestion(28)">NEXT →</button>
         </div>
       </div>
+      
       <!-- Question 29 - AI Security: Runtime Monitoring -->
- <div id="q29" class="q-box" data-num="29">
+      <div id="q29" class="q-box" data-num="29">
         <div class="q-header">How effectively does your organization implement runtime monitoring and protection mechanisms for AI systems, such as anomaly detection, input validation, and real-time threat response?</div>
         <div class="answer-wrap">
           <label class="answer">
@@ -3756,12 +3788,12 @@
       document.querySelectorAll('.answer input').forEach(inp => {
         inp.addEventListener('change', function() {
           const answer = this.closest('.answer');
-          answer.classList.toggle('selected', this.checked);
+          answer.classList.toggle('selected', inp.checked);
           
           // Handle exclusive options (Not sure, I don't know, None of the above, We do not allow any remote access)
-          if (this.classList.contains('exclusive')) {
-            if (this.checked) {
-              const questionName = this.name;
+          if (inp.classList.contains('exclusive')) {
+            if (inp.checked) {
+              const questionName = inp.name;
               document.querySelectorAll(`input[name="${questionName}"]:not(.exclusive)`).forEach(otherInp => {
                 otherInp.checked = false;
                 otherInp.closest('.answer').classList.remove('selected');
@@ -3769,16 +3801,16 @@
             }
           } else {
             // If a non-exclusive option is checked, uncheck any exclusive options
-            const questionName = this.name;
+            const questionName = inp.name;
             document.querySelectorAll(`input[name="${questionName}"].exclusive`).forEach(exclusiveInp => {
               exclusiveInp.checked = false;
               exclusiveInp.closest('.answer').classList.remove('selected');
             });
           }
           
-          if (this.type === 'radio') {
-            document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
-              if (r !== this) r.closest('.answer').classList.remove('selected');
+          if (inp.type === 'radio') {
+            document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r => {
+              if (r !== inp) r.closest('.answer').classList.remove('selected');
             });
           }
         });
