@@ -2392,13 +2392,13 @@
 
   <script>
     // =============================================
-    // SUPABASE CONFIGURATION - DECLARED ONCE
+    // SUPABASE CONFIGURATION - USING supabaseClient (works!)
     // =============================================
     const SUPABASE_URL = 'https://srqyuqhsjfedwulwlvhi.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_uyz4arnlDxpd70tkHxuCLQ_ghq9Zua8';
     
-    // Initialize Supabase client
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    // Initialize Supabase client - using supabaseClient which works
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
     
     const TABLES = {
       RESULTS: 'maturity_model_results',
@@ -2410,6 +2410,51 @@
     const totalQuestions = 32;
     let answers = {};
     let overallScore = 0;
+    let pillarScores = {};
+    
+    // Question to Pillar Mapping
+    const questionPillarMapping = {
+      q1: 'Hybrid Mesh Network Security',
+      q2: 'Hybrid Mesh Network Security',
+      q3: 'Hybrid Mesh Network Security',
+      q4: 'Hybrid Mesh Network Security',
+      q5: 'Hybrid Mesh Network Security',
+      q6: 'Hybrid Mesh Network Security',
+      q7: 'Hybrid Mesh Network Security',
+      q8: 'Hybrid Mesh Network Security',
+      q9: 'Hybrid Mesh Network Security',
+      q10: 'General',
+      q11: 'Workspace Security',
+      q12: 'Hybrid Mesh Network Security',
+      q13: 'Workspace Security',
+      q14: 'Workspace Security',
+      q15: 'Workspace Security',
+      q16: 'Workspace Security',
+      q17: 'Workspace Security',
+      q18: 'General',
+      q19: 'Workspace Security',
+      q20: 'Hybrid Mesh Network Security',
+      q21: 'Hybrid Mesh Network Security',
+      q22: 'Workspace Security',
+      q23: 'General',
+      q24: 'Exposure Management',
+      q25: 'General',
+      q26: 'General',
+      q27: 'General',
+      q28: 'General',
+      q29: 'AI Security',
+      q30: 'AI Security',
+      q31: 'AI Security',
+      q32: 'AI Security'
+    };
+    
+    const mainPillars = [
+      'Hybrid Mesh Network Security',
+      'Workspace Security', 
+      'Exposure Management',
+      'AI Security',
+      'General'
+    ];
     
     // =============================================
     // UI FUNCTIONS
@@ -2446,7 +2491,6 @@
       const errorDiv = document.getElementById('signup-error');
       const successDiv = document.getElementById('signup-success');
       
-      // Validation
       if (!firstname || !lastname || !company || !email || !password || !confirm) {
         errorDiv.textContent = 'Please fill in all required fields (*)';
         errorDiv.style.display = 'block';
@@ -2469,8 +2513,7 @@
       }
       
       try {
-        // Check if user exists
-        const { data: existingUser } = await supabase
+        const { data: existingUser } = await supabaseClient
           .from(TABLES.USERS)
           .select('email')
           .eq('email', email);
@@ -2481,8 +2524,7 @@
           return;
         }
         
-        // Create user
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from(TABLES.USERS)
           .insert([{ 
             first_name: firstname,
@@ -2493,17 +2535,12 @@
             password: password 
           }]);
         
-        if (error) {
-          errorDiv.textContent = 'Error: ' + error.message;
-          errorDiv.style.display = 'block';
-          return;
-        }
+        if (error) throw error;
         
         successDiv.textContent = 'Account created successfully! Please login.';
         successDiv.style.display = 'block';
         errorDiv.style.display = 'none';
         
-        // Clear form
         document.getElementById('signup-firstname').value = '';
         document.getElementById('signup-lastname').value = '';
         document.getElementById('signup-company').value = '';
@@ -2515,7 +2552,7 @@
         setTimeout(showLogin, 2000);
         
       } catch (error) {
-        errorDiv.textContent = 'Error: ' + error.message;
+        errorDiv.textContent = 'Error creating account. Please try again.';
         errorDiv.style.display = 'block';
       }
     }
@@ -2532,17 +2569,13 @@
       }
       
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from(TABLES.USERS)
           .select('*')
           .eq('email', email)
           .eq('password', password);
         
-        if (error) {
-          errorDiv.textContent = 'Database error: ' + error.message;
-          errorDiv.style.display = 'block';
-          return;
-        }
+        if (error) throw error;
         
         if (data && data.length > 0) {
           currentUser = data[0];
@@ -2564,7 +2597,7 @@
           errorDiv.style.display = 'block';
         }
       } catch (error) {
-        errorDiv.textContent = 'Error: ' + error.message;
+        errorDiv.textContent = 'Error logging in';
         errorDiv.style.display = 'block';
       }
     }
@@ -2588,8 +2621,8 @@
     
     async function loadAdminData() {
       try {
-        const { data: users } = await supabase.from(TABLES.USERS).select('*');
-        const { data: results } = await supabase.from(TABLES.RESULTS).select('*').order('created_at', { ascending: false });
+        const { data: users } = await supabaseClient.from(TABLES.USERS).select('*');
+        const { data: results } = await supabaseClient.from(TABLES.RESULTS).select('*').order('created_at', { ascending: false });
         
         const enrichedResults = (results || []).map(result => ({
           ...result,
@@ -2643,7 +2676,7 @@
           <td><strong>${result.overall_score}%</strong></td>
           <td>${result.maturity_level}</td>
           <td>
-            <button class="view-details" onclick="viewResultDetails('${result.id}')">View</button>
+            <button class="view-details" onclick="viewResultDetails('${result.id}')">View Details</button>
           </td>
         </tr>
       `}).join('');
@@ -2677,7 +2710,7 @@
     
     async function viewResultDetails(resultId) {
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from(TABLES.RESULTS)
           .select('*')
           .eq('id', resultId)
@@ -2685,7 +2718,7 @@
         
         if (error) throw error;
         
-        const { data: userData } = await supabase
+        const { data: userData } = await supabaseClient
           .from(TABLES.USERS)
           .select('*')
           .eq('email', data.user_email)
@@ -2814,7 +2847,7 @@
       
       if (currentUser) {
         try {
-          await supabase.from(TABLES.RESULTS).insert([{
+          await supabaseClient.from(TABLES.RESULTS).insert([{
             user_email: currentUser.email,
             overall_score: overallScore,
             maturity_level: maturityLevel,
@@ -2879,4 +2912,3 @@
     });
   </script>
 </body>
-</html>
