@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Cyber Security Maturity Model – Check Point</title>
@@ -62,22 +63,7 @@
     }
     .nav-logo img { height: 36px; width: auto; }
     
-    /* Auth Pages */
-    #auth {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5rem 5% 3rem;
-    }
-    .auth-video {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: 1;
-    }
+    /* Auth Styles */
     .auth-container {
       position: relative;
       z-index: 2;
@@ -280,7 +266,81 @@
       border: none;
     }
     
-    /* Home Page */
+    /* Login Page Styles */
+    #login {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 5% 3rem;
+    }
+    .login-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .login-container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .login-container h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    .login-container p {
+      color: #666;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+    .password-input {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    .password-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .login-button {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      transition: all 0.25s;
+    }
+    .login-button:hover {
+      background: #004080;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .login-error {
+      color: var(--dark-red);
+      margin-top: 1rem;
+      font-weight: 500;
+      display: none;
+    }
+    
+    /* Home Page Styles */
     #home {
       position: relative;
       min-height: 100vh;
@@ -307,13 +367,6 @@
       font-size: 2rem;
       color: white;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      margin-bottom: 1rem;
-    }
-    .user-welcome {
-      color: white;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
     .button-wrapper {
       display: flex;
@@ -927,52 +980,6 @@
       color: #666;
       font-size: 12px;
     }
-    
-    /* Admin modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 600px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    .modal-close {
-      float: right;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #666;
-    }
-    .modal-close:hover {
-      color: #000;
-    }
-    .modal h2 {
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-    .modal-detail {
-      margin-bottom: 1rem;
-      padding: 0.5rem;
-      border-bottom: 1px solid #eee;
-    }
-    .modal-detail strong {
-      display: inline-block;
-      width: 150px;
-      color: #666;
-    }
   </style>
 </head>
 <body>
@@ -986,9 +993,9 @@
     </div>
   </nav>
   
-  <!-- Auth Page (Login/Signup) -->
-  <section id="auth">
-    <video class="auth-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png">
+  <!-- Auth Page (Replaces old login) -->
+  <section id="auth" style="display: flex;">
+    <video class="login-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png">
       <source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af" type="video/mp4">
     </video>
     <div class="auth-container">
@@ -1066,8 +1073,8 @@
     </div>
   </section>
 
-  <!-- Home Page -->
-  <section id="home" style="display: none;">
+  <!-- Home Page (Initially Hidden) -->
+  <section id="home">
     <video class="banner-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png">
       <source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af" type="video/mp4">
     </video>
@@ -1081,8 +1088,7 @@
     </div>
   </section>
   
-  <!-- Assessment Section with ALL 32 Questions -->
-  <div id="assessment" class="assessment-container" style="display: none;">
+  <div id="assessment" class="assessment-container">
     <div class="main-content">
       <div class="question-progress-container">
         <div class="progress-border">
@@ -2912,4 +2918,5 @@
   </script>
 </body>
 </html>
+
 
