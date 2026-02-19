@@ -1081,7 +1081,7 @@
     </div>
   </section>
   
-  <!-- Assessment Section -->
+  <!-- Assessment Section with ALL 32 Questions -->
   <div id="assessment" class="assessment-container" style="display: none;">
     <div class="main-content">
       <div class="question-progress-container">
@@ -2222,7 +2222,7 @@
         </div>
       </div>
       
- <!-- QUESTION 32 -->
+      <!-- QUESTION 32 -->
       <div id="q32" class="q-box" data-num="32">
         <div class="q-header">What is the maturity of your organization's security measures for AI data centers, covering access controls, vulnerability management, and resilience against physical/cyber threats?</div>
         <div class="answer-wrap">
@@ -2392,13 +2392,13 @@
 
   <script>
     // =============================================
-    // SUPABASE CONFIGURATION - ONLY DECLARED ONCE
+    // SUPABASE CONFIGURATION
     // =============================================
     const SUPABASE_URL = 'https://srqyuqhsjfedwulwlvhi.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_uyz4arnlDxpd70tkHxuCLQ_ghq9Zua8';
     
     // Initialize Supabase client
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
     
     const TABLES = {
       RESULTS: 'maturity_model_results',
@@ -2410,57 +2410,12 @@
     const totalQuestions = 32;
     let answers = {};
     let overallScore = 0;
-    let pillarScores = {};
-    
-    // Question to Pillar Mapping (keep your existing mapping)
-    const questionPillarMapping = {
-      q1: 'Hybrid Mesh Network Security',
-      q2: 'Hybrid Mesh Network Security',
-      q3: 'Hybrid Mesh Network Security',
-      q4: 'Hybrid Mesh Network Security',
-      q5: 'Hybrid Mesh Network Security',
-      q6: 'Hybrid Mesh Network Security',
-      q7: 'Hybrid Mesh Network Security',
-      q8: 'Hybrid Mesh Network Security',
-      q9: 'Hybrid Mesh Network Security',
-      q10: 'General',
-      q11: 'Workspace Security',
-      q12: 'Hybrid Mesh Network Security',
-      q13: 'Workspace Security',
-      q14: 'Workspace Security',
-      q15: 'Workspace Security',
-      q16: 'Workspace Security',
-      q17: 'Workspace Security',
-      q18: 'General',
-      q19: 'Workspace Security',
-      q20: 'Hybrid Mesh Network Security',
-      q21: 'Hybrid Mesh Network Security',
-      q22: 'Workspace Security',
-      q23: 'General',
-      q24: 'Exposure Management',
-      q25: 'General',
-      q26: 'General',
-      q27: 'General',
-      q28: 'General',
-      q29: 'AI Security',
-      q30: 'AI Security',
-      q31: 'AI Security',
-      q32: 'AI Security'
-    };
-    
-    const mainPillars = [
-      'Hybrid Mesh Network Security',
-      'Workspace Security', 
-      'Exposure Management',
-      'AI Security',
-      'General'
-    ];
     
     // =============================================
     // UI FUNCTIONS
     // =============================================
     
-    function showLogin() {
+    window.showLogin = function() {
       document.getElementById('login-section').style.display = 'block';
       document.getElementById('signup-section').style.display = 'none';
       document.getElementById('login-error').style.display = 'none';
@@ -2468,7 +2423,7 @@
       document.getElementById('signup-success').style.display = 'none';
     }
     
-    function showSignup() {
+    window.showSignup = function() {
       document.getElementById('login-section').style.display = 'none';
       document.getElementById('signup-section').style.display = 'block';
       document.getElementById('login-error').style.display = 'none';
@@ -2480,7 +2435,7 @@
     // AUTHENTICATION FUNCTIONS
     // =============================================
     
-    async function signup() {
+    window.signup = async function() {
       const firstname = document.getElementById('signup-firstname').value;
       const lastname = document.getElementById('signup-lastname').value;
       const company = document.getElementById('signup-company').value;
@@ -2491,6 +2446,7 @@
       const errorDiv = document.getElementById('signup-error');
       const successDiv = document.getElementById('signup-success');
       
+      // Validation
       if (!firstname || !lastname || !company || !email || !password || !confirm) {
         errorDiv.textContent = 'Please fill in all required fields (*)';
         errorDiv.style.display = 'block';
@@ -2513,10 +2469,18 @@
       }
       
       try {
-        const { data: existingUser } = await supabaseClient
+        // Check if user exists
+        const { data: existingUser, error: checkError } = await supabase
           .from(TABLES.USERS)
           .select('email')
           .eq('email', email);
+        
+        if (checkError) {
+          console.error('Check error:', checkError);
+          errorDiv.textContent = 'Database error: ' + checkError.message;
+          errorDiv.style.display = 'block';
+          return;
+        }
         
         if (existingUser && existingUser.length > 0) {
           errorDiv.textContent = 'Email already registered';
@@ -2524,7 +2488,8 @@
           return;
         }
         
-        const { error } = await supabaseClient
+        // Create user
+        const { data, error } = await supabase
           .from(TABLES.USERS)
           .insert([{ 
             first_name: firstname,
@@ -2535,12 +2500,18 @@
             password: password 
           }]);
         
-        if (error) throw error;
+        if (error) {
+          console.error('Insert error:', error);
+          errorDiv.textContent = 'Error: ' + error.message;
+          errorDiv.style.display = 'block';
+          return;
+        }
         
         successDiv.textContent = 'Account created successfully! Please login.';
         successDiv.style.display = 'block';
         errorDiv.style.display = 'none';
         
+        // Clear form
         document.getElementById('signup-firstname').value = '';
         document.getElementById('signup-lastname').value = '';
         document.getElementById('signup-company').value = '';
@@ -2549,15 +2520,16 @@
         document.getElementById('signup-password').value = '';
         document.getElementById('signup-confirm').value = '';
         
-        setTimeout(showLogin, 2000);
+        setTimeout(() => window.showLogin(), 2000);
         
       } catch (error) {
-        errorDiv.textContent = 'Error creating account. Please try again.';
+        console.error('Signup error:', error);
+        errorDiv.textContent = 'Error: ' + error.message;
         errorDiv.style.display = 'block';
       }
     }
     
-    async function login() {
+    window.login = async function() {
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
       const errorDiv = document.getElementById('login-error');
@@ -2569,13 +2541,18 @@
       }
       
       try {
-        const { data, error } = await supabaseClient
+        const { data, error } = await supabase
           .from(TABLES.USERS)
           .select('*')
           .eq('email', email)
           .eq('password', password);
         
-        if (error) throw error;
+        if (error) {
+          console.error('Login error:', error);
+          errorDiv.textContent = 'Database error: ' + error.message;
+          errorDiv.style.display = 'block';
+          return;
+        }
         
         if (data && data.length > 0) {
           currentUser = data[0];
@@ -2597,21 +2574,22 @@
           errorDiv.style.display = 'block';
         }
       } catch (error) {
-        errorDiv.textContent = 'Error logging in';
+        console.error('Login error:', error);
+        errorDiv.textContent = 'Error: ' + error.message;
         errorDiv.style.display = 'block';
       }
     }
     
-    function logout() {
+    window.logout = function() {
       currentUser = null;
       document.getElementById('admin-dashboard').style.display = 'none';
       document.getElementById('home').style.display = 'none';
       document.getElementById('assessment').style.display = 'none';
       document.getElementById('auth').style.display = 'flex';
-      showLogin();
+      window.showLogin();
     }
     
-    async function showAdminDashboard() {
+    window.showAdminDashboard = async function() {
       document.getElementById('auth').style.display = 'none';
       document.getElementById('home').style.display = 'none';
       document.getElementById('assessment').style.display = 'none';
@@ -2621,8 +2599,11 @@
     
     async function loadAdminData() {
       try {
-        const { data: users } = await supabaseClient.from(TABLES.USERS).select('*');
-        const { data: results } = await supabaseClient.from(TABLES.RESULTS).select('*').order('created_at', { ascending: false });
+        const { data: users, error: usersError } = await supabase.from(TABLES.USERS).select('*');
+        if (usersError) throw usersError;
+        
+        const { data: results, error: resultsError } = await supabase.from(TABLES.RESULTS).select('*').order('created_at', { ascending: false });
+        if (resultsError) throw resultsError;
         
         const enrichedResults = (results || []).map(result => ({
           ...result,
@@ -2634,6 +2615,7 @@
         displayResultsTable(enrichedResults);
       } catch (error) {
         console.error('Error loading admin data:', error);
+        alert('Error loading data: ' + error.message);
       }
     }
     
@@ -2676,13 +2658,13 @@
           <td><strong>${result.overall_score}%</strong></td>
           <td>${result.maturity_level}</td>
           <td>
-            <button class="view-details" onclick="viewResultDetails('${result.id}')">View Details</button>
+            <button class="view-details" onclick="viewResultDetails('${result.id}')">View</button>
           </td>
         </tr>
       `}).join('');
     }
     
-    function filterResults() {
+    window.filterResults = function() {
       const searchTerm = document.getElementById('search-filter').value.toLowerCase();
       const dateFilter = document.getElementById('date-filter').value;
       let filtered = window.allResults || [];
@@ -2708,9 +2690,9 @@
       updateAdminStats(filtered);
     }
     
-    async function viewResultDetails(resultId) {
+    window.viewResultDetails = async function(resultId) {
       try {
-        const { data, error } = await supabaseClient
+        const { data, error } = await supabase
           .from(TABLES.RESULTS)
           .select('*')
           .eq('id', resultId)
@@ -2718,7 +2700,7 @@
         
         if (error) throw error;
         
-        const { data: userData } = await supabaseClient
+        const { data: userData } = await supabase
           .from(TABLES.USERS)
           .select('*')
           .eq('email', data.user_email)
@@ -2727,10 +2709,11 @@
         alert(`Assessment Details:\nName: ${userData?.first_name || ''} ${userData?.last_name || ''}\nCompany: ${userData?.company_name || 'N/A'}\nEmail: ${data.user_email}\nScore: ${data.overall_score}%\nLevel: ${data.maturity_level}`);
       } catch (error) {
         console.error('Error:', error);
+        alert('Error loading details: ' + error.message);
       }
     }
     
-    function exportToCSV() {
+    window.exportToCSV = function() {
       const results = window.allResults || [];
       if (results.length === 0) {
         alert('No data to export');
@@ -2766,7 +2749,7 @@
     // ASSESSMENT FUNCTIONS
     // =============================================
     
-    function startAssessment() {
+    window.startAssessment = function() {
       answers = {};
       document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
         input.checked = false;
@@ -2785,7 +2768,7 @@
       updateProgress();
     }
     
-    function retakeAssessment() {
+    window.retakeAssessment = function() {
       answers = {};
       document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
         input.checked = false;
@@ -2804,7 +2787,7 @@
       document.getElementById('question-progress-bar').style.width = (currentQuestion / totalQuestions * 100) + '%';
     }
     
-    function nextQuestion(q) {
+    window.nextQuestion = function(q) {
       const box = document.getElementById(`q${q}`);
       const checked = box.querySelectorAll('input:checked');
       if (checked.length === 0) {
@@ -2826,7 +2809,7 @@
       updateProgress();
     }
     
-    function prevQuestion(q) {
+    window.prevQuestion = function(q) {
       if (q <= 1) return;
       document.getElementById(`q${q}`).classList.remove('active');
       currentQuestion = q - 1;
@@ -2847,7 +2830,7 @@
       
       if (currentUser) {
         try {
-          await supabaseClient.from(TABLES.RESULTS).insert([{
+          await supabase.from(TABLES.RESULTS).insert([{
             user_email: currentUser.email,
             overall_score: overallScore,
             maturity_level: maturityLevel,
@@ -2857,15 +2840,17 @@
           document.getElementById('autoEmailNotice').style.display = 'block';
         } catch (e) {
           console.error('Error saving:', e);
+          document.getElementById('autoEmailNotice').textContent = '❌ Error saving results';
+          document.getElementById('autoEmailNotice').style.display = 'block';
         }
       }
     }
     
-    function generatePDF() {
+    window.generatePDF = function() {
       alert('PDF generation coming soon');
     }
     
-    function sendReportToClient() {
+    window.sendReportToClient = function() {
       const email = document.getElementById('clientEmail').value;
       if (!email) {
         document.getElementById('emailError').style.display = 'block';
@@ -2878,7 +2863,7 @@
     
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
-      showLogin();
+      window.showLogin();
       updateProgress();
       
       document.querySelectorAll('.answer input').forEach(inp => {
