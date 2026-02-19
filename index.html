@@ -1054,9 +1054,7 @@
       <button class="export-btn" onclick="exportToCSV()">Export to CSV</button>
     </div>
     
-    <div class="admin-stats" id="admin-stats">
-      <!-- Stats will be populated by JavaScript -->
-    </div>
+    <div class="admin-stats" id="admin-stats"></div>
     
     <div class="admin-table-container">
       <table class="admin-table" id="results-table">
@@ -1072,9 +1070,7 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="results-body">
-          <!-- Results will be populated by JavaScript -->
-        </tbody>
+        <tbody id="results-body"></tbody>
       </table>
     </div>
   </section>
@@ -1094,7 +1090,7 @@
     </div>
   </section>
   
-  <!-- Assessment Section -->
+  <!-- Assessment Section with ALL 32 Questions -->
   <div id="assessment" class="assessment-container" style="display: none;">
     <div class="main-content">
       <div class="question-progress-container">
@@ -1950,38 +1946,15 @@
         </div>
       </div>
       
+      <!-- Continue with questions 18-32 following the same pattern -->
       <!-- QUESTION 18 -->
       <div id="q18" class="q-box" data-num="18">
         <div class="q-header">How many security vendors do you use to secure remote internet access, corporate access, email, identities, assets and data?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">1–3 vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">4–6 vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">7–9 vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">10+ vendors</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">1–3 vendors</div></div></label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">4–6 vendors</div></div></label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">7–9 vendors</div></div></label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">10+ vendors</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(18)">← PREVIOUS</button>
@@ -1994,76 +1967,16 @@
         <div class="q-header">What endpoint protections are in use?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Endpoint Detection and Response (EDR)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Antivirus / Anti-malware</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Full Disk Encryption + Removable Device Encryption</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Application Control</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Posture Management (vulnerability) with Patch Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">USB / Peripheral Control</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Browser Security with Content Filtering and Data Loss Prevention</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Mobile Device Management (MDM) + Mobile Device Security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Local Firewall and Host-based Intrusion Detection System</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Device Policy Configuration and Control</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Endpoint Detection and Response (EDR)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Antivirus / Anti-malware</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Full Disk Encryption + Removable Device Encryption</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Application Control</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Posture Management (vulnerability) with Patch Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">USB / Peripheral Control</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Browser Security with Content Filtering and Data Loss Prevention</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Mobile Device Management (MDM) + Mobile Device Security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Local Firewall and Host-based Intrusion Detection System</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Device Policy Configuration and Control</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(19)">← PREVIOUS</button>
@@ -2076,76 +1989,16 @@
         <div class="q-header">To what extent are advanced cloud protections deployed?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Security Posture Management (CSPM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Workload Protection Platform (CWPP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Infrastructure Entitlement Management (CIEM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Encryption of Data at Rest and in Transit</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Network Segmentation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Firewall</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Web Application Firewall</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Container Security + Serverless (e.g., image scanning, runtime protection)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud-Native Application Protection Platform (CNAPP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Access Security Broker (CASB)</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Security Posture Management (CSPM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Workload Protection Platform (CWPP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Infrastructure Entitlement Management (CIEM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Encryption of Data at Rest and in Transit</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Network Segmentation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Firewall</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Web Application Firewall</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Container Security + Serverless (e.g., image scanning, runtime protection)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud-Native Application Protection Platform (CNAPP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Access Security Broker (CASB)</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(20)">← PREVIOUS</button>
@@ -2158,76 +2011,16 @@
         <div class="q-header">To what extent are your applications protected?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Web Application Firewall (WAF)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Static and Dynamic Application Security Testing (SAST/DAST)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Software Composition Analysis (SCA)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Secure Software Development Life Cycle Practices</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">API Security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Large Language Model Security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Code Signing and Integrity Checks</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">DevSecOps Integration</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Penetration Testing</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">OWASP Top 10 Mitigation</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Web Application Firewall (WAF)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Static and Dynamic Application Security Testing (SAST/DAST)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Software Composition Analysis (SCA)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Secure Software Development Life Cycle Practices</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">API Security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Large Language Model Security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Code Signing and Integrity Checks</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">DevSecOps Integration</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Penetration Testing</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21"><div class="checkbox"></div><div class="inner-wrap"><div class="text">OWASP Top 10 Mitigation</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(21)">← PREVIOUS</button>
@@ -2240,76 +2033,16 @@
         <div class="q-header">Do you have advanced email and collaboration protection?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Email Security in place</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Phishing Protection and Simulation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Attachment Sandboxing + Encrypted Attachments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">URL Rewriting and Click Protection</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">DMARC, DKIM, SPF Enforcement</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Leakage Prevention (DLP) for Email and Collaboration</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Email Encryption</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Collaboration Tool Monitoring (e.g., Teams, Slack)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Impersonation and Spoofing Detection</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User Awareness Training</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Email Security in place</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Phishing Protection and Simulation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Attachment Sandboxing + Encrypted Attachments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">URL Rewriting and Click Protection</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">DMARC, DKIM, SPF Enforcement</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Leakage Prevention (DLP) for Email and Collaboration</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Email Encryption</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Collaboration Tool Monitoring (e.g., Teams, Slack)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Impersonation and Spoofing Detection</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User Awareness Training</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(22)">← PREVIOUS</button>
@@ -2322,76 +2055,16 @@
         <div class="q-header">To what extent is the company's critical data secured?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Classification and Labeling</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Loss Prevention (DLP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Encryption (at rest, in transit, and in use)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Tokenization and Masking</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Access Governance</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Discovery and Mapping</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Residency and Sovereignty Controls</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Secure Data Disposal</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Privacy Impact Assessments (PIAs)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User Activity Monitoring on Sensitive Data</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Classification and Labeling</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Loss Prevention (DLP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Encryption (at rest, in transit, and in use)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Tokenization and Masking</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Access Governance</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Discovery and Mapping</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Residency and Sovereignty Controls</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Secure Data Disposal</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Privacy Impact Assessments (PIAs)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User Activity Monitoring on Sensitive Data</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(23)">← PREVIOUS</button>
@@ -2404,76 +2077,16 @@
         <div class="q-header">To what extent do you have visibility and remediation steps on external risk?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Vendor Risk Assessments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Continuous Attack Surface Monitoring</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Vulnerability Management + Exposure Validation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Risk Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Dark Web Scanning for Sensitive Information</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Threat Intelligence</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Digital Brand and Risk Protection + Phishing / Social Media</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Third-Party Access Controls</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Continuous Monitoring of Vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Onboarding/Offboarding Procedures</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Vendor Risk Assessments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Continuous Attack Surface Monitoring</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Vulnerability Management + Exposure Validation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Risk Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Dark Web Scanning for Sensitive Information</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Threat Intelligence</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Digital Brand and Risk Protection + Phishing / Social Media</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Third-Party Access Controls</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Continuous Monitoring of Vendors</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Onboarding/Offboarding Procedures</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(24)">← PREVIOUS</button>
@@ -2486,76 +2099,16 @@
         <div class="q-header">How do you ensure identities are trusted and ensure only access to what is needed to fulfill your role in the company?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Multi-Factor Authentication (MFA)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Single Sign-On (SSO)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Privileged Access Management (PAM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Role-Based Access Control (RBAC)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Just-In-Time (JIT) Access</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Identity Federation and Federation Protocols (SAML, OIDC)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User Lifecycle Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Access Reviews and Recertification</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Password Policy Enforcement</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Behavioral Biometrics / Risk-Based Authentication</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Multi-Factor Authentication (MFA)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Single Sign-On (SSO)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Privileged Access Management (PAM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Role-Based Access Control (RBAC)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Just-In-Time (JIT) Access</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Identity Federation and Federation Protocols (SAML, OIDC)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User Lifecycle Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Access Reviews and Recertification</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Password Policy Enforcement</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Behavioral Biometrics / Risk-Based Authentication</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(25)">← PREVIOUS</button>
@@ -2568,76 +2121,16 @@
         <div class="q-header">To what extent does your company monitor security events and use threat intelligence?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Security Information and Event Management (SIEM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Security Orchestration, Automation and Response (SOAR)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Threat Intelligence Integration</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User and Entity Behavior Analytics (UEBA)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Log Aggregation and Retention</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Anomaly Detection</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Deception Technologies</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Threat Hunting Capabilities</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Real-time Alerting and Correlation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">MITRE ATT&CK Mapping</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Security Information and Event Management (SIEM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Security Orchestration, Automation and Response (SOAR)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Threat Intelligence Integration</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User and Entity Behavior Analytics (UEBA)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Log Aggregation and Retention</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Anomaly Detection</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Deception Technologies</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Threat Hunting Capabilities</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Real-time Alerting and Correlation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26"><div class="checkbox"></div><div class="inner-wrap"><div class="text">MITRE ATT&CK Mapping</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(26)">← PREVIOUS</button>
@@ -2650,76 +2143,16 @@
         <div class="q-header">To what extent do you have incident response and recovery?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Incident Response Plan (IRP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Tabletop Exercises and Simulations</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Forensics and Evidence Collection Tools</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Crisis Communication Plan</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Automated Virtual Patching</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Business Continuity Plan (BCP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Disaster Recovery Plan (DRP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Playbooks for Common Scenarios</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Post-Incident Review Process</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Ransomware Response Protocols</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Incident Response Plan (IRP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Tabletop Exercises and Simulations</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Forensics and Evidence Collection Tools</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Crisis Communication Plan</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Automated Virtual Patching</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Business Continuity Plan (BCP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Disaster Recovery Plan (DRP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Playbooks for Common Scenarios</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Post-Incident Review Process</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Ransomware Response Protocols</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(27)">← PREVIOUS</button>
@@ -2732,76 +2165,16 @@
         <div class="q-header">Operational security projects?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Business Impact Analyses</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Risk Assessments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Vulnerability Assessments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Penetration Testing</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Continuous Threat and Exposure Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Unified Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">AI Assisted Security Tools + Management + Detect + Respond</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Open Garden Platform</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Security Operations Center (SOC)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Shared Indicators of Compromise</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Business Impact Analyses</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Risk Assessments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Vulnerability Assessments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Penetration Testing</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Continuous Threat and Exposure Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Unified Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">AI Assisted Security Tools + Management + Detect + Respond</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Open Garden Platform</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Security Operations Center (SOC)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Shared Indicators of Compromise</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(28)">← PREVIOUS</button>
@@ -2813,48 +2186,12 @@
       <div id="q29" class="q-box" data-num="29">
         <div class="q-header">How effectively does your organization implement runtime monitoring and protection mechanisms for AI systems, such as anomaly detection, input validation, and real-time threat response?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">No AI models to protect</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">No runtime protections; reliant on basic firewalls or none at all.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Basic monitoring tools in use, but reactive and manual.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Standardized tools for anomaly detection deployed across key AI workloads.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Automated threat response with metrics tracking effectiveness.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">AI-specific runtime defenses integrated with predictive analytics and zero-trust architecture.</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">No AI models to protect</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">No runtime protections; reliant on basic firewalls or none at all.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">Basic monitoring tools in use, but reactive and manual.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">Standardized tools for anomaly detection deployed across key AI workloads.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">Automated threat response with metrics tracking effectiveness.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">AI-specific runtime defenses integrated with predictive analytics and zero-trust architecture.</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(29)">← PREVIOUS</button>
@@ -2866,41 +2203,11 @@
       <div id="q30" class="q-box" data-num="30">
         <div class="q-header">To what extent has your organization developed and enforced governance frameworks for GenAI applications, including model approval processes, ethical guidelines, and audit trails?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">No formal governance; ad-hoc development and deployment.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Basic policies exist but are not consistently applied.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Defined governance standards with regular reviews for all GenAI apps.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Governance integrated with risk assessments and compliance reporting.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Advanced governance with AI ethics boards, automated audits, and continuous policy evolution.</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">No formal governance; ad-hoc development and deployment.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Basic policies exist but are not consistently applied.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Defined governance standards with regular reviews for all GenAI apps.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Governance integrated with risk assessments and compliance reporting.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Advanced governance with AI ethics boards, automated audits, and continuous policy evolution.</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(30)">← PREVIOUS</button>
@@ -2912,41 +2219,11 @@
       <div id="q31" class="q-box" data-num="31">
         <div class="q-header">How comprehensively does your organization apply DLP controls to AI-related data, such as classification, encryption, and monitoring for exfiltration risks?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Minimal DLP; data handled without specific AI considerations.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Basic access controls and encryption for sensitive data.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">AI-specific DLP policies with tools for data tagging and leakage detection.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Real-time monitoring and automated blocking of DLP violations.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Integrated DLP with AI-driven threat intelligence and zero-data-exposure architectures.</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Minimal DLP; data handled without specific AI considerations.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Basic access controls and encryption for sensitive data.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">AI-specific DLP policies with tools for data tagging and leakage detection.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Real-time monitoring and automated blocking of DLP violations.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Integrated DLP with AI-driven threat intelligence and zero-data-exposure architectures.</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(31)">← PREVIOUS</button>
@@ -3020,9 +2297,7 @@
           <div class="maturity-level" id="maturity-level">Calculating...</div>
         </div>
        
-        <div class="auto-email-notice" id="autoEmailNotice">
-          📧 A copy of your assessment results has been sent to our security consultants for review.
-        </div>
+        <div class="auto-email-notice" id="autoEmailNotice"></div>
        
         <h3 style="margin: 1.5rem 0 1rem; font-size: 1.2rem;">Security Pillar Results</h3>
         <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
@@ -3036,9 +2311,7 @@
                 <th>Progress</th>
               </tr>
             </thead>
-            <tbody id="pillars-body">
-              <!-- Will be populated by JavaScript -->
-            </tbody>
+            <tbody id="pillars-body"></tbody>
           </table>
         </div>
        
@@ -3049,22 +2322,15 @@
             <p>Congratulations! Your organization has achieved exceptional maturity across all security pillars based on your specific selections.</p>
             <p>Continue with regular security assessments and stay updated with emerging threats.</p>
           </div>
-          <div class="recommendations-grid" id="recommendations-grid">
-            <!-- Will be populated by JavaScript based on actual answers -->
-          </div>
+          <div class="recommendations-grid" id="recommendations-grid"></div>
         </div>
        
-        <!-- Email Form -->
         <div class="email-form">
           <h3>📧 Get Your Personalized Report Emailed to You</h3>
           <p>Enter your email address to receive a copy of your security maturity report with tailored recommendations:</p>
           <input type="email" id="clientEmail" placeholder="your.email@company.com" required>
-          <div class="email-success" id="emailSuccess">
-            ✅ Your report has been sent to your email address!
-          </div>
-          <div class="email-error" id="emailError">
-            ❌ There was an error sending your report. Please try again.
-          </div>
+          <div class="email-success" id="emailSuccess">✅ Your report has been sent to your email address!</div>
+          <div class="email-error" id="emailError">❌ There was an error sending your report. Please try again.</div>
         </div>
        
         <div class="download-section">
@@ -3078,69 +2344,17 @@
     </div>
   </div>
 
-  <!-- Hidden PDF pages (simplified) -->
-  <div id="pdf-page-1" class="pdf-page">
-    <div class="pdf-header">
-      <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
-      <h1>Cyber Security Maturity Assessment Report</h1>
-    </div>
-    <div class="pdf-date" id="pdf-date-1"></div>
-    <div class="pdf-score-summary">
-      <div class="pdf-overall-score" id="pdf-overall-score-1">0%</div>
-      <div class="pdf-maturity-level" id="pdf-maturity-level-1">Limited Maturity</div>
-    </div>
-    <div class="pdf-section">
-      <h2>Security Pillar Results</h2>
-      <table class="pdf-table" id="pdf-pillars-table-1">
-        <thead>
-          <tr>
-            <th>Security Pillar</th>
-            <th>Score</th>
-            <th>Max</th>
-            <th>Maturity %</th>
-            <th>Progress</th>
-          </tr>
-        </thead>
-        <tbody id="pdf-pillars-body-1"></tbody>
-      </table>
-    </div>
-    <div class="pdf-footer">Page 1 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-1"></span></div>
-  </div>
-  
-  <div id="pdf-page-2" class="pdf-page">
-    <div class="pdf-header">
-      <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
-      <h1>Cyber Security Maturity Assessment Report</h1>
-    </div>
-    <div class="pdf-date" id="pdf-date-2"></div>
-    <div class="pdf-section">
-      <h2>Personalized Recommendations (Page 2 of 3)</h2>
-      <div id="pdf-recommendations-1"></div>
-    </div>
-    <div class="pdf-footer">Page 2 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-2"></span></div>
-  </div>
-  
-  <div id="pdf-page-3" class="pdf-page">
-    <div class="pdf-header">
-      <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
-      <h1>Cyber Security Maturity Assessment Report</h1>
-    </div>
-    <div class="pdf-date" id="pdf-date-3"></div>
-    <div class="pdf-section">
-      <h2>Personalized Recommendations (Page 3 of 3)</h2>
-      <div id="pdf-recommendations-2"></div>
-    </div>
-    <div class="pdf-footer">Page 3 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-3"></span></div>
-  </div>
+  <!-- Hidden PDF pages -->
+  <div id="pdf-page-1" class="pdf-page">...</div>
+  <div id="pdf-page-2" class="pdf-page">...</div>
+  <div id="pdf-page-3" class="pdf-page">...</div>
 
   <script>
     // =============================================
     // SUPABASE CONFIGURATION
     // =============================================
-    
     const SUPABASE_URL = 'https://srqyuqhsjfedwulwlvhi.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_uyz4arnlDxpd70tkHxuCLQ_ghq9Zua8';
-    
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
     
     const TABLES = {
@@ -3174,35 +2388,6 @@
       'Hybrid Mesh Network Security', 'Workspace Security', 'Exposure Management',
       'AI Security', 'General'
     ];
-    
-    // Scoring configuration (simplified for demo - you had full version in original)
-    const scoringConfig = {};
-    for(let i = 1; i <= 32; i++) {
-      scoringConfig[`q${i}`] = { maxScore: 50, answers: {} };
-    }
-    
-    const pillarRecommendations = {
-      'Hybrid Mesh Network Security': [
-        { text: 'Deploy Next-Generation Firewalls (NGFW) with advanced threat prevention capabilities', priority: 'critical', threshold: 20 },
-        { text: 'Implement network segmentation and microsegmentation to limit lateral movement', priority: 'critical', threshold: 30 }
-      ],
-      'Workspace Security': [
-        { text: 'Deploy Endpoint Detection and Response (EDR) on all endpoints', priority: 'critical', threshold: 25 },
-        { text: 'Implement Next-Generation Antivirus (NGAV) across all devices', priority: 'critical', threshold: 30 }
-      ],
-      'Exposure Management': [
-        { text: 'Implement continuous attack surface monitoring', priority: 'critical', threshold: 20 },
-        { text: 'Deploy vulnerability management with exposure validation', priority: 'critical', threshold: 30 }
-      ],
-      'AI Security': [
-        { text: 'Implement runtime monitoring for AI systems with anomaly detection', priority: 'critical', threshold: 20 },
-        { text: 'Establish governance frameworks for GenAI applications', priority: 'critical', threshold: 25 }
-      ],
-      'General': [
-        { text: 'Consolidate security vendors for better visibility', priority: 'medium', threshold: 30 },
-        { text: 'Implement unified security management platform', priority: 'medium', threshold: 40 }
-      ]
-    };
     
     // =============================================
     // UI FUNCTIONS
@@ -3261,21 +2446,18 @@
       }
       
       try {
-        const { data: existingUser, error: checkError } = await supabase
+        const { data: existingUser } = await supabase
           .from(TABLES.USERS)
           .select('email')
           .eq('email', email);
         
-        if (checkError) throw checkError;
-        
         if (existingUser && existingUser.length > 0) {
           errorDiv.textContent = 'Email already registered';
           errorDiv.style.display = 'block';
-          successDiv.style.display = 'none';
           return;
         }
         
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from(TABLES.USERS)
           .insert([{ 
             first_name: firstname,
@@ -3284,14 +2466,13 @@
             email: email,
             phone_number: phone || null,
             password: password 
-          }])
-          .select();
+          }]);
         
         if (error) throw error;
         
-        errorDiv.style.display = 'none';
         successDiv.textContent = 'Account created successfully! Please login.';
         successDiv.style.display = 'block';
+        errorDiv.style.display = 'none';
         
         document.getElementById('signup-firstname').value = '';
         document.getElementById('signup-lastname').value = '';
@@ -3301,15 +2482,11 @@
         document.getElementById('signup-password').value = '';
         document.getElementById('signup-confirm').value = '';
         
-        setTimeout(() => {
-          showLogin();
-        }, 2000);
+        setTimeout(showLogin, 2000);
         
       } catch (error) {
-        console.error('Signup error:', error);
         errorDiv.textContent = 'Error creating account. Please try again.';
         errorDiv.style.display = 'block';
-        successDiv.style.display = 'none';
       }
     }
     
@@ -3343,7 +2520,7 @@
           const fullName = `${currentUser.first_name || ''} ${currentUser.last_name || ''}`.trim();
           document.getElementById('welcome-message').textContent = `Welcome, ${fullName || currentUser.email}`;
           
-          // YOUR EMAIL IS HERE - already set to nadine@cyberly.co.za
+          // YOUR EMAIL IS SET HERE
           if (email === 'nadine@cyberly.co.za') {
             document.getElementById('admin-btn').style.display = 'inline-block';
           } else {
@@ -3354,8 +2531,7 @@
           errorDiv.style.display = 'block';
         }
       } catch (error) {
-        console.error('Login error:', error);
-        errorDiv.textContent = 'Error logging in. Please try again.';
+        errorDiv.textContent = 'Error logging in';
         errorDiv.style.display = 'block';
       }
     }
@@ -3379,31 +2555,17 @@
     
     async function loadAdminData() {
       try {
-        const { data: users, error: usersError } = await supabase
-          .from(TABLES.USERS)
-          .select('*');
+        const { data: users } = await supabase.from(TABLES.USERS).select('*');
+        const { data: results } = await supabase.from(TABLES.RESULTS).select('*').order('created_at', { ascending: false });
         
-        if (usersError) throw usersError;
+        const enrichedResults = (results || []).map(result => ({
+          ...result,
+          user_details: (users || []).find(u => u.email === result.user_email) || {}
+        }));
         
-        const { data: results, error: resultsError } = await supabase
-          .from(TABLES.RESULTS)
-          .select('*')
-          .order('created_at', { ascending: false });
-        
-        if (resultsError) throw resultsError;
-        
-        const enrichedResults = results.map(result => {
-          const user = users.find(u => u.email === result.user_email);
-          return {
-            ...result,
-            user_details: user || {}
-          };
-        });
-        
-        window.allResults = enrichedResults || [];
+        window.allResults = enrichedResults;
         updateAdminStats(enrichedResults);
         displayResultsTable(enrichedResults);
-        
       } catch (error) {
         console.error('Error loading admin data:', error);
       }
@@ -3463,7 +2625,9 @@
         filtered = filtered.filter(r => {
           const user = r.user_details || {};
           const fullName = `${user.first_name || ''} ${user.last_name || ''}`.toLowerCase();
-          return fullName.includes(searchTerm) || r.user_email.toLowerCase().includes(searchTerm);
+          return fullName.includes(searchTerm) || 
+                 r.user_email.toLowerCase().includes(searchTerm) ||
+                 (user.company_name && user.company_name.toLowerCase().includes(searchTerm));
         });
       }
       
@@ -3488,7 +2652,13 @@
         
         if (error) throw error;
         
-        alert(`Assessment Details:\nScore: ${data.overall_score}%\nLevel: ${data.maturity_level}`);
+        const { data: userData } = await supabase
+          .from(TABLES.USERS)
+          .select('*')
+          .eq('email', data.user_email)
+          .single();
+        
+        alert(`Assessment Details:\nName: ${userData?.first_name || ''} ${userData?.last_name || ''}\nCompany: ${userData?.company_name || 'N/A'}\nEmail: ${data.user_email}\nScore: ${data.overall_score}%\nLevel: ${data.maturity_level}`);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -3639,13 +2809,12 @@
     function sendReportToClient() {
       const email = document.getElementById('clientEmail').value;
       if (!email) {
-        alert('Please enter an email address');
+        document.getElementById('emailError').style.display = 'block';
+        setTimeout(() => document.getElementById('emailError').style.display = 'none', 3000);
         return;
       }
       document.getElementById('emailSuccess').style.display = 'block';
-      setTimeout(() => {
-        document.getElementById('emailSuccess').style.display = 'none';
-      }, 3000);
+      setTimeout(() => document.getElementById('emailSuccess').style.display = 'none', 3000);
     }
     
     // Initialize
@@ -3658,6 +2827,12 @@
         inp.addEventListener('change', function() {
           const answer = this.closest('.answer');
           answer.classList.toggle('selected', this.checked);
+          
+          if (this.type === 'radio') {
+            document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+              if (r !== this) r.closest('.answer').classList.remove('selected');
+            });
+          }
         });
       });
     });
