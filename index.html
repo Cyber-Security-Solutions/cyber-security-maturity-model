@@ -7,6 +7,7 @@
   <meta name="description" content="Secure your business today by assessing your cyber security maturity with our quick assessment." />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --primary: #0055a5;
@@ -61,8 +62,8 @@
     }
     .nav-logo img { height: 36px; width: auto; }
     
-    /* Login Page Styles */
-    #login {
+    /* Auth Pages */
+    #auth {
       position: relative;
       min-height: 100vh;
       display: flex;
@@ -70,14 +71,14 @@
       justify-content: center;
       padding: 5rem 5% 3rem;
     }
-    .login-video {
+    .auth-video {
       position: absolute;
       inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
       z-index: 1;
     }
-    .login-container {
+    .auth-container {
       position: relative;
       z-index: 2;
       background: rgba(255, 255, 255, 0.95);
@@ -88,17 +89,17 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       text-align: center;
     }
-    .login-container h2 {
+    .auth-container h2 {
       color: var(--primary);
       margin-bottom: 1rem;
       font-size: 1.8rem;
     }
-    .login-container p {
+    .auth-container p {
       color: #666;
       margin-bottom: 2rem;
       font-size: 1rem;
     }
-    .password-input {
+    .auth-input {
       width: 100%;
       padding: 1rem;
       margin-bottom: 1.5rem;
@@ -107,11 +108,11 @@
       font-size: 1rem;
       transition: border-color 0.3s;
     }
-    .password-input:focus {
+    .auth-input:focus {
       outline: none;
       border-color: var(--primary);
     }
-    .login-button {
+    .auth-button {
       background: var(--primary);
       color: white;
       font-weight: 600;
@@ -122,20 +123,154 @@
       border: none;
       width: 100%;
       transition: all 0.25s;
+      margin-bottom: 1rem;
     }
-    .login-button:hover {
+    .auth-button:hover {
       background: #004080;
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.35);
     }
-    .login-error {
+    .auth-button.secondary {
+      background: #666;
+    }
+    .auth-button.secondary:hover {
+      background: #555;
+    }
+    .auth-error {
       color: var(--dark-red);
       margin-top: 1rem;
       font-weight: 500;
       display: none;
     }
+    .auth-success {
+      color: var(--green);
+      margin-top: 1rem;
+      font-weight: 500;
+      display: none;
+    }
+    .auth-switch {
+      margin-top: 1rem;
+      color: var(--primary);
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .auth-switch:hover {
+      text-decoration: underline;
+    }
     
-    /* Home Page Styles */
+    /* Admin Dashboard */
+    #admin-dashboard {
+      position: relative;
+      min-height: 100vh;
+      display: none;
+      padding: 5rem 5% 3rem;
+      background: #f5f5f5;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .admin-header h1 {
+      color: var(--primary);
+      font-size: 2rem;
+    }
+    .logout-btn {
+      background: var(--dark-red);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      border: none;
+      font-weight: 600;
+    }
+    .logout-btn:hover {
+      background: #b71c1c;
+    }
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .stat-card h3 {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .admin-table-container {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow-x: auto;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .admin-table th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+    }
+    .admin-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    .admin-table tr:hover {
+      background: #f9f9f9;
+    }
+    .view-details {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+    }
+    .view-details:hover {
+      background: #004080;
+    }
+    .filter-section {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-input {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      flex: 1;
+      min-width: 200px;
+    }
+    .export-btn {
+      background: var(--green);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+    }
+    
+    /* Home Page */
     #home {
       position: relative;
       min-height: 100vh;
@@ -162,6 +297,13 @@
       font-size: 2rem;
       color: white;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      margin-bottom: 1rem;
+    }
+    .user-welcome {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
     .button-wrapper {
       display: flex;
@@ -775,6 +917,52 @@
       color: #666;
       font-size: 12px;
     }
+    
+    /* Admin modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+    .modal-close:hover {
+      color: #000;
+    }
+    .modal h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .modal-detail {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    .modal-detail strong {
+      display: inline-block;
+      width: 150px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -788,17 +976,68 @@
     </div>
   </nav>
   
-  <!-- Login Page -->
-  <section id="login">
-    <video class="login-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png">
+  <!-- Auth Page (Login/Signup) -->
+  <section id="auth">
+    <video class="auth-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png">
       <source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af" type="video/mp4">
     </video>
-    <div class="login-container">
-      <h2>Secure Access</h2>
-      <p>Please enter the password to access the Cyber Security Maturity Model</p>
-      <input type="password" id="passwordInput" class="password-input" placeholder="Enter password" onkeypress="handleKeyPress(event)">
-      <button class="login-button" onclick="checkPassword()">Login</button>
-      <div id="loginError" class="login-error">Incorrect password. Please try again.</div>
+    <div class="auth-container">
+      <div id="login-section">
+        <h2>Login</h2>
+        <p>Enter your credentials to access the Cyber Security Maturity Model</p>
+        <input type="email" id="login-email" class="auth-input" placeholder="Email" required>
+        <input type="password" id="login-password" class="auth-input" placeholder="Password" required>
+        <button class="auth-button" onclick="login()">Login</button>
+        <button class="auth-button secondary" onclick="showSignup()">Create New Account</button>
+        <div id="login-error" class="auth-error"></div>
+      </div>
+      
+      <div id="signup-section" style="display: none;">
+        <h2>Create Account</h2>
+        <p>Register to access the Cyber Security Maturity Model</p>
+        <input type="email" id="signup-email" class="auth-input" placeholder="Email" required>
+        <input type="password" id="signup-password" class="auth-input" placeholder="Password" required>
+        <input type="password" id="signup-confirm" class="auth-input" placeholder="Confirm Password" required>
+        <button class="auth-button" onclick="signup()">Sign Up</button>
+        <button class="auth-button secondary" onclick="showLogin()">Back to Login</button>
+        <div id="signup-error" class="auth-error"></div>
+        <div id="signup-success" class="auth-success"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin Dashboard -->
+  <section id="admin-dashboard">
+    <div class="admin-header">
+      <h1>Admin Dashboard - Assessment Results</h1>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    
+    <div class="filter-section">
+      <input type="text" id="search-filter" class="filter-input" placeholder="Search by email..." onkeyup="filterResults()">
+      <input type="date" id="date-filter" class="filter-input" onchange="filterResults()">
+      <button class="export-btn" onclick="exportToCSV()">Export to CSV</button>
+    </div>
+    
+    <div class="admin-stats" id="admin-stats">
+      <!-- Stats will be populated by JavaScript -->
+    </div>
+    
+    <div class="admin-table-container">
+      <table class="admin-table" id="results-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Email</th>
+            <th>Overall Score</th>
+            <th>Maturity Level</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="results-body">
+          <!-- Results will be populated by JavaScript -->
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -808,9 +1047,11 @@
       <source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af" type="video/mp4">
     </video>
     <div class="home-header">
+      <div class="user-welcome" id="welcome-message"></div>
       <h2>SECURE YOUR BUSINESS TODAY</h2>
       <div class="button-wrapper">
         <button class="button" onclick="startAssessment()">Cyber Security Maturity Model</button>
+        <button class="button" id="admin-btn" onclick="showAdminDashboard()" style="display: none;">Admin Dashboard</button>
       </div>
     </div>
   </section>
@@ -2729,7 +2970,7 @@
         </div>
       </div>
       
-      <!-- Results page - FULLY MOBILE FRIENDLY with centered logo -->
+      <!-- Results page -->
       <div id="results" class="q-box" style="display:none;">
         <div class="results-logo">
           <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" alt="Check Point Logo">
@@ -2798,7 +3039,7 @@
     </div>
   </div>
 
-  <!-- Hidden PDF Page 1 - Summary and Pillar Results -->
+  <!-- Hidden PDF Page 1 -->
   <div id="pdf-page-1" class="pdf-page">
     <div class="pdf-header">
       <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
@@ -2834,7 +3075,7 @@
     </div>
   </div>
 
-  <!-- Hidden PDF Page 2 - Recommendations (First Half) -->
+  <!-- Hidden PDF Page 2 -->
   <div id="pdf-page-2" class="pdf-page">
     <div class="pdf-header">
       <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
@@ -2854,7 +3095,7 @@
     </div>
   </div>
 
-  <!-- Hidden PDF Page 3 - Recommendations (Second Half) -->
+  <!-- Hidden PDF Page 3 -->
   <div id="pdf-page-3" class="pdf-page">
     <div class="pdf-header">
       <img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo" alt="Check Point Logo">
@@ -2875,15 +3116,34 @@
   </div>
 
   <script>
-    // Email configuration
-    const EMAIL_CONFIG = {
-      nadineEmail: 'nadine@cyberly.co.za'
+    // =============================================
+    // SUPABASE CONFIGURATION - YOUR KEYS ARE ALREADY INSERTED
+    // =============================================
+    
+    // Your Supabase URL and key (already set up for you)
+    const SUPABASE_URL = 'https://srqyuqhsjfedwulwlvhi.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_uyz4arnlDxpd70tkHxuCLQ_ghq9Zua8';
+    
+    // Initialize Supabase
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    
+    // Table names - using your actual table names
+    const TABLES = {
+      RESULTS: 'maturity_model_results',
+      USERS: 'maturity_model_app_users'
     };
-
-    // Password for accessing the assessment
-    const CORRECT_PASSWORD = 'asdfghjkl';
-
-    // Question to Pillar Mapping
+    
+    // Current user session
+    let currentUser = null;
+    
+    // Your existing variables
+    let currentQuestion = 0;
+    const totalQuestions = 32;
+    let answers = {};
+    let overallScore = 0;
+    let pillarScores = {};
+    
+    // Question to Pillar Mapping (from your original code)
     const questionPillarMapping = {
       q1: 'Hybrid Mesh Network Security',
       q2: 'Hybrid Mesh Network Security',
@@ -2918,7 +3178,7 @@
       q31: 'AI Security',
       q32: 'AI Security'
     };
-
+    
     // Define the four main pillars plus General
     const mainPillars = [
       'Hybrid Mesh Network Security',
@@ -2927,8 +3187,8 @@
       'AI Security',
       'General'
     ];
-
-    // Scoring configuration with weighted answers
+    
+    // Scoring configuration (from your original code)
     const scoringConfig = {
       q1: { maxScore: 50, answers: {
         'Next-Generation Firewall (NGFW)': 5,
@@ -3213,94 +3473,397 @@
         'Fully resilient setup with supply chain verification, quantum-resistant encryption, and automated failover.': 5
       }}
     };
-
-    // Comprehensive recommendations for each pillar
+    
+    // Pillar recommendations (simplified version)
     const pillarRecommendations = {
       'Hybrid Mesh Network Security': [
         { text: 'Deploy Next-Generation Firewalls (NGFW) with advanced threat prevention capabilities', priority: 'critical', threshold: 20 },
         { text: 'Implement network segmentation and microsegmentation to limit lateral movement', priority: 'critical', threshold: 30 },
-        { text: 'Deploy Intrusion Detection/Prevention Systems (IDS/IPS) across all network segments', priority: 'high', threshold: 40 },
-        { text: 'Implement Network Access Control (NAC) for device authentication and compliance', priority: 'high', threshold: 50 },
-        { text: 'Deploy DNS and content filtering to block malicious domains and C2 communications', priority: 'medium', threshold: 60 },
-        { text: 'Implement SASE architecture for secure remote access', priority: 'medium', threshold: 70 },
-        { text: 'Deploy Network Traffic Analysis (NTA) for advanced threat detection', priority: 'low', threshold: 80 },
-        { text: 'Implement deception technologies (honeypots) for early threat detection', priority: 'low', threshold: 90 }
+        { text: 'Deploy Intrusion Detection/Prevention Systems (IDS/IPS) across all network segments', priority: 'high', threshold: 40 }
       ],
       'Workspace Security': [
         { text: 'Deploy Endpoint Detection and Response (EDR) on all endpoints', priority: 'critical', threshold: 25 },
         { text: 'Implement Next-Generation Antivirus (NGAV) across all devices', priority: 'critical', threshold: 30 },
-        { text: 'Enable full disk encryption on all company devices', priority: 'high', threshold: 40 },
-        { text: 'Implement Multi-Factor Authentication (MFA) for all remote access', priority: 'high', threshold: 45 },
-        { text: 'Deploy email security with anti-phishing and attachment sandboxing', priority: 'high', threshold: 50 },
-        { text: 'Implement browser security with content filtering and DLP', priority: 'medium', threshold: 60 },
-        { text: 'Deploy Mobile Device Management (MDM) for company mobile devices', priority: 'medium', threshold: 70 },
-        { text: 'Implement USB and peripheral device control policies', priority: 'low', threshold: 80 }
+        { text: 'Enable full disk encryption on all company devices', priority: 'high', threshold: 40 }
       ],
       'Exposure Management': [
         { text: 'Implement continuous attack surface monitoring', priority: 'critical', threshold: 20 },
         { text: 'Deploy vulnerability management with exposure validation', priority: 'critical', threshold: 30 },
-        { text: 'Implement vendor risk assessment program', priority: 'high', threshold: 40 },
-        { text: 'Monitor dark web for exposed sensitive information', priority: 'high', threshold: 50 },
-        { text: 'Subscribe to threat intelligence feeds for proactive defense', priority: 'medium', threshold: 60 },
-        { text: 'Implement digital brand and phishing protection', priority: 'medium', threshold: 70 },
-        { text: 'Deploy third-party access controls and continuous monitoring', priority: 'low', threshold: 80 },
-        { text: 'Establish comprehensive onboarding/offboarding procedures', priority: 'low', threshold: 90 }
+        { text: 'Implement vendor risk assessment program', priority: 'high', threshold: 40 }
       ],
       'AI Security': [
         { text: 'Implement runtime monitoring for AI systems with anomaly detection and input validation', priority: 'critical', threshold: 20 },
-        { text: 'Establish governance frameworks for GenAI applications with model approval processes and ethical guidelines', priority: 'critical', threshold: 25 },
-        { text: 'Deploy DLP controls for AI-related data including classification, encryption, and exfiltration monitoring', priority: 'high', threshold: 35 },
-        { text: 'Secure AI data centers with enhanced access controls, vulnerability management, and regular audits', priority: 'high', threshold: 45 },
-        { text: 'Implement automated threat response for AI workloads with metrics tracking effectiveness', priority: 'medium', threshold: 55 },
-        { text: 'Integrate AI governance with risk assessments and compliance reporting', priority: 'medium', threshold: 65 },
-        { text: 'Deploy AI-assisted vulnerability scanning for AI infrastructure', priority: 'low', threshold: 75 },
-        { text: 'Implement zero-trust architecture for AI systems with quantum-resistant encryption and automated failover', priority: 'low', threshold: 85 }
+        { text: 'Establish governance frameworks for GenAI applications with model approval processes', priority: 'critical', threshold: 25 },
+        { text: 'Deploy DLP controls for AI-related data including classification and encryption', priority: 'high', threshold: 35 }
       ],
       'General': [
         { text: 'Consolidate security vendors for better visibility and management', priority: 'medium', threshold: 30 },
         { text: 'Implement unified security management platform', priority: 'medium', threshold: 40 },
-        { text: 'Conduct regular security awareness training for all employees', priority: 'high', threshold: 50 },
-        { text: 'Develop and test Incident Response Plan (IRP) with tabletop exercises', priority: 'critical', threshold: 60 },
-        { text: 'Implement Identity and Access Management (IAM) with MFA and PAM', priority: 'critical', threshold: 70 },
-        { text: 'Deploy SIEM for security event monitoring and correlation', priority: 'high', threshold: 80 },
-        { text: 'Establish business continuity and disaster recovery plans', priority: 'medium', threshold: 90 }
+        { text: 'Conduct regular security awareness training for all employees', priority: 'high', threshold: 50 }
       ]
     };
-
-    let currentQuestion = 0;
-    const totalQuestions = 32;
-    let answers = {};
-    let overallScore = 0;
-    let pillarScores = {};
-
-    function checkPassword() {
-      const password = document.getElementById('passwordInput').value;
-      const loginError = document.getElementById('loginError');
+    
+    // =============================================
+    // AUTHENTICATION FUNCTIONS
+    // =============================================
+    
+    async function login() {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const errorDiv = document.getElementById('login-error');
       
-      if (password === CORRECT_PASSWORD) {
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('home').style.display = 'flex';
-        loginError.style.display = 'none';
+      if (!email || !password) {
+        errorDiv.textContent = 'Please enter email and password';
+        errorDiv.style.display = 'block';
+        return;
+      }
+      
+      try {
+        const { data, error } = await supabase
+          .from(TABLES.USERS)
+          .select('*')
+          .eq('email', email)
+          .eq('password', password);
+        
+        if (error) throw error;
+        
+        if (data && data.length > 0) {
+          currentUser = data[0];
+          errorDiv.style.display = 'none';
+          
+          // IMPORTANT: Change this to YOUR email address
+          if (email === 'nadine@cyberly.com') {
+            showAdminDashboard();
+          } else {
+            showHomePage();
+          }
+        } else {
+          errorDiv.textContent = 'Invalid email or password';
+          errorDiv.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        errorDiv.textContent = 'Error logging in. Please try again.';
+        errorDiv.style.display = 'block';
+      }
+    }
+    
+    async function signup() {
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('signup-confirm').value;
+      const errorDiv = document.getElementById('signup-error');
+      const successDiv = document.getElementById('signup-success');
+      
+      if (!email || !password || !confirm) {
+        errorDiv.textContent = 'Please fill in all fields';
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+        return;
+      }
+      
+      if (password !== confirm) {
+        errorDiv.textContent = 'Passwords do not match';
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+        return;
+      }
+      
+      if (password.length < 6) {
+        errorDiv.textContent = 'Password must be at least 6 characters';
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+        return;
+      }
+      
+      try {
+        const { data: existingUser, error: checkError } = await supabase
+          .from(TABLES.USERS)
+          .select('email')
+          .eq('email', email);
+        
+        if (checkError) throw checkError;
+        
+        if (existingUser && existingUser.length > 0) {
+          errorDiv.textContent = 'Email already registered';
+          errorDiv.style.display = 'block';
+          successDiv.style.display = 'none';
+          return;
+        }
+        
+        const { data, error } = await supabase
+          .from(TABLES.USERS)
+          .insert([{ email: email, password: password }])
+          .select();
+        
+        if (error) throw error;
+        
+        errorDiv.style.display = 'none';
+        successDiv.textContent = 'Account created successfully! Please login.';
+        successDiv.style.display = 'block';
+        
+        document.getElementById('signup-email').value = '';
+        document.getElementById('signup-password').value = '';
+        document.getElementById('signup-confirm').value = '';
+        
+        setTimeout(() => {
+          showLogin();
+        }, 2000);
+        
+      } catch (error) {
+        console.error('Signup error:', error);
+        errorDiv.textContent = 'Error creating account. Please try again.';
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+      }
+    }
+    
+    function logout() {
+      currentUser = null;
+      document.getElementById('admin-dashboard').style.display = 'none';
+      document.getElementById('home').style.display = 'none';
+      document.getElementById('assessment').style.display = 'none';
+      document.getElementById('auth').style.display = 'flex';
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('signup-section').style.display = 'none';
+    }
+    
+    function showLogin() {
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('signup-section').style.display = 'none';
+      document.getElementById('login-error').style.display = 'none';
+      document.getElementById('signup-error').style.display = 'none';
+      document.getElementById('signup-success').style.display = 'none';
+    }
+    
+    function showSignup() {
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('signup-section').style.display = 'block';
+      document.getElementById('login-error').style.display = 'none';
+      document.getElementById('signup-error').style.display = 'none';
+      document.getElementById('signup-success').style.display = 'none';
+    }
+    
+    function showHomePage() {
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('admin-dashboard').style.display = 'none';
+      document.getElementById('assessment').style.display = 'none';
+      document.getElementById('home').style.display = 'flex';
+      document.getElementById('welcome-message').textContent = `Welcome, ${currentUser.email}`;
+      
+      // IMPORTANT: Change this to YOUR email address
+      if (currentUser.email === 'your-email@example.com') {
+        document.getElementById('admin-btn').style.display = 'inline-block';
       } else {
-        loginError.style.display = 'block';
-        document.getElementById('passwordInput').value = '';
+        document.getElementById('admin-btn').style.display = 'none';
       }
     }
-
-    function handleKeyPress(event) {
-      if (event.key === 'Enter') {
-        checkPassword();
+    
+    async function showAdminDashboard() {
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('home').style.display = 'none';
+      document.getElementById('assessment').style.display = 'none';
+      document.getElementById('admin-dashboard').style.display = 'block';
+      await loadAdminData();
+    }
+    
+    // =============================================
+    // ADMIN DASHBOARD FUNCTIONS
+    // =============================================
+    
+    async function loadAdminData() {
+      try {
+        const { data: results, error } = await supabase
+          .from(TABLES.RESULTS)
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        
+        window.allResults = results || [];
+        updateAdminStats(results);
+        displayResultsTable(results);
+        
+      } catch (error) {
+        console.error('Error loading admin data:', error);
+        alert('Error loading data from database');
       }
     }
-
+    
+    function updateAdminStats(results) {
+      if (!results || results.length === 0) {
+        document.getElementById('admin-stats').innerHTML = `
+          <div class="stat-card">
+            <h3>Total Assessments</h3>
+            <div class="number">0</div>
+          </div>
+        `;
+        return;
+      }
+      
+      const totalAssessments = results.length;
+      const uniqueUsers = new Set(results.map(r => r.user_email)).size;
+      const avgScore = Math.round(results.reduce((sum, r) => sum + r.overall_score, 0) / totalAssessments);
+      
+      document.getElementById('admin-stats').innerHTML = `
+        <div class="stat-card">
+          <h3>Total Assessments</h3>
+          <div class="number">${totalAssessments}</div>
+        </div>
+        <div class="stat-card">
+          <h3>Unique Users</h3>
+          <div class="number">${uniqueUsers}</div>
+        </div>
+        <div class="stat-card">
+          <h3>Average Score</h3>
+          <div class="number">${avgScore}%</div>
+        </div>
+      `;
+    }
+    
+    function displayResultsTable(results) {
+      const tbody = document.getElementById('results-body');
+      
+      if (!results || results.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem;">No results found</td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = results.map(result => `
+        <tr>
+          <td>${new Date(result.created_at).toLocaleDateString()}</td>
+          <td>${result.user_email}</td>
+          <td><strong>${result.overall_score}%</strong></td>
+          <td>${result.maturity_level}</td>
+          <td>
+            <button class="view-details" onclick="viewResultDetails('${result.id}')">View Details</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    function filterResults() {
+      const searchTerm = document.getElementById('search-filter').value.toLowerCase();
+      const dateFilter = document.getElementById('date-filter').value;
+      
+      let filtered = window.allResults || [];
+      
+      if (searchTerm) {
+        filtered = filtered.filter(r => r.user_email.toLowerCase().includes(searchTerm));
+      }
+      
+      if (dateFilter) {
+        filtered = filtered.filter(r => {
+          const resultDate = new Date(r.created_at).toISOString().split('T')[0];
+          return resultDate === dateFilter;
+        });
+      }
+      
+      displayResultsTable(filtered);
+      updateAdminStats(filtered);
+    }
+    
+    async function viewResultDetails(resultId) {
+      try {
+        const { data, error } = await supabase
+          .from(TABLES.RESULTS)
+          .select('*')
+          .eq('id', resultId)
+          .single();
+        
+        if (error) throw error;
+        
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.style.display = 'flex';
+        
+        let pillarDetails = '';
+        if (data.pillar_scores) {
+          pillarDetails = Object.entries(data.pillar_scores)
+            .map(([pillar, scores]) => `
+              <div class="modal-detail">
+                <strong>${pillar}:</strong> ${scores.percentage}% (${scores.score}/${scores.maxScore})
+              </div>
+            `).join('');
+        }
+        
+        modal.innerHTML = `
+          <div class="modal-content">
+            <span class="modal-close" onclick="this.closest('.modal').remove()">&times;</span>
+            <h2>Assessment Details</h2>
+            <div class="modal-detail"><strong>Date:</strong> ${new Date(data.created_at).toLocaleString()}</div>
+            <div class="modal-detail"><strong>Email:</strong> ${data.user_email}</div>
+            <div class="modal-detail"><strong>Overall Score:</strong> ${data.overall_score}%</div>
+            <div class="modal-detail"><strong>Maturity Level:</strong> ${data.maturity_level}</div>
+            <h3 style="margin: 1rem 0 0.5rem;">Pillar Scores</h3>
+            ${pillarDetails}
+            <div style="text-align: right; margin-top: 1rem;">
+              <button class="view-details" onclick="this.closest('.modal').remove()">Close</button>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+      } catch (error) {
+        console.error('Error fetching result details:', error);
+        alert('Error loading result details');
+      }
+    }
+    
+    function exportToCSV() {
+      const results = window.allResults || [];
+      
+      if (results.length === 0) {
+        alert('No data to export');
+        return;
+      }
+      
+      const headers = ['Date', 'Email', 'Overall Score', 'Maturity Level'];
+      const rows = results.map(r => [
+        new Date(r.created_at).toLocaleDateString(),
+        r.user_email,
+        r.overall_score,
+        r.maturity_level
+      ]);
+      
+      const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.join(','))
+      ].join('\n');
+      
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `assessment_results_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+    
+    // =============================================
+    // ASSESSMENT FUNCTIONS (from your original code)
+    // =============================================
+    
     function startAssessment() {
+      answers = {};
+      document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+        input.checked = false;
+        input.closest('.answer')?.classList.remove('selected');
+      });
+      
       document.getElementById('home').style.display = 'none';
       document.getElementById('assessment').style.display = 'flex';
+      
       currentQuestion = 1;
+      document.querySelectorAll('.q-box').forEach(box => {
+        box.classList.remove('active');
+      });
       document.getElementById('q1').classList.add('active');
+      
       updateUI();
     }
-
+    
     function retakeAssessment() {
       answers = {};
       document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
@@ -3315,7 +3878,7 @@
       });
       updateUI();
     }
-
+    
     function updateUI() {
       const isQuestion = currentQuestion >= 1 && currentQuestion <= totalQuestions;
       document.getElementById('question-bg').classList.toggle('active', isQuestion);
@@ -3323,7 +3886,7 @@
       const progress = isQuestion ? (currentQuestion / totalQuestions) * 100 : 0;
       document.getElementById('question-progress-bar').style.width = progress + '%';
     }
-
+    
     function nextQuestion(q) {
       const box = document.getElementById(`q${q}`);
       const checked = box.querySelectorAll('input:checked');
@@ -3345,7 +3908,7 @@
       }
       updateUI();
     }
-
+    
     function prevQuestion(q) {
       if (q <= 1) return;
       document.getElementById(`q${q}`).classList.remove('active');
@@ -3353,64 +3916,78 @@
       document.getElementById(`q${currentQuestion}`).classList.add('active');
       updateUI();
     }
-
-    function showResultsPage() {
+    
+    async function showResultsPage() {
       document.getElementById('final').style.display = 'none';
       document.getElementById('results').style.display = 'block';
       updateUI();
+      
       pillarScores = calculatePillarScores();
       overallScore = calculateOverallScore(pillarScores);
-      
-      // Ensure overall score never exceeds 100
       overallScore = Math.min(overallScore, 100);
       
       document.getElementById('overall-score').textContent = `${overallScore}%`;
-      document.getElementById('maturity-level').textContent = getMaturityLevel(overallScore);
+      const maturityLevel = getMaturityLevel(overallScore);
+      document.getElementById('maturity-level').textContent = maturityLevel;
       displayPillarScores(pillarScores);
       generateRecommendations(pillarScores, overallScore);
+      
+      // Save to Supabase if user is logged in
+      if (currentUser) {
+        await saveResultsToSupabase(overallScore, maturityLevel);
+      }
     }
-
+    
+    async function saveResultsToSupabase(overallScore, maturityLevel) {
+      try {
+        const resultData = {
+          user_email: currentUser.email,
+          overall_score: overallScore,
+          maturity_level: maturityLevel,
+          pillar_scores: pillarScores,
+          answers: answers
+        };
+        
+        const { data, error } = await supabase
+          .from(TABLES.RESULTS)
+          .insert([resultData]);
+        
+        if (error) throw error;
+        
+        const autoEmailNotice = document.getElementById('autoEmailNotice');
+        autoEmailNotice.textContent = '✅ Your assessment results have been saved to your profile';
+        autoEmailNotice.style.display = 'block';
+        autoEmailNotice.style.background = '#d4edda';
+        autoEmailNotice.style.color = '#155724';
+        
+      } catch (error) {
+        console.error('Error saving results to Supabase:', error);
+      }
+    }
+    
     function calculatePillarScores() {
       const pillarScores = {};
-      
-      // Initialize all main pillars
       mainPillars.forEach(pillar => {
-        pillarScores[pillar] = {
-          score: 0,
-          maxScore: 0,
-          percentage: 0
-        };
+        pillarScores[pillar] = { score: 0, maxScore: 0, percentage: 0 };
       });
       
-      // Calculate scores for each question
       for (let i = 1; i <= totalQuestions; i++) {
         const questionKey = `q${i}`;
         const selectedAnswers = answers[questionKey] || [];
         const config = scoringConfig[questionKey];
-        
         if (!config) continue;
         
         const pillar = questionPillarMapping[questionKey] || 'General';
-        
-        // Calculate score for this question
         let questionScore = 0;
         
-        // Check if this is a radio button question (single select)
         const isRadio = document.querySelector(`input[name="${questionKey}"][type="radio"]`) !== null;
         
-        if (isRadio) {
-          // For radio buttons, only the selected answer should count (if any)
-          if (selectedAnswers.length > 0) {
-            // Radio buttons should only have one selected answer
-            const answerText = selectedAnswers[0];
-            if (config.answers[answerText] !== undefined) {
-              questionScore = config.answers[answerText];
-            }
+        if (isRadio && selectedAnswers.length > 0) {
+          const answerText = selectedAnswers[0];
+          if (config.answers[answerText] !== undefined) {
+            questionScore = config.answers[answerText];
           }
-          // Ensure we don't exceed max score
-          questionScore = Math.min(questionScore, config.maxScore);
         } else {
-          // For checkboxes, sum all selected answers
           selectedAnswers.forEach(answerText => {
             if (config.answers[answerText] !== undefined) {
               questionScore += config.answers[answerText];
@@ -3418,41 +3995,34 @@
           });
         }
         
-        // Update pillar scores
+        questionScore = Math.min(questionScore, config.maxScore);
+        
         if (pillarScores[pillar]) {
           pillarScores[pillar].score += questionScore;
           pillarScores[pillar].maxScore += config.maxScore;
         }
       }
       
-      // Calculate percentages and ensure they never exceed 100%
       Object.keys(pillarScores).forEach(pillar => {
-        const pillarData = pillarScores[pillar];
-        if (pillarData.maxScore > 0) {
-          // Ensure score never exceeds max score
-          pillarData.score = Math.min(pillarData.score, pillarData.maxScore);
-          pillarData.percentage = Math.min(Math.round((pillarData.score / pillarData.maxScore) * 100), 100);
-        } else {
-          pillarData.percentage = 0;
+        const data = pillarScores[pillar];
+        if (data.maxScore > 0) {
+          data.score = Math.min(data.score, data.maxScore);
+          data.percentage = Math.min(Math.round((data.score / data.maxScore) * 100), 100);
         }
       });
       
       return pillarScores;
     }
-
+    
     function calculateOverallScore(pillarScores) {
-      let totalScore = 0;
-      let totalMaxScore = 0;
-      
+      let totalScore = 0, totalMaxScore = 0;
       Object.keys(pillarScores).forEach(pillar => {
         totalScore += pillarScores[pillar].score;
         totalMaxScore += pillarScores[pillar].maxScore;
       });
-      
-      // Ensure overall percentage never exceeds 100%
       return totalMaxScore > 0 ? Math.min(Math.round((totalScore / totalMaxScore) * 100), 100) : 0;
     }
-
+    
     function getMaturityLevel(percentage) {
       if (percentage >= 90) return 'Advanced Maturity';
       if (percentage >= 75) return 'Established Maturity';
@@ -3460,7 +4030,7 @@
       if (percentage >= 40) return 'Initial Maturity';
       return 'Limited Maturity';
     }
-
+    
     function displayPillarScores(pillarScores) {
       const tableBody = document.getElementById('pillars-body');
       tableBody.innerHTML = '';
@@ -3471,7 +4041,6 @@
       
       pillarsToShow.forEach(pillar => {
         const data = pillarScores[pillar];
-        // Double-check score doesn't exceed max
         const displayScore = Math.min(data.score, data.maxScore);
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -3488,13 +4057,13 @@
         tableBody.appendChild(row);
       });
     }
-
+    
     function getScoreColor(percentage) {
       if (percentage >= 80) return '#2E7D32';
       if (percentage >= 60) return '#FF9800';
       return '#D32F2F';
     }
-
+    
     function generateRecommendations(pillarScores, overallScore) {
       const recommendationsGrid = document.getElementById('recommendations-grid');
       const noRecommendationsDiv = document.getElementById('no-recommendations');
@@ -3512,16 +4081,11 @@
       recommendationsGrid.style.display = 'grid';
       noRecommendationsDiv.style.display = 'none';
       
-      // Get all pillars with data
       const pillarsWithData = mainPillars
         .filter(pillar => pillarScores[pillar] && pillarScores[pillar].maxScore > 0)
-        .map(pillar => ({
-          name: pillar,
-          percentage: pillarScores[pillar].percentage
-        }))
+        .map(pillar => ({ name: pillar, percentage: pillarScores[pillar].percentage }))
         .sort((a, b) => a.percentage - b.percentage);
       
-      // Show recommendations for ALL pillars that need improvement (below 80%)
       const pillarsNeedingImprovement = pillarsWithData.filter(pillar => pillar.percentage < 80);
       
       pillarsNeedingImprovement.forEach(pillar => {
@@ -3529,23 +4093,15 @@
         const pillarRecs = pillarRecommendations[pillar.name];
         
         if (pillarRecs) {
-          // Get recommendations where current percentage is below threshold
-          const applicableRecs = pillarRecs.filter(rec => percentage < rec.threshold);
+          const applicableRecs = pillarRecs.filter(rec => percentage < rec.threshold).slice(0, 3);
           
-          // Sort by priority
-          const priorityOrder = { critical: 1, high: 2, medium: 3, low: 4 };
-          applicableRecs.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-          
-          // Show up to 3 recommendations per pillar
-          const displayedRecs = applicableRecs.slice(0, 3);
-          
-          if (displayedRecs.length > 0) {
+          if (applicableRecs.length > 0) {
             const card = document.createElement('div');
             card.className = 'recommendation-card';
-            let recommendationsHTML = `<h4>${pillar.name} <span class="priority-badge priority-${displayedRecs[0].priority}">Priority: ${displayedRecs[0].priority.toUpperCase()}</span></h4>`;
+            let recommendationsHTML = `<h4>${pillar.name} <span class="priority-badge priority-${applicableRecs[0].priority}">Priority: ${applicableRecs[0].priority.toUpperCase()}</span></h4>`;
             recommendationsHTML += `<p><strong>Current Maturity: ${percentage}%</strong></p>`;
             recommendationsHTML += '<div class="recommendation-list">';
-            displayedRecs.forEach(rec => {
+            applicableRecs.forEach(rec => {
               recommendationsHTML += `<div class="recommendation-item recommendation-${rec.priority}">${rec.text}</div>`;
             });
             recommendationsHTML += '</div>';
@@ -3554,39 +4110,20 @@
           }
         }
       });
-      
-      // If no recommendations at all, show a message
-      if (recommendationsGrid.children.length === 0) {
-        const infoCard = document.createElement('div');
-        infoCard.className = 'recommendation-card';
-        infoCard.innerHTML = `
-          <h4>Great Progress!</h4>
-          <p>Your organization is doing well in the assessed areas. Continue to monitor and improve your security posture.</p>
-          <div class="recommendation-list">
-            <div class="recommendation-item recommendation-medium">Consider advanced threat hunting capabilities</div>
-            <div class="recommendation-item recommendation-medium">Implement automation for security operations</div>
-            <div class="recommendation-item recommendation-low">Review and update security policies regularly</div>
-          </div>
-        `;
-        recommendationsGrid.appendChild(infoCard);
-      }
     }
-
+    
     async function generatePDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF('p', 'mm', 'a4');
       const today = new Date().toLocaleDateString();
       
-      // Show loading state
       const originalText = document.getElementById('pdfBtn').textContent;
       document.getElementById('pdfBtn').textContent = 'Generating PDF...';
       document.getElementById('pdfBtn').disabled = true;
       
       try {
-        // Prepare all PDF pages
         await preparePDFPages(today);
         
-        // Capture Page 1
         const page1Element = document.getElementById('pdf-page-1');
         const canvas1 = await html2canvas(page1Element, {
           scale: 2,
@@ -3599,7 +4136,6 @@
         const imgHeight1 = (canvas1.height * imgWidth) / canvas1.width;
         doc.addImage(imgData1, 'JPEG', 10, 10, imgWidth, imgHeight1);
         
-        // Capture Page 2
         doc.addPage();
         const page2Element = document.getElementById('pdf-page-2');
         const canvas2 = await html2canvas(page2Element, {
@@ -3612,7 +4148,6 @@
         const imgHeight2 = (canvas2.height * imgWidth) / canvas2.width;
         doc.addImage(imgData2, 'JPEG', 10, 10, imgWidth, imgHeight2);
         
-        // Capture Page 3
         doc.addPage();
         const page3Element = document.getElementById('pdf-page-3');
         const canvas3 = await html2canvas(page3Element, {
@@ -3625,10 +4160,8 @@
         const imgHeight3 = (canvas3.height * imgWidth) / canvas3.width;
         doc.addImage(imgData3, 'JPEG', 10, 10, imgWidth, imgHeight3);
         
-        // Save the PDF
         doc.save(`CyberSecurity_Maturity_Report_${new Date().toISOString().slice(0, 10)}.pdf`);
         
-        // Reset button
         document.getElementById('pdfBtn').textContent = originalText;
         document.getElementById('pdfBtn').disabled = false;
         
@@ -3639,27 +4172,24 @@
         document.getElementById('pdfBtn').disabled = false;
       }
     }
-
+    
     async function preparePDFPages(today) {
-      // Set dates on all pages
       for (let i = 1; i <= 3; i++) {
         document.getElementById(`pdf-date-${i}`).textContent = today;
         document.getElementById(`pdf-footer-date-${i}`).textContent = today;
       }
       
-      // Set overall score and maturity level on page 1
       document.getElementById('pdf-overall-score-1').textContent = overallScore + '%';
       document.getElementById('pdf-maturity-level-1').textContent = getMaturityLevel(overallScore);
       
-      // Populate pillars table on page 1
       const pdfPillarsBody = document.getElementById('pdf-pillars-body-1');
       pdfPillarsBody.innerHTML = '';
       const pillarsToShow = mainPillars.filter(pillar => 
         pillarScores[pillar] && pillarScores[pillar].maxScore > 0
       );
+      
       pillarsToShow.forEach(pillar => {
         const data = pillarScores[pillar];
-        // Ensure score doesn't exceed max for display
         const displayScore = Math.min(data.score, data.maxScore);
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -3675,67 +4205,8 @@
         `;
         pdfPillarsBody.appendChild(row);
       });
-      
-      // Prepare recommendations - include ALL pillars that need improvement
-      const pillarsWithData = mainPillars
-        .filter(pillar => pillarScores[pillar] && pillarScores[pillar].maxScore > 0)
-        .map(pillar => ({
-          name: pillar,
-          percentage: pillarScores[pillar].percentage
-        }))
-        .sort((a, b) => a.percentage - b.percentage);
-      
-      const pillarsNeedingImprovement = pillarsWithData.filter(pillar => pillar.percentage < 80);
-      
-      // Generate recommendation items
-      const recommendationItems = [];
-      
-      pillarsNeedingImprovement.forEach(pillar => {
-        const percentage = pillar.percentage;
-        const pillarRecs = pillarRecommendations[pillar.name];
-        if (pillarRecs) {
-          const applicableRecs = pillarRecs.filter(rec => percentage < rec.threshold);
-          const priorityOrder = { critical: 1, high: 2, medium: 3, low: 4 };
-          applicableRecs.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-          const displayedRecs = applicableRecs.slice(0, 3);
-          
-          if (displayedRecs.length > 0) {
-            let recHTML = `<div class="pdf-recommendation">`;
-            recHTML += `<h3>${pillar.name} (Current Maturity: ${percentage}%)</h3>`;
-            displayedRecs.forEach(rec => {
-              let bgColor = '';
-              if (rec.priority === 'critical') bgColor = '#d32f2f';
-              else if (rec.priority === 'high') bgColor = '#ff9800';
-              else if (rec.priority === 'medium') bgColor = '#ffc107';
-              else bgColor = '#4caf50';
-              let textColor = (rec.priority === 'high' || rec.priority === 'medium') ? '#000000' : '#ffffff';
-              recHTML += `<div class="pdf-recommendation-item" style="background: ${bgColor}; color: ${textColor};">${rec.text}</div>`;
-            });
-            recHTML += `</div>`;
-            recommendationItems.push(recHTML);
-          }
-        }
-      });
-      
-      // Split recommendations between page 2 and page 3
-      const midpoint = Math.ceil(recommendationItems.length / 2);
-      
-      document.getElementById('pdf-recommendations-1').innerHTML = recommendationItems.slice(0, midpoint).join('');
-      document.getElementById('pdf-recommendations-2').innerHTML = recommendationItems.slice(midpoint).join('');
-      
-      // Handle case with no recommendations
-      if (recommendationItems.length === 0) {
-        const noRecMsg = '<p>Excellent security posture! No recommendations at this time.</p>';
-        document.getElementById('pdf-recommendations-1').innerHTML = noRecMsg;
-        document.getElementById('pdf-recommendations-2').innerHTML = noRecMsg;
-      }
-      
-      // Handle case where only one page of recommendations is needed
-      if (recommendationItems.length <= midpoint) {
-        document.getElementById('pdf-recommendations-2').innerHTML = '<p>Additional recommendations will appear here if needed.</p>';
-      }
     }
-
+    
     function sendReportToClient() {
       const clientEmail = document.getElementById('clientEmail').value;
       const emailSuccess = document.getElementById('emailSuccess');
@@ -3757,20 +4228,19 @@
         emailSuccess.style.display = 'block';
       }, 2000);
     }
-
+    
     function isValidEmail(email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     }
-
-    // Exclusive option logic
+    
+    // Initialize
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.answer input').forEach(inp => {
         inp.addEventListener('change', function() {
           const answer = this.closest('.answer');
           answer.classList.toggle('selected', this.checked);
           
-          // Handle exclusive options (Not sure, I don't know, None of the above, We do not allow any remote access)
           if (this.classList.contains('exclusive')) {
             if (this.checked) {
               const questionName = this.name;
@@ -3780,7 +4250,6 @@
               });
             }
           } else {
-            // If a non-exclusive option is checked, uncheck any exclusive options
             const questionName = this.name;
             document.querySelectorAll(`input[name="${questionName}"].exclusive`).forEach(exclusiveInp => {
               exclusiveInp.checked = false;
