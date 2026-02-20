@@ -314,7 +314,7 @@
     .progress-border { height: 14px; background: #e0e0e0; border-radius: 7px; margin: 2rem auto; max-width: 440px; overflow: hidden; }
     #progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 2.8s ease-out; }
    
-    /* Results Page (standalone, white background) */
+    /* Results Page - Mobile Friendly Table */
     #results-container {
       min-height: 100vh;
       background: #ffffff;
@@ -331,23 +331,57 @@
       border: 1px solid #e8e8e8;
     }
     .results-summary { text-align: center; margin-bottom: 2rem; }
-    /* Logo only appears once, inside the results container */
+    /* Single logo, no duplicate */
     .results-logo { display: flex; justify-content: center; margin-bottom: 1.5rem; }
     .results-logo img { height: 40px; width: auto; }
     .overall-score { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
     .maturity-level { font-size: 1.3rem; color: #555; margin-bottom: 1.5rem; }
+    
+    /* Mobile-friendly table container with horizontal scroll */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
     .pillars-table {
-      width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: white; border-radius: 10px;
-      overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      min-width: 600px; /* Ensures table doesn't squish on mobile, triggers scroll */
     }
     .pillars-table th { 
-      background: var(--primary); color: white; padding: 1rem; text-align: left; font-weight: 600; 
+      background: var(--primary); 
+      color: white; 
+      padding: 1rem; 
+      text-align: left; 
+      font-weight: 600; 
+      white-space: nowrap;
     }
-    .pillars-table td { padding: 1rem; border-bottom: 1px solid #eee; }
+    .pillars-table td { 
+      padding: 1rem; 
+      border-bottom: 1px solid #eee; 
+      white-space: nowrap;
+    }
     .pillar-name { font-weight: 600; color: #333; }
     .score-cell { text-align: center; font-weight: 600; }
-    .score-bar-container { width: 100%; max-width: 200px; height: 16px; background: #f0f0f0; border-radius: 8px; overflow: hidden; }
-    .score-bar { height: 100%; background: var(--primary); border-radius: 8px; transition: width 1s ease-out; }
+    .score-bar-container { 
+      width: 120px; 
+      height: 16px; 
+      background: #f0f0f0; 
+      border-radius: 8px; 
+      overflow: hidden; 
+      display: inline-block;
+    }
+    .score-bar { 
+      height: 100%; 
+      background: var(--primary); 
+      border-radius: 8px; 
+      transition: width 1s ease-out; 
+    }
+    
     .recommendations-grid {
       display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem;
     }
@@ -2504,10 +2538,10 @@
     </div>
   </div>
 
-  <!-- Standalone Results Page (White Background, Single Logo) -->
+  <!-- Standalone Results Page (White Background, Single Logo, Mobile-Friendly Table) -->
   <div id="results-container">
     <div class="results-wrapper">
-      <!-- Logo appears only once, here -->
+      <!-- Single logo -->
       <div class="results-logo"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" alt="Check Point Logo"></div>
       <div class="results-summary">
         <div class="overall-score" id="overall-score">0%</div>
@@ -2515,10 +2549,13 @@
       </div>
       <div class="auto-email-notice" id="autoEmailNotice">📧 A copy of your assessment results has been saved.</div>
       <h3 style="margin:1.5rem 0 1rem;font-size:1.2rem;">Security Pillar Results</h3>
-      <table class="pillars-table" id="pillars-table">
-        <thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead>
-        <tbody id="pillars-body"></tbody>
-      </table>
+      <!-- Mobile-friendly table container with horizontal scroll -->
+      <div class="table-responsive">
+        <table class="pillars-table" id="pillars-table">
+          <thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead>
+          <tbody id="pillars-body"></tbody>
+        </table>
+      </div>
       <div class="recommendations"><h2 style="text-align:center;margin-bottom:1.5rem;" id="recommendations-header">Personalized Recommendations</h2><div id="no-recommendations" class="no-recommendations" style="display:none;"><h3>🎉 Excellent Security Posture!</h3><p>Congratulations! Your organization has achieved exceptional maturity across all security pillars based on your specific selections.</p><p>Continue with regular security assessments and stay updated with emerging threats.</p></div><div class="recommendations-grid" id="recommendations-grid"></div></div>
       <div class="email-form"><h3>📧 Get Your Personalized Report Emailed to You</h3><p>Enter your email address to receive a copy of your security maturity report with tailored recommendations:</p><input type="email" id="clientEmail" placeholder="your.email@company.com" required><div class="email-success" id="emailSuccess">✅ Your report has been sent to your email address!</div><div class="email-error" id="emailError">❌ There was an error sending your report. Please try again.</div></div>
       <div class="download-section"><div class="btn-box-wrap email-buttons"><button class="button" onclick="retakeAssessment()">Retake Assessment</button><button class="pdf-button" id="pdfBtn" onclick="generatePDF()">Download PDF Report</button><button class="email-button" onclick="sendReportToClient()">Send Me The Report</button><button class="dashboard-btn" id="view-dashboard-btn" onclick="goBackFromResults()">Back to Dashboard</button></div></div>
@@ -2546,7 +2583,7 @@
     let viewingResultId = null;
 
     // Admin emails
-    const ADMIN_EMAILS = ['nadine@cyberly.co.za', 'rudiv@checkpoint.com', ianv@checkpoint.com];
+    const ADMIN_EMAILS = ['nadine@cyberly.co.za', 'rudiv@checkpoint.com'];
 
     // Question -> pillar mapping
     const questionPillarMapping = {
@@ -2683,7 +2720,7 @@
           let full = `${currentUser.first_name||''} ${currentUser.last_name||''}`.trim();
           document.getElementById('welcome-message').textContent = `Welcome, ${full||currentUser.email}`;
           document.getElementById('my-results-btn').style.display='inline-block';
-          // Show admin button for both nadine, rudiv and ianv
+          // Show admin button for both nadine and rudiv
           document.getElementById('admin-btn').style.display = ADMIN_EMAILS.includes(e) ? 'inline-block' : 'none';
           if(document.getElementById('remember-me').checked) localStorage.setItem('rememberedEmail',e); else localStorage.removeItem('rememberedEmail');
         } else { err.textContent='Invalid email or password'; err.style.display='block'; }
@@ -3006,5 +3043,3 @@
   </script>
 </body>
 </html>
-
-
