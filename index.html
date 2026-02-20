@@ -282,15 +282,56 @@
     input:checked + .radio::after, input:checked + .checkbox::after {
       content: ""; position: absolute; inset: 4px; background: var(--primary); border-radius: inherit;
     }
-    .btn-box-wrap { display: flex; justify-content: space-between; margin-top: 1.5rem; gap: 1rem; flex-wrap: wrap; }
+    .btn-box-wrap {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .back-to-dashboard-btn {
+      background: #6c757d;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 1.1rem 2.4rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      cursor: pointer;
+      border: none;
+      min-width: 260px;
+      transition: all 0.25s;
+      touch-action: manipulation;
+    }
+    .back-to-dashboard-btn:hover {
+      background: #5a6268;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
     .last-box { text-align: center; padding: 3rem 1.5rem; border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
     .last-box .title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
     .last-box .text { font-size: 1rem; margin: 1rem 0 1.5rem; color: #555; }
     .progress-border { height: 14px; background: #e0e0e0; border-radius: 7px; margin: 2rem auto; max-width: 440px; overflow: hidden; }
     #progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 2.8s ease-out; }
    
-    /* Results Page (shared for fresh results and historical view) */
+    /* Results Page (standalone, white background) */
+    #results-container {
+      min-height: 100vh;
+      background: #ffffff;
+      padding: 90px 5% 60px;
+      display: none;
+    }
+    .results-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+      border: 1px solid #e8e8e8;
+    }
     .results-summary { text-align: center; margin-bottom: 2rem; }
+    /* Logo only appears once, inside the results container */
     .results-logo { display: flex; justify-content: center; margin-bottom: 1.5rem; }
     .results-logo img { height: 40px; width: auto; }
     .overall-score { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
@@ -307,7 +348,6 @@
     .score-cell { text-align: center; font-weight: 600; }
     .score-bar-container { width: 100%; max-width: 200px; height: 16px; background: #f0f0f0; border-radius: 8px; overflow: hidden; }
     .score-bar { height: 100%; background: var(--primary); border-radius: 8px; transition: width 1s ease-out; }
-    
     .recommendations-grid {
       display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem;
     }
@@ -349,29 +389,112 @@
     .email-buttons { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
     .email-buttons .button, .email-buttons .pdf-button, .email-buttons .email-button { min-width: auto; width: 100%; max-width: 300px; padding: 0.8rem 1.5rem; font-size: 1rem; }
     
-    /* PDF styles */
+    /* PDF styles (used for generation) */
     .pdf-page {
-      width: 210mm; min-height: 297mm; padding: 20mm; background: white; font-family: Arial, sans-serif;
-      box-sizing: border-box; position: absolute; left: -9999px; top: 0;
+      width: 210mm;
+      min-height: 297mm;
+      padding: 20mm;
+      background: white;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+      position: absolute;
+      left: -9999px;
+      top: 0;
     }
-    .pdf-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #0055a5; padding-bottom: 20px; }
-    .pdf-logo { height: 50px; margin-bottom: 15px; }
-    .pdf-header h1 { color: #0055a5; font-size: 24px; }
-    .pdf-date { color: #666; font-size: 14px; text-align: center; margin: 5px 0 20px; }
-    .pdf-section { margin-bottom: 30px; }
-    .pdf-section h2 { color: #0055a5; font-size: 22px; border-bottom: 2px solid #0055a5; padding-bottom: 10px; margin-bottom: 20px; }
-    .pdf-score-summary { text-align: center; margin-bottom: 30px; padding: 20px; background: #f5f5f5; border-radius: 10px; }
-    .pdf-overall-score { font-size: 48px; font-weight: bold; color: #0055a5; }
-    .pdf-maturity-level { font-size: 24px; color: #666; }
-    .pdf-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-    .pdf-table th { background: #0055a5; color: white; padding: 12px; text-align: left; }
-    .pdf-table td { padding: 10px; border-bottom: 1px solid #ddd; }
-    .pdf-progress-bar { width: 100%; height: 20px; background: #f0f0f0; border-radius: 10px; overflow: hidden; }
-    .pdf-progress-fill { height: 100%; background: #0055a5; }
-    .pdf-recommendation { margin-bottom: 20px; page-break-inside: avoid; }
-    .pdf-recommendation h3 { color: #0055a5; margin-bottom: 10px; }
-    .pdf-recommendation-item { padding: 10px; margin-bottom: 5px; border-radius: 5px; color: white; }
-    .pdf-footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px; }
+    .pdf-header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #0055a5;
+      padding-bottom: 20px;
+    }
+    .pdf-logo {
+      height: 50px;
+      margin-bottom: 15px;
+    }
+    .pdf-header h1 {
+      color: #0055a5;
+      font-size: 24px;
+    }
+    .pdf-date {
+      color: #666;
+      font-size: 14px;
+      text-align: center;
+      margin: 5px 0 20px;
+    }
+    .pdf-section {
+      margin-bottom: 30px;
+    }
+    .pdf-section h2 {
+      color: #0055a5;
+      font-size: 22px;
+      border-bottom: 2px solid #0055a5;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .pdf-score-summary {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 10px;
+    }
+    .pdf-overall-score {
+      font-size: 48px;
+      font-weight: bold;
+      color: #0055a5;
+    }
+    .pdf-maturity-level {
+      font-size: 24px;
+      color: #666;
+    }
+    .pdf-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    .pdf-table th {
+      background: #0055a5;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+    .pdf-table td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .pdf-progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .pdf-progress-fill {
+      height: 100%;
+      background: #0055a5;
+    }
+    .pdf-recommendation {
+      margin-bottom: 20px;
+      page-break-inside: avoid;
+    }
+    .pdf-recommendation h3 {
+      color: #0055a5;
+      margin-bottom: 10px;
+    }
+    .pdf-recommendation-item {
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      color: white;
+    }
+    .pdf-footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      color: #666;
+      font-size: 12px;
+    }
   </style>
 </head>
 <body>
@@ -2378,25 +2501,31 @@
       
       <!-- Calculating page -->
       <div id="final" class="q-box last-box" style="display:none;"><div class="title">Calculating your score</div><div class="text">PROGRESS</div><div class="progress-border"><div id="progress-bar"></div></div></div>
-      
-      <!-- Results page (also used for viewing past results) -->
-      <div id="results" class="q-box" style="display:none;">
-        <div class="results-logo"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" alt="Check Point Logo"></div>
-        <div class="results-summary"><div class="q-header">Your Cyber Security Maturity Results</div><div class="overall-score" id="overall-score">0%</div><div class="maturity-level" id="maturity-level">Calculating...</div></div>
-        <div class="auto-email-notice" id="autoEmailNotice">📧 A copy of your assessment results has been saved.</div>
-        <h3 style="margin:1.5rem 0 1rem;font-size:1.2rem;">Security Pillar Results</h3>
-        <table class="pillars-table" id="pillars-table">
-          <thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead>
-          <tbody id="pillars-body"></tbody>
-        </table>
-        <div class="recommendations"><h2 style="text-align:center;margin-bottom:1.5rem;" id="recommendations-header">Personalized Recommendations</h2><div id="no-recommendations" class="no-recommendations" style="display:none;"><h3>🎉 Excellent Security Posture!</h3><p>Congratulations! Your organization has achieved exceptional maturity across all security pillars based on your specific selections.</p><p>Continue with regular security assessments and stay updated with emerging threats.</p></div><div class="recommendations-grid" id="recommendations-grid"></div></div>
-        <div class="email-form"><h3>📧 Get Your Personalized Report Emailed to You</h3><p>Enter your email address to receive a copy of your security maturity report with tailored recommendations:</p><input type="email" id="clientEmail" placeholder="your.email@company.com" required><div class="email-success" id="emailSuccess">✅ Your report has been sent to your email address!</div><div class="email-error" id="emailError">❌ There was an error sending your report. Please try again.</div></div>
-        <div class="download-section"><div class="btn-box-wrap email-buttons"><button class="button" onclick="retakeAssessment()">Retake Assessment</button><button class="pdf-button" onclick="generatePDF()">Download PDF Report</button><button class="email-button" onclick="sendReportToClient()">Send Me The Report</button><button class="dashboard-btn" id="view-dashboard-btn" onclick="goBackFromResults()">Back to Dashboard</button></div></div>
-      </div>
     </div>
   </div>
 
-  <!-- Hidden PDF pages -->
+  <!-- Standalone Results Page (White Background, Single Logo) -->
+  <div id="results-container">
+    <div class="results-wrapper">
+      <!-- Logo appears only once, here -->
+      <div class="results-logo"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" alt="Check Point Logo"></div>
+      <div class="results-summary">
+        <div class="overall-score" id="overall-score">0%</div>
+        <div class="maturity-level" id="maturity-level">Calculating...</div>
+      </div>
+      <div class="auto-email-notice" id="autoEmailNotice">📧 A copy of your assessment results has been saved.</div>
+      <h3 style="margin:1.5rem 0 1rem;font-size:1.2rem;">Security Pillar Results</h3>
+      <table class="pillars-table" id="pillars-table">
+        <thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead>
+        <tbody id="pillars-body"></tbody>
+      </table>
+      <div class="recommendations"><h2 style="text-align:center;margin-bottom:1.5rem;" id="recommendations-header">Personalized Recommendations</h2><div id="no-recommendations" class="no-recommendations" style="display:none;"><h3>🎉 Excellent Security Posture!</h3><p>Congratulations! Your organization has achieved exceptional maturity across all security pillars based on your specific selections.</p><p>Continue with regular security assessments and stay updated with emerging threats.</p></div><div class="recommendations-grid" id="recommendations-grid"></div></div>
+      <div class="email-form"><h3>📧 Get Your Personalized Report Emailed to You</h3><p>Enter your email address to receive a copy of your security maturity report with tailored recommendations:</p><input type="email" id="clientEmail" placeholder="your.email@company.com" required><div class="email-success" id="emailSuccess">✅ Your report has been sent to your email address!</div><div class="email-error" id="emailError">❌ There was an error sending your report. Please try again.</div></div>
+      <div class="download-section"><div class="btn-box-wrap email-buttons"><button class="button" onclick="retakeAssessment()">Retake Assessment</button><button class="pdf-button" id="pdfBtn" onclick="generatePDF()">Download PDF Report</button><button class="email-button" onclick="sendReportToClient()">Send Me The Report</button><button class="dashboard-btn" id="view-dashboard-btn" onclick="goBackFromResults()">Back to Dashboard</button></div></div>
+    </div>
+  </div>
+
+  <!-- Hidden PDF pages (for PDF generation) -->
   <div id="pdf-page-1" class="pdf-page"><div class="pdf-header"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo"><h1>Cyber Security Maturity Assessment Report</h1></div><div class="pdf-date" id="pdf-date-1"></div><div class="pdf-score-summary"><div class="pdf-overall-score" id="pdf-overall-score-1">0%</div><div class="pdf-maturity-level" id="pdf-maturity-level-1">Limited Maturity</div></div><div class="pdf-section"><h2>Security Pillar Results</h2><table class="pdf-table" id="pdf-pillars-table-1"><thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead><tbody id="pdf-pillars-body-1"></tbody></table></div><div class="pdf-footer">Page 1 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-1"></span></div></div>
   <div id="pdf-page-2" class="pdf-page"><div class="pdf-header"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo"><h1>Cyber Security Maturity Assessment Report</h1></div><div class="pdf-date" id="pdf-date-2"></div><div class="pdf-section"><h2>Personalized Recommendations (Page 2 of 3)</h2><div id="pdf-recommendations-1"></div></div><div class="pdf-footer">Page 2 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-2"></span></div></div>
   <div id="pdf-page-3" class="pdf-page"><div class="pdf-header"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo"><h1>Cyber Security Maturity Assessment Report</h1></div><div class="pdf-date" id="pdf-date-3"></div><div class="pdf-section"><h2>Personalized Recommendations (Page 3 of 3)</h2><div id="pdf-recommendations-2"></div></div><div class="pdf-footer">Page 3 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-3"></span></div></div>
@@ -2416,6 +2545,9 @@
     let viewingMode = 'new'; // 'new' or 'historical'
     let viewingResultId = null;
 
+    // Admin emails
+    const ADMIN_EMAILS = ['nadine@cyberly.co.za', 'rudiv@checkpoint.com'];
+
     // Question -> pillar mapping
     const questionPillarMapping = {
       q1:'Hybrid Mesh Network Security', q2:'Hybrid Mesh Network Security', q3:'Hybrid Mesh Network Security',
@@ -2429,7 +2561,7 @@
     };
     const mainPillars = ['Hybrid Mesh Network Security','Workspace Security','Exposure Management','AI Security','General'];
 
-    // Pillar recommendations (simplified)
+    // Pillar recommendations
     const pillarRecommendations = {
       'Hybrid Mesh Network Security': [
         { text:'Deploy Next-Generation Firewalls (NGFW) with advanced threat prevention', priority:'critical', threshold:20 },
@@ -2490,20 +2622,37 @@
     function togglePassword(id,icon){ let i=document.getElementById(id); i.type=i.type==='password'?'text':'password'; icon.classList.toggle('fa-eye-slash'); }
     function goBackToHome() { document.getElementById('user-dashboard').style.display='none'; document.getElementById('admin-dashboard').style.display='none'; document.getElementById('home').style.display='flex'; }
     function goBackFromResults() {
-      // Return to the appropriate dashboard
+      document.getElementById('results-container').style.display = 'none';
       if (viewingMode === 'historical') {
-        if (currentUser && currentUser.email === 'nadine@cyberly.co.za' && viewingResultId) {
-          showAdminDashboard(); // admin viewing a user's result
+        if (currentUser && ADMIN_EMAILS.includes(currentUser.email) && viewingResultId) {
+          showAdminDashboard();
         } else {
-          showUserDashboard(); // user viewing their own history
+          showUserDashboard();
         }
       } else {
-        // came from fresh assessment, go home
-        document.getElementById('assessment').style.display='none';
         document.getElementById('home').style.display='flex';
       }
       viewingMode = 'new';
       viewingResultId = null;
+    }
+    function goBackFromAssessment() {
+      if (confirm('Are you sure you want to leave the assessment? Your progress will be lost.')) {
+        document.getElementById('assessment').style.display = 'none';
+        // Reset answers
+        answers = {};
+        document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(i=>{ i.checked=false; i.closest('.answer')?.classList.remove('selected'); });
+        currentQuestion = 1;
+        if (currentUser) {
+          // Go to the appropriate dashboard
+          if (ADMIN_EMAILS.includes(currentUser.email)) {
+            showAdminDashboard();
+          } else {
+            showUserDashboard();
+          }
+        } else {
+          goBackToHome();
+        }
+      }
     }
 
     // ==================== AUTH ====================
@@ -2534,7 +2683,8 @@
           let full = `${currentUser.first_name||''} ${currentUser.last_name||''}`.trim();
           document.getElementById('welcome-message').textContent = `Welcome, ${full||currentUser.email}`;
           document.getElementById('my-results-btn').style.display='inline-block';
-          document.getElementById('admin-btn').style.display = (e==='nadine@cyberly.co.za')?'inline-block':'none';
+          // Show admin button for both nadine and rudiv
+          document.getElementById('admin-btn').style.display = ADMIN_EMAILS.includes(e) ? 'inline-block' : 'none';
           if(document.getElementById('remember-me').checked) localStorage.setItem('rememberedEmail',e); else localStorage.removeItem('rememberedEmail');
         } else { err.textContent='Invalid email or password'; err.style.display='block'; }
       } catch { err.textContent='Error logging in'; err.style.display='block'; }
@@ -2551,12 +2701,12 @@
         suc.style.display='block'; err.style.display='none';
       } catch { err.textContent='Error processing request'; err.style.display='block'; }
     }
-    function logout() { currentUser=null; document.getElementById('user-dashboard').style.display='none'; document.getElementById('admin-dashboard').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('auth').style.display='flex'; showLogin(); }
+    function logout() { currentUser=null; document.getElementById('user-dashboard').style.display='none'; document.getElementById('admin-dashboard').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('results-container').style.display='none'; document.getElementById('auth').style.display='flex'; showLogin(); }
 
     // ==================== USER DASHBOARD ====================
     async function showUserDashboard() {
       if(!currentUser) return;
-      document.getElementById('auth').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('admin-dashboard').style.display='none';
+      document.getElementById('auth').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('admin-dashboard').style.display='none'; document.getElementById('results-container').style.display='none';
       document.getElementById('user-dashboard').style.display='block';
       await loadUserResults();
     }
@@ -2584,9 +2734,7 @@
         overallScore = data.overall_score;
         pillarScores = calculatePillarScores();
         document.getElementById('user-dashboard').style.display='none';
-        document.getElementById('assessment').style.display='flex';
-        document.getElementById('final').style.display='none';
-        document.getElementById('results').style.display='block';
+        document.getElementById('results-container').style.display='block';
         document.getElementById('overall-score').textContent = overallScore+'%';
         document.getElementById('maturity-level').textContent = data.maturity_level||getMaturityLevel(overallScore);
         displayPillarScores(pillarScores);
@@ -2596,7 +2744,7 @@
 
     // ==================== ADMIN DASHBOARD ====================
     async function showAdminDashboard() {
-      document.getElementById('auth').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('user-dashboard').style.display='none';
+      document.getElementById('auth').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('user-dashboard').style.display='none'; document.getElementById('results-container').style.display='none';
       document.getElementById('admin-dashboard').style.display='block';
       await loadAdminData();
     }
@@ -2646,9 +2794,7 @@
         overallScore = data.overall_score;
         pillarScores = calculatePillarScores();
         document.getElementById('admin-dashboard').style.display='none';
-        document.getElementById('assessment').style.display='flex';
-        document.getElementById('final').style.display='none';
-        document.getElementById('results').style.display='block';
+        document.getElementById('results-container').style.display='block';
         document.getElementById('overall-score').textContent = overallScore+'%';
         document.getElementById('maturity-level').textContent = data.maturity_level||getMaturityLevel(overallScore);
         displayPillarScores(pillarScores);
@@ -2666,7 +2812,10 @@
       viewingResultId = null;
       updateProgress();
     }
-    function retakeAssessment() { startAssessment(); }
+    function retakeAssessment() { 
+      document.getElementById('results-container').style.display = 'none';
+      startAssessment();
+    }
     function updateProgress() { document.getElementById('question-progress-bar').style.width=(currentQuestion/totalQuestions*100)+'%'; }
     function nextQuestion(q) {
       const box=document.getElementById(`q${q}`); if(!box.querySelectorAll('input:checked').length) { alert('Please select at least one answer'); return; }
@@ -2715,7 +2864,9 @@
       if(grid.children.length===0) grid.innerHTML='<div class="recommendation-card"><h4>Great Progress!</h4><p>Continue to monitor and improve.</p></div>';
     }
     async function showResultsPage() {
-      document.getElementById('final').style.display='none'; document.getElementById('results').style.display='block';
+      document.getElementById('final').style.display='none';
+      document.getElementById('assessment').style.display='none';
+      document.getElementById('results-container').style.display='block';
       pillarScores = calculatePillarScores(); 
       overallScore = Math.round(Object.values(pillarScores).reduce((s,p)=>s+p.percentage,0) / mainPillars.length);
       overallScore = Math.min(overallScore,100);
@@ -2729,7 +2880,110 @@
         } catch(e){ console.error(e); }
       }
     }
-    function generatePDF() { alert('PDF generation'); }
+
+    // ==================== PDF GENERATION ====================
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const today = new Date().toLocaleDateString();
+      
+      const pdfBtn = document.getElementById('pdfBtn');
+      const originalText = pdfBtn.textContent;
+      pdfBtn.textContent = 'Generating PDF...';
+      pdfBtn.disabled = true;
+      
+      try {
+        await preparePDFPages(today);
+        
+        const page1 = document.getElementById('pdf-page-1');
+        const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+        const imgData1 = canvas1.toDataURL('image/jpeg', 1.0);
+        const imgWidth = 190;
+        const imgHeight1 = (canvas1.height * imgWidth) / canvas1.width;
+        doc.addImage(imgData1, 'JPEG', 10, 10, imgWidth, imgHeight1);
+        
+        doc.addPage();
+        const page2 = document.getElementById('pdf-page-2');
+        const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+        const imgData2 = canvas2.toDataURL('image/jpeg', 1.0);
+        const imgHeight2 = (canvas2.height * imgWidth) / canvas2.width;
+        doc.addImage(imgData2, 'JPEG', 10, 10, imgWidth, imgHeight2);
+        
+        doc.addPage();
+        const page3 = document.getElementById('pdf-page-3');
+        const canvas3 = await html2canvas(page3, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+        const imgData3 = canvas3.toDataURL('image/jpeg', 1.0);
+        const imgHeight3 = (canvas3.height * imgWidth) / canvas3.width;
+        doc.addImage(imgData3, 'JPEG', 10, 10, imgWidth, imgHeight3);
+        
+        doc.save(`CyberSecurity_Report_${new Date().toISOString().slice(0,10)}.pdf`);
+      } catch (error) {
+        console.error('PDF generation error:', error);
+        alert('Error generating PDF. Please try again.');
+      } finally {
+        pdfBtn.textContent = originalText;
+        pdfBtn.disabled = false;
+      }
+    }
+
+    async function preparePDFPages(today) {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`pdf-date-${i}`).textContent = today;
+        document.getElementById(`pdf-footer-date-${i}`).textContent = today;
+      }
+      
+      document.getElementById('pdf-overall-score-1').textContent = overallScore + '%';
+      document.getElementById('pdf-maturity-level-1').textContent = getMaturityLevel(overallScore);
+      
+      const pdfPillarsBody = document.getElementById('pdf-pillars-body-1');
+      pdfPillarsBody.innerHTML = '';
+      mainPillars.filter(p => pillarScores[p] && pillarScores[p].maxScore > 0).forEach(p => {
+        let d = pillarScores[p];
+        let row = `<tr>
+          <td>${p}</td>
+          <td>${d.score}</td>
+          <td>${d.maxScore}</td>
+          <td><strong>${d.percentage}%</strong></td>
+          <td><div class="pdf-progress-bar"><div class="pdf-progress-fill" style="width:${d.percentage}%; background:${d.percentage>=80?'#2E7D32':d.percentage>=60?'#FF9800':'#D32F2F'};"></div></div></td>
+        </tr>`;
+        pdfPillarsBody.innerHTML += row;
+      });
+      
+      let recsHTML1 = '', recsHTML2 = '';
+      let pillarsNeeding = mainPillars.filter(p => pillarScores[p] && pillarScores[p].maxScore > 0 && pillarScores[p].percentage < 80);
+      
+      pillarsNeeding.forEach((pillar, index) => {
+        let perc = pillarScores[pillar].percentage;
+        let applicable = (pillarRecommendations[pillar] || [])
+          .filter(r => perc < r.threshold)
+          .sort((a,b) => (a.priority==='critical'?1:b.priority==='critical'?1:0))
+          .slice(0,3);
+        
+        if (applicable.length) {
+          let recBlock = `<div class="pdf-recommendation"><h3>${pillar} (Current Maturity: ${perc}%)</h3>`;
+          applicable.forEach(r => {
+            let bgColor = r.priority === 'critical' ? '#d32f2f' : r.priority === 'high' ? '#ff9800' : r.priority === 'medium' ? '#ffc107' : '#4caf50';
+            let textColor = (r.priority === 'high' || r.priority === 'medium') ? '#000000' : '#ffffff';
+            recBlock += `<div class="pdf-recommendation-item" style="background:${bgColor};color:${textColor};">${r.text}</div>`;
+          });
+          recBlock += '</div>';
+          
+          if (index < Math.ceil(pillarsNeeding.length/2)) {
+            recsHTML1 += recBlock;
+          } else {
+            recsHTML2 += recBlock;
+          }
+        }
+      });
+      
+      if (pillarsNeeding.length === 0) {
+        recsHTML1 = '<p>Excellent security posture! No recommendations at this time.</p>';
+      }
+      
+      document.getElementById('pdf-recommendations-1').innerHTML = recsHTML1 || '<p>Additional recommendations will appear here.</p>';
+      document.getElementById('pdf-recommendations-2').innerHTML = recsHTML2 || '<p>Additional recommendations will appear here.</p>';
+    }
+
     function sendReportToClient() {
       let email=document.getElementById('clientEmail').value;
       if(!email) { document.getElementById('emailError').style.display='block'; setTimeout(()=>document.getElementById('emailError').style.display='none',3000); return; }
