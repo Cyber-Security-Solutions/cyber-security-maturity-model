@@ -2546,7 +2546,7 @@
     let viewingResultId = null;
 
     // Admin emails
-    const ADMIN_EMAILS = ['nadine@cyberly.co.za', 'rudiv@checkpoint.com'];
+    const ADMIN_EMAILS = ['nadine@cyberly.co.za', 'rudiv@checkpoint.com', ianv@checkpoint.com];
 
     // Question -> pillar mapping
     const questionPillarMapping = {
@@ -2683,7 +2683,7 @@
           let full = `${currentUser.first_name||''} ${currentUser.last_name||''}`.trim();
           document.getElementById('welcome-message').textContent = `Welcome, ${full||currentUser.email}`;
           document.getElementById('my-results-btn').style.display='inline-block';
-          // Show admin button for both nadine and rudiv
+          // Show admin button for both nadine, rudiv and ianv
           document.getElementById('admin-btn').style.display = ADMIN_EMAILS.includes(e) ? 'inline-block' : 'none';
           if(document.getElementById('remember-me').checked) localStorage.setItem('rememberedEmail',e); else localStorage.removeItem('rememberedEmail');
         } else { err.textContent='Invalid email or password'; err.style.display='block'; }
@@ -3006,4 +3006,5 @@
   </script>
 </body>
 </html>
+
 
