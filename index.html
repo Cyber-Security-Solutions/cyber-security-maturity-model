@@ -232,24 +232,57 @@
       margin-bottom: 1rem; font-weight: 700;
     }
     .button-wrapper { display: flex; justify-content: center; margin-top: 2rem; flex-wrap: wrap; gap: 1rem; }
-    .button, .pdf-button, .email-button, .dashboard-btn, .home-back-btn, .logout-home-btn {
+    .button, .pdf-button, .email-button, .dashboard-btn {
       background: var(--primary); color: white; font-weight: 600; font-size: 1.1rem;
       padding: 1.1rem 2.4rem; border-radius: 50px; box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-      cursor: pointer; border: none; min-width: 200px; transition: all 0.25s; touch-action: manipulation;
+      cursor: pointer; border: none; min-width: 260px; transition: all 0.25s; touch-action: manipulation;
     }
     .email-button { background: #2E7D32; }
-    .dashboard-btn, .home-back-btn { background: #6c757d; }
-    .logout-home-btn { background: var(--dark-red); }
-    .button:hover, .pdf-button:hover, .email-button:hover, .dashboard-btn:hover, .home-back-btn:hover { background: #004080; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+    .dashboard-btn { background: #6c757d; }
+    .button:hover, .pdf-button:hover, .email-button:hover, .dashboard-btn:hover { background: #004080; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
     .email-button:hover { background: #1B5E20; }
-    .dashboard-btn:hover, .home-back-btn:hover { background: #5a6268; }
-    .logout-home-btn:hover { background: #b71c1c; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+    .dashboard-btn:hover { background: #5a6268; }
     #assessment { display: none; }
     .assessment-container { display: flex; min-height: 100vh; position: relative; }
     .main-content { flex: 1; padding: 90px 5% 60px; max-width: 1400px; margin: 0 auto; }
     .question-progress-container { margin: 0 auto 2rem; max-width: 900px; }
     .progress-border { height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden; }
     #question-progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.6s ease-out; }
+    .back-home-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .back-home-btn {
+      background: #6c757d;
+      color: white;
+      font-weight: 600;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s;
+    }
+    .back-home-btn:hover {
+      background: #5a6268;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+    .question-counter {
+      color: #666;
+      font-size: 0.9rem;
+      background: #f0f0f0;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+    }
     .q-box {
       max-width: 1200px; margin: 0 auto 2rem; background: #ffffff; color: #000;
       border-radius: 16px; padding: 1.5rem; box-shadow: 0 10px 35px rgba(0,0,0,0.2);
@@ -538,7 +571,7 @@
   <div id="question-bg"></div>
   <nav class="navbar-top"><div class="nav-flex"><div class="nav-logo"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" alt="Check Point Logo"></div></div></nav>
   
-  <!-- Auth Page (Login & Registration) -->
+  <!-- Auth Page -->
   <section id="auth">
     <video class="auth-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png"><source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af" type="video/mp4"></video>
     <div class="auth-container">
@@ -619,7 +652,7 @@
     </div>
   </section>
 
-  <!-- Home Page with Logout Button -->
+  <!-- Home Page -->
   <section id="home" style="display: none;">
     <video class="banner-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png"><source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af"></video>
     <div class="home-header">
@@ -629,8 +662,6 @@
         <button class="button" onclick="startAssessment()">Take Assessment</button>
         <button class="button" id="my-results-btn" onclick="showUserDashboard()" style="display: none;">My Results</button>
         <button class="button" id="admin-btn" onclick="showAdminDashboard()" style="display: none;">Admin</button>
-        <!-- Logout button on home page -->
-        <button class="logout-home-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
       </div>
     </div>
   </section>
@@ -638,7 +669,17 @@
   <!-- Assessment Section with ALL 32 Questions (British English text) -->
   <div id="assessment" class="assessment-container" style="display: none;">
     <div class="main-content">
-      <div class="question-progress-container"><div class="progress-border"><div id="question-progress-bar"></div></div></div>
+      <div class="question-progress-container">
+        <div class="progress-border"><div id="question-progress-bar"></div></div>
+      </div>
+      
+      <!-- BACK HOME BUTTON AND QUESTION COUNTER -->
+      <div class="back-home-row">
+        <button class="back-home-btn" onclick="goBackFromAssessment()">
+          <i class="fas fa-arrow-left"></i> Back to Home
+        </button>
+        <span class="question-counter">Question <span id="current-question-num">1</span> of 32</span>
+      </div>
       
       <!-- QUESTION 1 -->
       <div id="q1" class="q-box active" data-num="1">
@@ -723,7 +764,7 @@
       
       <!-- QUESTION 2 -->
       <div id="q2" class="q-box" data-num="2">
-        <div class="q-header">How do you scale security performance and capacity in your on-premises data center environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e-commerce events)?</div>
+        <div class="q-header">How do you scale security performance and capacity in your on-premises data centre environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e‑commerce events)?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q2">
@@ -762,20 +803,20 @@
       
       <!-- QUESTION 3 -->
       <div id="q3" class="q-box" data-num="3">
-        <div class="q-header">Does your firewall clustering provide full and active resiliency?</div>
+        <div class="q-header">Does your firewall clustering provide full and active resilience?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q3">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Active-active firewalls are deployed from a single vendor</div>
+              <div class="text">Active‑active firewalls are deployed from a single vendor</div>
             </div>
           </label>
           <label class="answer">
             <input type="radio" name="q3">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Active-passive firewalls are deployed in highly available clusters</div>
+              <div class="text">Active‑passive firewalls are deployed in highly available clusters</div>
             </div>
           </label>
           <label class="answer">
@@ -801,7 +842,7 @@
       
       <!-- QUESTION 4 -->
       <div id="q4" class="q-box" data-num="4">
-        <div class="q-header">How do you scale security performance and capacity in your on-premises data center environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e-commerce events)?</div>
+        <div class="q-header">How do you scale security performance and capacity in your on-premises data centre environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e‑commerce events)?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q4">
@@ -840,20 +881,20 @@
       
       <!-- QUESTION 5 -->
       <div id="q5" class="q-box" data-num="5">
-        <div class="q-header">Does your firewall clustering provide full and active resiliency?</div>
+        <div class="q-header">Does your firewall clustering provide full and active resilience?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q5">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Active-active firewalls are deployed from a single vendor</div>
+              <div class="text">Active‑active firewalls are deployed from a single vendor</div>
             </div>
           </label>
           <label class="answer">
             <input type="radio" name="q5">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Active-passive firewalls are deployed in highly available clusters</div>
+              <div class="text">Active‑passive firewalls are deployed in highly available clusters</div>
             </div>
           </label>
           <label class="answer">
@@ -886,7 +927,7 @@
             <input type="checkbox" name="q6" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Software-defined Networking</div>
+              <div class="text">Software‑defined Networking</div>
             </div>
           </label>
           <label class="answer">
@@ -954,14 +995,14 @@
             <input type="checkbox" name="q7" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Cloud-native vulnerability scanning</div>
+              <div class="text">Cloud‑native vulnerability scanning</div>
             </div>
           </label>
           <label class="answer">
             <input type="checkbox" name="q7" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Real-time threat intelligence to prevent zero-day attacks</div>
+              <div class="text">Real‑time threat intelligence to prevent zero‑day attacks</div>
             </div>
           </label>
           <label class="answer">
@@ -975,14 +1016,14 @@
             <input type="checkbox" name="q7" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Anti-malware</div>
+              <div class="text">Anti‑malware</div>
             </div>
           </label>
           <label class="answer">
             <input type="checkbox" name="q7" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">File sanitization (CDR)</div>
+              <div class="text">File sanitisation (CDR)</div>
             </div>
           </label>
           <label class="answer">
@@ -1062,7 +1103,7 @@
       
       <!-- QUESTION 9 -->
       <div id="q9" class="q-box" data-num="9">
-        <div class="q-header">Do you have unified security and threat management for your on-premises and cloud environments?</div>
+        <div class="q-header">Do you have unified security and threat management for your on‑premises and cloud environments?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q9">
@@ -1094,7 +1135,7 @@
       
       <!-- QUESTION 10 -->
       <div id="q10" class="q-box" data-num="10">
-        <div class="q-header">What percentage of your organization's employees work from home at least 2 days a week?</div>
+        <div class="q-header">What percentage of your organisation's employees work from home at least 2 days a week?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q10">
@@ -1133,7 +1174,7 @@
       
       <!-- QUESTION 11 -->
       <div id="q11" class="q-box" data-num="11">
-        <div class="q-header">Your organization's security policy allows remote access to corporate applications</div>
+        <div class="q-header">Your organisation's security policy allows remote access to corporate applications</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
           <label class="answer exclusive-option">
@@ -1187,7 +1228,7 @@
             <input type="checkbox" name="q12" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">SASE connection (cloud-based service)</div>
+              <div class="text">SASE connection (cloud‑based service)</div>
             </div>
           </label>
           <label class="answer">
@@ -1201,7 +1242,7 @@
             <input type="checkbox" name="q12" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Multi-factor authentication</div>
+              <div class="text">Multi‑factor authentication</div>
             </div>
           </label>
           <label class="answer">
@@ -1227,21 +1268,21 @@
             <input type="checkbox" name="q13" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Sanitize potentially malicious downloads</div>
+              <div class="text">Sanitise potentially malicious downloads</div>
             </div>
           </label>
           <label class="answer">
             <input type="checkbox" name="q13" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Real-time scanning of online forms for phishing prevention</div>
+              <div class="text">Real‑time scanning of online forms for phishing prevention</div>
             </div>
           </label>
           <label class="answer">
             <input type="checkbox" name="q13" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Stop entering corporate credentials to non-business websites</div>
+              <div class="text">Stop entering corporate credentials to non‑business websites</div>
             </div>
           </label>
           <label class="answer">
@@ -1355,7 +1396,7 @@
             <input type="radio" name="q15">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">On-premises email (Microsoft Exchange) only</div>
+              <div class="text">On‑premises email (Microsoft Exchange) only</div>
             </div>
           </label>
           <label class="answer">
@@ -1374,14 +1415,14 @@
       
       <!-- QUESTION 16 -->
       <div id="q16" class="q-box" data-num="16">
-        <div class="q-header">In the case of a ransomware attack, my organization's endpoint protection can:</div>
+        <div class="q-header">In the case of a ransomware attack, my organisation's endpoint protection can:</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="checkbox" name="q16" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Recover ransomware-encrypted files</div>
+              <div class="text">Recover ransomware‑encrypted files</div>
             </div>
           </label>
           <label class="answer">
@@ -1428,14 +1469,14 @@
             <input type="checkbox" name="q17" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Next-Generation Antivirus / Endpoint Protection Platform (NGAV/EPP)</div>
+              <div class="text">Next‑Generation Antivirus / Endpoint Protection Platform (NGAV/EPP)</div>
             </div>
           </label>
           <label class="answer">
             <input type="checkbox" name="q17" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Cloud-based security services (SASE)</div>
+              <div class="text">Cloud‑based security services (SASE)</div>
             </div>
           </label>
           <label class="answer">
@@ -1470,7 +1511,7 @@
             <input type="checkbox" name="q17" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Cloud-based application posture check</div>
+              <div class="text">Cloud‑based application posture check</div>
             </div>
           </label>
           <label class="answer">
@@ -1542,7 +1583,7 @@
             <input type="checkbox" name="q19" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Antivirus / Anti-malware</div>
+              <div class="text">Antivirus / Anti‑malware</div>
             </div>
           </label>
           <label class="answer">
@@ -1591,7 +1632,7 @@
             <input type="checkbox" name="q19" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Local Firewall and Host-based Intrusion Detection System</div>
+              <div class="text">Local Firewall and Host‑based Intrusion Detection System</div>
             </div>
           </label>
           <label class="answer">
@@ -1673,7 +1714,7 @@
             <input type="checkbox" name="q20" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Cloud-Native Application Protection Platform (CNAPP)</div>
+              <div class="text">Cloud‑Native Application Protection Platform (CNAPP)</div>
             </div>
           </label>
           <label class="answer">
@@ -1863,7 +1904,7 @@
             <input type="checkbox" name="q23" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Data Classification and Labeling</div>
+              <div class="text">Data Classification and Labelling</div>
             </div>
           </label>
           <label class="answer">
@@ -1884,7 +1925,7 @@
             <input type="checkbox" name="q23" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Tokenization and Masking</div>
+              <div class="text">Tokenisation and Masking</div>
             </div>
           </label>
           <label class="answer">
@@ -1994,7 +2035,7 @@
             <input type="checkbox" name="q24" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Third-Party Access Controls</div>
+              <div class="text">Third‑Party Access Controls</div>
             </div>
           </label>
           <label class="answer">
@@ -2020,21 +2061,21 @@
       
       <!-- QUESTION 25 -->
       <div id="q25" class="q-box" data-num="25">
-        <div class="q-header">How do you ensure identities are trusted and ensure only access to what is needed to fulfill your role in the company?</div>
+        <div class="q-header">How do you ensure identities are trusted and ensure only access to what is needed to fulfil your role in the company?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="checkbox" name="q25" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Multi-Factor Authentication (MFA)</div>
+              <div class="text">Multi‑Factor Authentication (MFA)</div>
             </div>
           </label>
           <label class="answer">
             <input type="checkbox" name="q25" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Single Sign-On (SSO)</div>
+              <div class="text">Single Sign‑On (SSO)</div>
             </div>
           </label>
           <label class="answer">
@@ -2048,14 +2089,14 @@
             <input type="checkbox" name="q25" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Role-Based Access Control (RBAC)</div>
+              <div class="text">Role‑Based Access Control (RBAC)</div>
             </div>
           </label>
           <label class="answer">
             <input type="checkbox" name="q25" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Just-In-Time (JIT) Access</div>
+              <div class="text">Just‑In‑Time (JIT) Access</div>
             </div>
           </label>
           <label class="answer">
@@ -2090,7 +2131,7 @@
             <input type="checkbox" name="q25" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Behavioral Biometrics / Risk-Based Authentication</div>
+              <div class="text">Behavioural Biometrics / Risk‑Based Authentication</div>
             </div>
           </label>
         </div>
@@ -2130,7 +2171,7 @@
             <input type="checkbox" name="q26" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">User and Entity Behavior Analytics (UEBA)</div>
+              <div class="text">User and Entity Behaviour Analytics (UEBA)</div>
             </div>
           </label>
           <label class="answer">
@@ -2165,7 +2206,7 @@
             <input type="checkbox" name="q26" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Real-time Alerting and Correlation</div>
+              <div class="text">Real‑time Alerting and Correlation</div>
             </div>
           </label>
           <label class="answer">
@@ -2247,7 +2288,7 @@
             <input type="checkbox" name="q27" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Post-Incident Review Process</div>
+              <div class="text">Post‑Incident Review Process</div>
             </div>
           </label>
           <label class="answer">
@@ -2315,7 +2356,7 @@
             <input type="checkbox" name="q28" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">AI Assisted Security Tools + Management + Detect + Respond</div>
+              <div class="text">AI‑Assisted Security Tools + Management + Detect + Respond</div>
             </div>
           </label>
           <label class="answer">
@@ -2329,7 +2370,7 @@
             <input type="checkbox" name="q28" class="normal-option">
             <div class="checkbox"></div>
             <div class="inner-wrap">
-              <div class="text">Security Operations Center (SOC)</div>
+              <div class="text">Security Operations Centre (SOC)</div>
             </div>
           </label>
           <label class="answer">
@@ -2348,7 +2389,7 @@
       
       <!-- QUESTION 29 - AI Security -->
       <div id="q29" class="q-box" data-num="29">
-        <div class="q-header">How effectively does your organization implement runtime monitoring and protection mechanisms for AI systems, such as anomaly detection, input validation, and real-time threat response?</div>
+        <div class="q-header">How effectively does your organisation implement runtime monitoring and protection mechanisms for AI systems, such as anomaly detection, input validation, and real‑time threat response?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q29">
@@ -2375,7 +2416,7 @@
             <input type="radio" name="q29">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Standardized tools for anomaly detection deployed across key AI workloads.</div>
+              <div class="text">Standardised tools for anomaly detection deployed across key AI workloads.</div>
             </div>
           </label>
           <label class="answer">
@@ -2389,7 +2430,7 @@
             <input type="radio" name="q29">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">AI-specific runtime defenses integrated with predictive analytics and zero-trust architecture.</div>
+              <div class="text">AI‑specific runtime defences integrated with predictive analytics and zero‑trust architecture.</div>
             </div>
           </label>
         </div>
@@ -2401,13 +2442,13 @@
       
       <!-- QUESTION 30 - AI Security -->
       <div id="q30" class="q-box" data-num="30">
-        <div class="q-header">To what extent has your organization developed and enforced governance frameworks for GenAI applications, including model approval processes, ethical guidelines, and audit trails?</div>
+        <div class="q-header">To what extent has your organisation developed and enforced governance frameworks for GenAI applications, including model approval processes, ethical guidelines, and audit trails?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q30">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">No formal governance; ad-hoc development and deployment.</div>
+              <div class="text">No formal governance; ad‑hoc development and deployment.</div>
             </div>
           </label>
           <label class="answer">
@@ -2447,7 +2488,7 @@
       
       <!-- QUESTION 31 - AI Security -->
       <div id="q31" class="q-box" data-num="31">
-        <div class="q-header">How comprehensively does your organization apply DLP controls to AI-related data, such as classification, encryption, and monitoring for exfiltration risks?</div>
+        <div class="q-header">How comprehensively does your organisation apply DLP controls to AI‑related data, such as classification, encryption, and monitoring for exfiltration risks?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q31">
@@ -2467,21 +2508,21 @@
             <input type="radio" name="q31">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">AI-specific DLP policies with tools for data tagging and leakage detection.</div>
+              <div class="text">AI‑specific DLP policies with tools for data tagging and leakage detection.</div>
             </div>
           </label>
           <label class="answer">
             <input type="radio" name="q31">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Real-time monitoring and automated blocking of DLP violations.</div>
+              <div class="text">Real‑time monitoring and automated blocking of DLP violations.</div>
             </div>
           </label>
           <label class="answer">
             <input type="radio" name="q31">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Integrated DLP with AI-driven threat intelligence and zero-data-exposure architectures.</div>
+              <div class="text">Integrated DLP with AI‑driven threat intelligence and zero‑data‑exposure architectures.</div>
             </div>
           </label>
         </div>
@@ -2493,13 +2534,13 @@
       
       <!-- QUESTION 32 - AI Security -->
       <div id="q32" class="q-box" data-num="32">
-        <div class="q-header">What is the maturity of your organization's security measures for AI data centers, covering access controls, vulnerability management, and resilience against physical/cyber threats?</div>
+        <div class="q-header">What is the maturity of your organisation's security measures for AI data centres, covering access controls, vulnerability management, and resilience against physical/cyber threats?</div>
         <div class="answer-wrap">
           <label class="answer">
             <input type="radio" name="q32">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Basic physical security; no AI-specific data center protections.</div>
+              <div class="text">Basic physical security; no AI‑specific data centre protections.</div>
             </div>
           </label>
           <label class="answer">
@@ -2513,21 +2554,21 @@
             <input type="radio" name="q32">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Dedicated AI zones with multi-factor authentication and regular audits.</div>
+              <div class="text">Dedicated AI zones with multi‑factor authentication and regular audits.</div>
             </div>
           </label>
           <label class="answer">
             <input type="radio" name="q32">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Advanced monitoring with AI-assisted vulnerability scanning and incident response.</div>
+              <div class="text">Advanced monitoring with AI‑assisted vulnerability scanning and incident response.</div>
             </div>
           </label>
           <label class="answer">
             <input type="radio" name="q32">
             <div class="radio"></div>
             <div class="inner-wrap">
-              <div class="text">Fully resilient setup with supply chain verification, quantum-resistant encryption, and automated failover.</div>
+              <div class="text">Fully resilient setup with supply chain verification, quantum‑resistant encryption, and automated failover.</div>
             </div>
           </label>
         </div>
@@ -2542,15 +2583,17 @@
     </div>
   </div>
 
-  <!-- Standalone Results Page -->
+  <!-- Standalone Results Page (White Background, Single Logo, Mobile-Friendly Table) -->
   <div id="results-container">
     <div class="results-wrapper">
+      <!-- Single logo (duplicate removed) -->
       <div class="results-summary">
         <div class="overall-score" id="overall-score">0%</div>
         <div class="maturity-level" id="maturity-level">Calculating...</div>
       </div>
       <div class="auto-email-notice" id="autoEmailNotice">📧 A copy of your assessment results has been saved.</div>
       <h3 style="margin:1.5rem 0 1rem;font-size:1.2rem;">Security Pillar Results</h3>
+      <!-- Mobile-friendly table container with horizontal scroll -->
       <div class="table-responsive">
         <table class="pillars-table" id="pillars-table">
           <thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead>
@@ -2563,7 +2606,7 @@
     </div>
   </div>
 
-  <!-- Hidden PDF pages -->
+  <!-- Hidden PDF pages (for PDF generation) -->
   <div id="pdf-page-1" class="pdf-page"><div class="pdf-header"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo"><h1>Cyber Security Maturity Assessment Report</h1></div><div class="pdf-date" id="pdf-date-1"></div><div class="pdf-score-summary"><div class="pdf-overall-score" id="pdf-overall-score-1">0%</div><div class="pdf-maturity-level" id="pdf-maturity-level-1">Limited Maturity</div></div><div class="pdf-section"><h2>Security Pillar Results</h2><table class="pdf-table" id="pdf-pillars-table-1"><thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead><tbody id="pdf-pillars-body-1"></tbody></table></div><div class="pdf-footer">Page 1 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-1"></span></div></div>
   <div id="pdf-page-2" class="pdf-page"><div class="pdf-header"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo"><h1>Cyber Security Maturity Assessment Report</h1></div><div class="pdf-date" id="pdf-date-2"></div><div class="pdf-section"><h2>Personalised Recommendations (Page 2 of 3)</h2><div id="pdf-recommendations-1"></div></div><div class="pdf-footer">Page 2 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-2"></span></div></div>
   <div id="pdf-page-3" class="pdf-page"><div class="pdf-header"><img src="https://assessment.checkpoint.com/wp-content/uploads/2024/08/logo.svg" class="pdf-logo"><h1>Cyber Security Maturity Assessment Report</h1></div><div class="pdf-date" id="pdf-date-3"></div><div class="pdf-section"><h2>Personalised Recommendations (Page 3 of 3)</h2><div id="pdf-recommendations-2"></div></div><div class="pdf-footer">Page 3 of 3 | Generated by Check Point Security Assessment Tool | <span id="pdf-footer-date-3"></span></div></div>
@@ -2599,7 +2642,7 @@
     };
     const mainPillars = ['Hybrid Mesh Network Security','Workspace Security','Exposure Management','AI Security','General'];
 
-    // Pillar recommendations (same as original)
+    // Pillar recommendations
     const pillarRecommendations = {
       'Hybrid Mesh Network Security': [
         { text:'Deploy Next‑Generation Firewalls (NGFW) with advanced threat prevention', priority:'critical', threshold:20 },
@@ -2652,24 +2695,6 @@
       ]
     };
 
-    // ==================== PERSISTENT LOGIN ====================
-    (async function initAuth() {
-      const storedUser = localStorage.getItem('currentUser');
-      if (storedUser) {
-        try {
-          currentUser = JSON.parse(storedUser);
-          document.getElementById('auth').style.display = 'none';
-          document.getElementById('home').style.display = 'flex';
-          let full = `${currentUser.first_name||''} ${currentUser.last_name||''}`.trim();
-          document.getElementById('welcome-message').textContent = `Welcome, ${full||currentUser.email}`;
-          document.getElementById('my-results-btn').style.display = 'inline-block';
-          document.getElementById('admin-btn').style.display = ADMIN_EMAILS.includes(currentUser.email) ? 'inline-block' : 'none';
-          return;
-        } catch (e) { /* ignore */ }
-      }
-      showLogin();
-    })();
-
     // ==================== UI HELPERS ====================
     function showLogin() { document.getElementById('login-section').style.display='block'; document.getElementById('signup-section').style.display='none'; document.getElementById('forgot-section').style.display='none'; hideAllMessages(); }
     function showSignup() { document.getElementById('login-section').style.display='none'; document.getElementById('signup-section').style.display='block'; document.getElementById('forgot-section').style.display='none'; hideAllMessages(); }
@@ -2694,23 +2719,26 @@
     function goBackFromAssessment() {
       if (confirm('Are you sure you want to leave the assessment? Your progress will be lost.')) {
         document.getElementById('assessment').style.display = 'none';
+        // Reset answers
         answers = {};
         document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(i=>{ i.checked=false; i.closest('.answer')?.classList.remove('selected'); });
         currentQuestion = 1;
+        updateQuestionCounter();
         if (currentUser) {
-          if (ADMIN_EMAILS.includes(currentUser.email)) showAdminDashboard();
-          else showUserDashboard();
-        } else goBackToHome();
+          // Go to the appropriate dashboard
+          if (ADMIN_EMAILS.includes(currentUser.email)) {
+            showAdminDashboard();
+          } else {
+            showUserDashboard();
+          }
+        } else {
+          goBackToHome();
+        }
       }
     }
-    function confirmBackHomeFromAssessment() {
-      if (confirm('Return to home page? Your progress on this assessment will be lost.')) {
-        document.getElementById('assessment').style.display = 'none';
-        answers = {};
-        document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(i=>{ i.checked=false; i.closest('.answer')?.classList.remove('selected'); });
-        currentQuestion = 1;
-        document.getElementById('home').style.display = 'flex';
-      }
+    function updateQuestionCounter() {
+      const counterSpan = document.getElementById('current-question-num');
+      if (counterSpan) counterSpan.textContent = currentQuestion;
     }
 
     // ==================== AUTH ====================
@@ -2737,13 +2765,13 @@
         if(error) throw error;
         if(data&&data.length) {
           currentUser=data[0]; err.style.display='none';
-          localStorage.setItem('currentUser', JSON.stringify(currentUser));
-          if(document.getElementById('remember-me').checked) localStorage.setItem('rememberedEmail',e); else localStorage.removeItem('rememberedEmail');
           document.getElementById('auth').style.display='none'; document.getElementById('home').style.display='flex';
           let full = `${currentUser.first_name||''} ${currentUser.last_name||''}`.trim();
           document.getElementById('welcome-message').textContent = `Welcome, ${full||currentUser.email}`;
           document.getElementById('my-results-btn').style.display='inline-block';
+          // Show admin button for all admin emails
           document.getElementById('admin-btn').style.display = ADMIN_EMAILS.includes(e) ? 'inline-block' : 'none';
+          if(document.getElementById('remember-me').checked) localStorage.setItem('rememberedEmail',e); else localStorage.removeItem('rememberedEmail');
         } else { err.textContent='Invalid email or password'; err.style.display='block'; }
       } catch { err.textContent='Error logging in'; err.style.display='block'; }
     }
@@ -2759,50 +2787,9 @@
         suc.style.display='block'; err.style.display='none';
       } catch { err.textContent='Error processing request'; err.style.display='block'; }
     }
-    function logout() { 
-      currentUser=null; 
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('rememberedEmail');
-      document.getElementById('user-dashboard').style.display='none'; 
-      document.getElementById('admin-dashboard').style.display='none'; 
-      document.getElementById('home').style.display='none'; 
-      document.getElementById('assessment').style.display='none'; 
-      document.getElementById('results-container').style.display='none'; 
-      document.getElementById('auth').style.display='flex'; 
-      showLogin(); 
-    }
+    function logout() { currentUser=null; document.getElementById('user-dashboard').style.display='none'; document.getElementById('admin-dashboard').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('results-container').style.display='none'; document.getElementById('auth').style.display='flex'; showLogin(); }
 
-    // ==================== ADMIN CSV EXPORT (FIXED) ====================
-    function exportToCSV() {
-      const results = window.allResults || [];
-      if (!results.length) { alert('No data to export.'); return; }
-      const headers = ['Date','Name','Company','Email','Phone','Score','Level'];
-      const rows = results.map(r => {
-        let u = r.user_details || {};
-        let name = `${u.first_name||''} ${u.last_name||''}`.trim() || 'N/A';
-        return [
-          new Date(r.created_at).toLocaleDateString(),
-          name,
-          u.company_name || 'N/A',
-          r.user_email,
-          u.phone_number || 'N/A',
-          r.overall_score + '%',
-          r.maturity_level || 'N/A'
-        ];
-      });
-      let csvContent = headers.join(',') + '\n' + rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', `admin_export_${new Date().toISOString().slice(0,10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    }
-
-    // ==================== USER/ADMIN DASHBOARD functions ====================
+    // ==================== USER DASHBOARD ====================
     async function showUserDashboard() {
       if(!currentUser) return;
       document.getElementById('auth').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('admin-dashboard').style.display='none'; document.getElementById('results-container').style.display='none';
@@ -2840,6 +2827,8 @@
         generateRecommendations(pillarScores,overallScore);
       }
     }
+
+    // ==================== ADMIN DASHBOARD ====================
     async function showAdminDashboard() {
       document.getElementById('auth').style.display='none'; document.getElementById('home').style.display='none'; document.getElementById('assessment').style.display='none'; document.getElementById('user-dashboard').style.display='none'; document.getElementById('results-container').style.display='none';
       document.getElementById('admin-dashboard').style.display='block';
@@ -2881,6 +2870,72 @@
       if(date) filtered=filtered.filter(r=>new Date(r.created_at).toISOString().split('T')[0]===date);
       displayAdminResults(filtered); updateAdminStats(filtered);
     }
+    
+    // ==================== CSV EXPORT FUNCTION ====================
+    function exportToCSV() {
+      const results = window.allResults || [];
+      
+      if (!results.length) {
+        alert('No results to export');
+        return;
+      }
+
+      // Define CSV headers
+      const headers = [
+        'Date',
+        'First Name',
+        'Last Name',
+        'Company',
+        'Email',
+        'Phone',
+        'Overall Score (%)',
+        'Maturity Level',
+        'Assessment ID'
+      ];
+
+      // Prepare CSV rows
+      const rows = results.map(result => {
+        const user = result.user_details || {};
+        const date = new Date(result.created_at).toLocaleDateString();
+        
+        return [
+          date,
+          user.first_name || '',
+          user.last_name || '',
+          user.company_name || '',
+          result.user_email || '',
+          user.phone_number || '',
+          result.overall_score || 0,
+          result.maturity_level || '',
+          result.id || ''
+        ];
+      });
+
+      // Combine headers and rows
+      const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.map(cell => {
+          // Handle commas in cell values by wrapping in quotes
+          if (typeof cell === 'string' && cell.includes(',')) {
+            return `"${cell}"`;
+          }
+          return cell;
+        }).join(','))
+      ].join('\n');
+
+      // Create download link
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `cyber_security_assessments_${new Date().toISOString().slice(0,10)}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+    
     async function viewAdminResult(id) {
       const { data } = await supabaseClient.from(TABLES.RESULTS).select('*').eq('id',id).single();
       if(data) {
@@ -2907,21 +2962,38 @@
       viewingMode = 'new';
       viewingResultId = null;
       updateProgress();
+      updateQuestionCounter();
     }
     function retakeAssessment() { 
       document.getElementById('results-container').style.display = 'none';
       startAssessment();
     }
-    function updateProgress() { document.getElementById('question-progress-bar').style.width=(currentQuestion/totalQuestions*100)+'%'; }
+    function updateProgress() { 
+      document.getElementById('question-progress-bar').style.width=(currentQuestion/totalQuestions*100)+'%';
+      updateQuestionCounter();
+    }
     function nextQuestion(q) {
       const box=document.getElementById(`q${q}`); if(!box.querySelectorAll('input:checked').length) { alert('Please select at least one answer'); return; }
       let selected=[]; box.querySelectorAll('input:checked').forEach(ch=>selected.push(ch.closest('.answer').querySelector('.text').textContent.trim()));
       answers[`q${q}`]=selected; box.classList.remove('active'); currentQuestion=q+1;
-      if(currentQuestion<=totalQuestions) document.getElementById(`q${currentQuestion}`).classList.add('active');
-      else { document.getElementById('final').style.display='block'; setTimeout(()=>document.getElementById('progress-bar').style.width='100%',100); setTimeout(showResultsPage,3000); }
+      if(currentQuestion<=totalQuestions) {
+        document.getElementById(`q${currentQuestion}`).classList.add('active');
+        updateQuestionCounter();
+      } else { 
+        document.getElementById('final').style.display='block'; 
+        setTimeout(()=>document.getElementById('progress-bar').style.width='100%',100); 
+        setTimeout(showResultsPage,3000); 
+      }
       updateProgress();
     }
-    function prevQuestion(q) { if(q<=1) return; document.getElementById(`q${q}`).classList.remove('active'); currentQuestion=q-1; document.getElementById(`q${currentQuestion}`).classList.add('active'); updateProgress(); }
+    function prevQuestion(q) { 
+      if(q<=1) return; 
+      document.getElementById(`q${q}`).classList.remove('active'); 
+      currentQuestion=q-1; 
+      document.getElementById(`q${currentQuestion}`).classList.add('active'); 
+      updateProgress(); 
+      updateQuestionCounter();
+    }
 
     // ==================== SCORING & RESULTS ====================
     function calculatePillarScores() {
@@ -2982,30 +3054,36 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF('p', 'mm', 'a4');
       const today = new Date().toLocaleDateString();
+      
       const pdfBtn = document.getElementById('pdfBtn');
       const originalText = pdfBtn.textContent;
       pdfBtn.textContent = 'Generating PDF...';
       pdfBtn.disabled = true;
+      
       try {
         await preparePDFPages(today);
+        
         const page1 = document.getElementById('pdf-page-1');
         const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
         const imgData1 = canvas1.toDataURL('image/jpeg', 1.0);
         const imgWidth = 190;
         const imgHeight1 = (canvas1.height * imgWidth) / canvas1.width;
         doc.addImage(imgData1, 'JPEG', 10, 10, imgWidth, imgHeight1);
+        
         doc.addPage();
         const page2 = document.getElementById('pdf-page-2');
         const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
         const imgData2 = canvas2.toDataURL('image/jpeg', 1.0);
         const imgHeight2 = (canvas2.height * imgWidth) / canvas2.width;
         doc.addImage(imgData2, 'JPEG', 10, 10, imgWidth, imgHeight2);
+        
         doc.addPage();
         const page3 = document.getElementById('pdf-page-3');
         const canvas3 = await html2canvas(page3, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
         const imgData3 = canvas3.toDataURL('image/jpeg', 1.0);
         const imgHeight3 = (canvas3.height * imgWidth) / canvas3.width;
         doc.addImage(imgData3, 'JPEG', 10, 10, imgWidth, imgHeight3);
+        
         doc.save(`CyberSecurity_Report_${new Date().toISOString().slice(0,10)}.pdf`);
       } catch (error) {
         console.error('PDF generation error:', error);
@@ -3015,25 +3093,40 @@
         pdfBtn.disabled = false;
       }
     }
+
     async function preparePDFPages(today) {
       for (let i = 1; i <= 3; i++) {
         document.getElementById(`pdf-date-${i}`).textContent = today;
         document.getElementById(`pdf-footer-date-${i}`).textContent = today;
       }
+      
       document.getElementById('pdf-overall-score-1').textContent = overallScore + '%';
       document.getElementById('pdf-maturity-level-1').textContent = getMaturityLevel(overallScore);
+      
       const pdfPillarsBody = document.getElementById('pdf-pillars-body-1');
       pdfPillarsBody.innerHTML = '';
       mainPillars.filter(p => pillarScores[p] && pillarScores[p].maxScore > 0).forEach(p => {
         let d = pillarScores[p];
-        let row = `<tr><td>${p}</td><td>${d.score}</td><td>${d.maxScore}</td><td><strong>${d.percentage}%</strong></td><td><div class="pdf-progress-bar"><div class="pdf-progress-fill" style="width:${d.percentage}%; background:${d.percentage>=80?'#2E7D32':d.percentage>=60?'#FF9800':'#D32F2F'};"></div></div></td></tr>`;
+        let row = `<tr>
+          <td>${p}</td>
+          <td>${d.score}</td>
+          <td>${d.maxScore}</td>
+          <td><strong>${d.percentage}%</strong></td>
+          <td><div class="pdf-progress-bar"><div class="pdf-progress-fill" style="width:${d.percentage}%; background:${d.percentage>=80?'#2E7D32':d.percentage>=60?'#FF9800':'#D32F2F'};"></div></div></td>
+        </tr>`;
         pdfPillarsBody.innerHTML += row;
       });
+      
       let recsHTML1 = '', recsHTML2 = '';
       let pillarsNeeding = mainPillars.filter(p => pillarScores[p] && pillarScores[p].maxScore > 0 && pillarScores[p].percentage < 80);
+      
       pillarsNeeding.forEach((pillar, index) => {
         let perc = pillarScores[pillar].percentage;
-        let applicable = (pillarRecommendations[pillar] || []).filter(r => perc < r.threshold).sort((a,b)=>(a.priority==='critical'?1:b.priority==='critical'?1:0)).slice(0,3);
+        let applicable = (pillarRecommendations[pillar] || [])
+          .filter(r => perc < r.threshold)
+          .sort((a,b) => (a.priority==='critical'?1:b.priority==='critical'?1:0))
+          .slice(0,3);
+        
         if (applicable.length) {
           let recBlock = `<div class="pdf-recommendation"><h3>${pillar} (Current Maturity: ${perc}%)</h3>`;
           applicable.forEach(r => {
@@ -3042,14 +3135,23 @@
             recBlock += `<div class="pdf-recommendation-item" style="background:${bgColor};color:${textColor};">${r.text}</div>`;
           });
           recBlock += '</div>';
-          if (index < Math.ceil(pillarsNeeding.length/2)) recsHTML1 += recBlock;
-          else recsHTML2 += recBlock;
+          
+          if (index < Math.ceil(pillarsNeeding.length/2)) {
+            recsHTML1 += recBlock;
+          } else {
+            recsHTML2 += recBlock;
+          }
         }
       });
-      if (pillarsNeeding.length === 0) recsHTML1 = '<p>Excellent security posture! No recommendations at this time.</p>';
+      
+      if (pillarsNeeding.length === 0) {
+        recsHTML1 = '<p>Excellent security posture! No recommendations at this time.</p>';
+      }
+      
       document.getElementById('pdf-recommendations-1').innerHTML = recsHTML1 || '<p>Additional recommendations will appear here.</p>';
       document.getElementById('pdf-recommendations-2').innerHTML = recsHTML2 || '<p>Additional recommendations will appear here.</p>';
     }
+
     function sendReportToClient() {
       let email=document.getElementById('clientEmail').value;
       if(!email) { document.getElementById('emailError').style.display='block'; setTimeout(()=>document.getElementById('emailError').style.display='none',3000); return; }
@@ -3058,6 +3160,8 @@
 
     // ==================== INIT ====================
     document.addEventListener('DOMContentLoaded',()=>{
+      showLogin();
+      if(localStorage.getItem('rememberedEmail')) document.getElementById('login-email').value=localStorage.getItem('rememberedEmail');
       document.querySelectorAll('.answer input').forEach(inp=>{
         inp.addEventListener('change',function(){
           let ans=this.closest('.answer'); if(ans) ans.classList.toggle('selected',this.checked);
@@ -3066,6 +3170,7 @@
           if(this.type==='radio') document.querySelectorAll(`input[name="${this.name}"]`).forEach(r=>{ if(r!==this) r.closest('.answer')?.classList.remove('selected'); });
         });
       });
+      updateQuestionCounter();
     });
   </script>
 </body>
