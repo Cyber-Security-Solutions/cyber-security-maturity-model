@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>Cyber Security Maturity Model – Assessment Tool</title>
+  <title>Cyber Security Spot Check – Assessment Tool</title>
   <meta name="description" content="Secure your business today by assessing your cyber security maturity with our quick assessment." />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -70,7 +70,7 @@
     }
     
     /* Auth Pages */
-    #auth, #update-password-page {
+    #auth, #update-password-page, #contributors-page {
       position: relative;
       min-height: 100vh;
       display: flex;
@@ -79,7 +79,7 @@
       padding: 5rem 5% 3rem;
       background: transparent;
     }
-    #update-password-page { display: none; }
+    #update-password-page, #contributors-page { display: none; }
     .auth-video {
       position: fixed;
       inset: 0;
@@ -89,20 +89,28 @@
       z-index: 1;
       pointer-events: none;
     }
-    .auth-container, .update-password-container {
+    .auth-container, .update-password-container, .contributors-container {
       position: relative;
       z-index: 2;
       background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
       padding: 2rem;
-      max-width: 500px;
+      max-width: 600px;
       width: 90%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       text-align: center;
       margin: auto;
     }
-    .auth-container h2, .update-password-container h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; }
-    .auth-container p, .update-password-container p { color: #666; margin-bottom: 2rem; font-size: 1rem; }
+    .auth-container h2, .update-password-container h2, .contributors-container h2 { 
+      color: var(--primary); 
+      margin-bottom: 1rem; 
+      font-size: 1.8rem; 
+    }
+    .auth-container p, .update-password-container p, .contributors-container p { 
+      color: #666; 
+      margin-bottom: 2rem; 
+      font-size: 1rem; 
+    }
     .remember-row {
       display: flex; align-items: center; justify-content: space-between; margin: -0.5rem 0 1.5rem 0;
     }
@@ -125,12 +133,14 @@
     }
     .auth-input:focus { outline: none; border-color: var(--primary); }
     .forgot-button-spacing { margin-top: 1.5rem; margin-bottom: 1rem; }
-    .auth-button, .update-password-btn {
+    .auth-button, .update-password-btn, .contributors-btn {
       background: var(--primary); color: white; font-weight: 600; font-size: 1.1rem;
       padding: 1rem 2rem; border-radius: 50px; cursor: pointer; border: none;
       width: 100%; transition: all 0.25s; margin-bottom: 1rem;
     }
-    .auth-button:hover, .update-password-btn:hover { background: #004080; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+    .auth-button:hover, .update-password-btn:hover, .contributors-btn:hover { 
+      background: #004080; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); 
+    }
     .auth-button.secondary { background: #666; }
     .auth-button.secondary:hover { background: #555; }
     .auth-error, .auth-success {
@@ -140,9 +150,81 @@
     .auth-error { color: var(--dark-red); background: #ffebee; }
     .auth-success { color: var(--green); background: #e8f5e9; }
     .form-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    
+    /* Contributors Page Styles */
+    .contributor-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    .contributor-row .auth-input {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    .remove-contributor {
+      background: var(--dark-red);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+    .remove-contributor:hover {
+      background: #b71c1c;
+      transform: scale(1.1);
+    }
+    .add-contributor-btn {
+      background: transparent;
+      color: var(--primary);
+      border: 2px dashed var(--primary);
+      padding: 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      margin: 1rem 0;
+      transition: all 0.25s;
+    }
+    .add-contributor-btn:hover {
+      background: rgba(0,85,165,0.1);
+      transform: translateY(-2px);
+    }
+    .contributors-list {
+      margin: 2rem 0;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 0.5rem;
+    }
+    .contributor-badge {
+      background: #f0f7ff;
+      border-left: 4px solid var(--primary);
+      padding: 0.8rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0 8px 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .contributor-badge span {
+      font-weight: 500;
+    }
+    .contributor-badge i {
+      color: var(--primary);
+      margin-right: 0.5rem;
+    }
+    
     @media (max-width: 768px) {
       .form-row { flex-direction: column; gap: 1.5rem; }
       .password-toggle { right: 12px; font-size: 1.2rem; }
+      .contributor-row { flex-direction: column; }
+      .remove-contributor { width: 100%; border-radius: 8px; }
     }
     .forgot-link { text-align: right; margin: -0.5rem 0 1.5rem 0; }
     .forgot-link a { color: var(--primary); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
@@ -174,13 +256,44 @@
     .stat-card h3 { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
     .stat-card .number { font-size: 2rem; font-weight: bold; color: var(--primary); }
     .user-table-container {
-      background: white; border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 600px;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
     }
-    .user-table { width: 100%; border-collapse: collapse; min-width: 600px; }
-    .user-table th { text-align: left; padding: 1rem; background: var(--primary); color: white; }
+    .user-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+    .user-table th { 
+      text-align: left; 
+      padding: 1rem; 
+      background: var(--primary); 
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
     .user-table td { padding: 1rem; border-bottom: 1px solid #eee; }
     .user-table tr:hover { background: #f9f9f9; }
+    .user-table tbody { display: table-row-group; }
+    .user-table tr { height: auto; min-height: 50px; display: table-row; }
+    .contributors-cell {
+      max-width: 200px;
+      font-size: 0.85rem;
+    }
+    .contributors-cell .badge {
+      display: inline-block;
+      background: var(--light-blue);
+      color: var(--primary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      margin: 0.2rem;
+      font-size: 0.75rem;
+    }
+    
     /* Dashboard action buttons styled like recommendation items */
     .dashboard-action {
       display: inline-block; padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 500;
@@ -215,12 +328,42 @@
     .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:1.5rem; margin-bottom:2rem; }
     @media (max-width:768px) { .admin-stats { grid-template-columns:1fr; } }
     .admin-table-container {
-      background: white; border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 600px;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
     }
-    .admin-table { width: 100%; border-collapse: collapse; min-width: 800px; }
-    .admin-table th { text-align: left; padding: 1rem; background: var(--primary); color: white; }
-    .admin-table td { padding: 1rem; border-bottom: 1px solid #eee; }
+    .admin-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      min-width: 1200px; 
+    }
+    .admin-table th { 
+      text-align: left; 
+      padding: 1rem; 
+      background: var(--primary); 
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .admin-table td { 
+      padding: 1rem; 
+      border-bottom: 1px solid #eee;
+    }
+    .admin-table tbody { 
+      display: table-row-group; 
+    }
+    .admin-table tr { 
+      height: auto; 
+      min-height: 50px; 
+      display: table-row; 
+    }
     
     /* Home Page */
     #home {
@@ -379,6 +522,30 @@
     }
     .overall-score { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
     .maturity-level { font-size: 1.3rem; color: #555; margin-bottom: 1.5rem; }
+    .contributors-summary {
+      background: #f0f7ff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: left;
+    }
+    .contributors-summary h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .contributors-summary ul {
+      list-style: none;
+      padding: 0;
+    }
+    .contributors-summary li {
+      display: inline-block;
+      background: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      margin: 0.3rem;
+      font-size: 0.9rem;
+      border: 1px solid var(--light-blue);
+    }
     
     /* Mobile-friendly table container with horizontal scroll */
     .table-responsive {
@@ -572,7 +739,7 @@
 <body>
   <div id="white-bg"></div>
   <div id="question-bg"></div>
-  <nav class="navbar-top"><div class="nav-flex"><div class="nav-logo">Cyber Security Maturity Model</div></div></nav>
+  <nav class="navbar-top"><div class="nav-flex"><div class="nav-logo">Cyber Security Spot Check</div></div></nav>
   
   <!-- Auth Page -->
   <section id="auth">
@@ -634,6 +801,28 @@
     </div>
   </section>
 
+  <!-- Contributors Page -->
+  <section id="contributors-page">
+    <video class="auth-video" autoplay loop muted playsinline poster="https://assessment.checkpoint.com/wp-content/uploads/2024/08/desktop_hero_6.png"><source src="https://player.vimeo.com/progressive_redirect/playback/995793097/rendition/1080p/file.mp4?loc=external&log_user=0&signature=f093b203100aa9332ece8b00759cb15fc73bef76d9ac5ef652aab2cee641c7af" type="video/mp4"></video>
+    <div class="contributors-container">
+      <h2>Assessment Contributors</h2>
+      <p>Please add the names of all people who contributed to this assessment</p>
+      
+      <div id="contributors-list" class="contributors-list"></div>
+      
+      <button class="add-contributor-btn" onclick="addContributorField()">
+        <i class="fas fa-plus"></i> Add Another Contributor
+      </button>
+      
+      <button class="contributors-btn" onclick="saveContributorsAndStart()">
+        Start Assessment <i class="fas fa-arrow-right"></i>
+      </button>
+      
+      <button class="auth-button secondary" onclick="goToHomePage()">Cancel</button>
+      <div id="contributors-error" class="auth-error"></div>
+    </div>
+  </section>
+
   <!-- User Dashboard (My Results) -->
   <section id="user-dashboard" style="display: none;">
     <div class="user-header">
@@ -646,7 +835,7 @@
     <div class="user-stats" id="user-stats"></div>
     <div class="user-table-container">
       <table class="user-table" id="user-results-table">
-        <thead><tr><th>Date</th><th>Overall Score</th><th>Maturity Level</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Date</th><th>Overall Score</th><th>Maturity Level</th><th>Contributors</th><th>Actions</th></tr></thead>
         <tbody id="user-results-body"></tbody>
       </table>
     </div>
@@ -669,7 +858,7 @@
     <div class="admin-stats" id="admin-stats"></div>
     <div class="admin-table-container">
       <table class="admin-table" id="results-table">
-        <thead><tr><th>Date</th><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Score</th><th>Level</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Date</th><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Score</th><th>Level</th><th>Contributors</th><th>Actions</th></tr></thead>
         <tbody id="results-body"></tbody>
       </table>
     </div>
@@ -682,7 +871,7 @@
       <div class="user-welcome" id="welcome-message"></div>
       <h2>SECURE YOUR BUSINESS TODAY</h2>
       <div class="button-wrapper">
-        <button class="button" onclick="startAssessment()">Take Assessment</button>
+        <button class="button" onclick="showContributorsPage()">Take Assessment</button>
         <button class="button" id="my-results-btn" onclick="showUserDashboard()" style="display: none;">My Results</button>
         <button class="button" id="admin-btn" onclick="showAdminDashboard()" style="display: none;">Admin</button>
       </div>
@@ -709,76 +898,16 @@
         <div class="q-header">To what extent are advanced network protections deployed across all sites?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Next-Generation Firewall (NGFW)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Intrusion Detection/Prevention Systems (IDS/IPS)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Network Segmentation and Microsegmentation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Network Access Control (NAC)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">DNS and Content Filtering</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User Entity Behavioural Analysis</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Deception Technologies (e.g., honeypots)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">SASE Secure Remote Access</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">VPN Secure Remote Access</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q1" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Network Traffic Analysis (NTA)</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Next-Generation Firewall (NGFW)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Intrusion Detection/Prevention Systems (IDS/IPS)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Network Segmentation and Microsegmentation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Network Access Control (NAC)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">DNS and Content Filtering</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User Entity Behavioural Analysis</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Deception Technologies (e.g., honeypots)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">SASE Secure Remote Access</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">VPN Secure Remote Access</div></div></label>
+          <label class="answer"><input type="checkbox" name="q1" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Network Traffic Analysis (NTA)</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button next" onclick="nextQuestion(1)">NEXT →</button>
@@ -789,156 +918,48 @@
       <div id="q2" class="q-box" data-num="2">
         <div class="q-header">How do you scale security performance and capacity in your on-premises data centre environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e‑commerce events)?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q2">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We use a fully scalable, elastic security solution that dynamically adds capacity (e.g., cloud-like auto-scaling firewalls or security fabric)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q2">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We use clustering or load balancing across multiple fixed security appliances from a single vendor</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q2">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We manually purchase and deploy additional firewalls/appliances when capacity is reached</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q2">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We do not have a scalable approach — capacity is fixed and often becomes a bottleneck</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q2"><div class="radio"></div><div class="inner-wrap"><div class="text">We use a fully scalable, elastic security solution that dynamically adds capacity (e.g., cloud-like auto-scaling firewalls or security fabric)</div></div></label>
+          <label class="answer"><input type="radio" name="q2"><div class="radio"></div><div class="inner-wrap"><div class="text">We use clustering or load balancing across multiple fixed security appliances from a single vendor</div></div></label>
+          <label class="answer"><input type="radio" name="q2"><div class="radio"></div><div class="inner-wrap"><div class="text">We manually purchase and deploy additional firewalls/appliances when capacity is reached</div></div></label>
+          <label class="answer"><input type="radio" name="q2"><div class="radio"></div><div class="inner-wrap"><div class="text">We do not have a scalable approach — capacity is fixed and often becomes a bottleneck</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(2)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(2)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(2)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(2)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 3 -->
       <div id="q3" class="q-box" data-num="3">
         <div class="q-header">Does your firewall clustering provide full and active resilience?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q3">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Active‑active firewalls are deployed from a single vendor</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q3">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Active‑passive firewalls are deployed in highly available clusters</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q3">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Firewalls with load balancers from another vendor are deployed</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="radio" name="q3" class="exclusive">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Not sure</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q3"><div class="radio"></div><div class="inner-wrap"><div class="text">Active‑active firewalls are deployed from a single vendor</div></div></label>
+          <label class="answer"><input type="radio" name="q3"><div class="radio"></div><div class="inner-wrap"><div class="text">Active‑passive firewalls are deployed in highly available clusters</div></div></label>
+          <label class="answer"><input type="radio" name="q3"><div class="radio"></div><div class="inner-wrap"><div class="text">Firewalls with load balancers from another vendor are deployed</div></div></label>
+          <label class="answer exclusive-option"><input type="radio" name="q3" class="exclusive"><div class="radio"></div><div class="inner-wrap"><div class="text">Not sure</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(3)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(3)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(3)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(3)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 4 -->
       <div id="q4" class="q-box" data-num="4">
         <div class="q-header">How do you scale security performance and capacity in your on-premises data centre environment when demand increases (e.g., during peak traffic, growth, or seasonal bursts such as e‑commerce events)?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q4">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We use a fully scalable, elastic security solution that dynamically adds capacity (e.g., cloud-like auto-scaling firewalls or security fabric)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q4">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We use clustering or load balancing across multiple fixed security appliances from a single vendor</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q4">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We manually purchase and deploy additional firewalls/appliances when capacity is reached</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q4">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">We do not have a scalable approach — capacity is fixed and often becomes a bottleneck</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q4"><div class="radio"></div><div class="inner-wrap"><div class="text">We use a fully scalable, elastic security solution that dynamically adds capacity (e.g., cloud-like auto-scaling firewalls or security fabric)</div></div></label>
+          <label class="answer"><input type="radio" name="q4"><div class="radio"></div><div class="inner-wrap"><div class="text">We use clustering or load balancing across multiple fixed security appliances from a single vendor</div></div></label>
+          <label class="answer"><input type="radio" name="q4"><div class="radio"></div><div class="inner-wrap"><div class="text">We manually purchase and deploy additional firewalls/appliances when capacity is reached</div></div></label>
+          <label class="answer"><input type="radio" name="q4"><div class="radio"></div><div class="inner-wrap"><div class="text">We do not have a scalable approach — capacity is fixed and often becomes a bottleneck</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(4)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(4)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(4)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(4)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 5 -->
       <div id="q5" class="q-box" data-num="5">
         <div class="q-header">Does your firewall clustering provide full and active resilience?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q5">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Active‑active firewalls are deployed from a single vendor</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q5">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Active‑passive firewalls are deployed in highly available clusters</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q5">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Firewalls with load balancers from another vendor are deployed</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="radio" name="q5" class="exclusive">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Not sure</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q5"><div class="radio"></div><div class="inner-wrap"><div class="text">Active‑active firewalls are deployed from a single vendor</div></div></label>
+          <label class="answer"><input type="radio" name="q5"><div class="radio"></div><div class="inner-wrap"><div class="text">Active‑passive firewalls are deployed in highly available clusters</div></div></label>
+          <label class="answer"><input type="radio" name="q5"><div class="radio"></div><div class="inner-wrap"><div class="text">Firewalls with load balancers from another vendor are deployed</div></div></label>
+          <label class="answer exclusive-option"><input type="radio" name="q5" class="exclusive"><div class="radio"></div><div class="inner-wrap"><div class="text">Not sure</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(5)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(5)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(5)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(5)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 6 -->
@@ -946,53 +967,14 @@
         <div class="q-header">What do you currently use to automatically prevent sophisticated attacks that move laterally across macro and micro segments?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q6" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Software‑defined Networking</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Agile and automated policy</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Business logic policy</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Service chaining using NSX/Cisco/ACI/OpenStack</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q6" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Dedicated policy layers</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="checkbox" name="q6" class="exclusive">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Not sure</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q6" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Software‑defined Networking</div></div></label>
+          <label class="answer"><input type="checkbox" name="q6" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Agile and automated policy</div></div></label>
+          <label class="answer"><input type="checkbox" name="q6" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Business logic policy</div></div></label>
+          <label class="answer"><input type="checkbox" name="q6" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Service chaining using NSX/Cisco/ACI/OpenStack</div></div></label>
+          <label class="answer"><input type="checkbox" name="q6" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Dedicated policy layers</div></div></label>
+          <label class="answer exclusive-option"><input type="checkbox" name="q6" class="exclusive"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Not sure</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(6)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(6)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(6)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(6)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 7 -->
@@ -1000,74 +982,17 @@
         <div class="q-header">Which of these Artificial Intelligence and Machine Learning technologies are you using to hunt down threats and preemptively look for the first stages of an attack?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Sandboxing</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Next Generation Web Application Firewall</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud‑native vulnerability scanning</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Real‑time threat intelligence to prevent zero‑day attacks</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Kubernetes runtime security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Anti‑malware</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">File sanitisation (CDR)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q7" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Malware DNA</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="checkbox" name="q7" class="exclusive">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Not sure</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Sandboxing</div></div></label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Next Generation Web Application Firewall</div></div></label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud‑native vulnerability scanning</div></div></label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Real‑time threat intelligence to prevent zero‑day attacks</div></div></label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Kubernetes runtime security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Anti‑malware</div></div></label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">File sanitisation (CDR)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q7" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Malware DNA</div></div></label>
+          <label class="answer exclusive-option"><input type="checkbox" name="q7" class="exclusive"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Not sure</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(7)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(7)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(7)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(7)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 8 -->
@@ -1075,124 +1000,37 @@
         <div class="q-header">How do you secure workloads such as Kubernetes, containers, serverless?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q8" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Posture management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q8" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Threat prevention</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q8" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Vulnerability scanning</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q8" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Least privileged access</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q8" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Not using cloud for workloads</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="checkbox" name="q8" class="exclusive">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Not sure</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q8" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Posture management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q8" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Threat prevention</div></div></label>
+          <label class="answer"><input type="checkbox" name="q8" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Vulnerability scanning</div></div></label>
+          <label class="answer"><input type="checkbox" name="q8" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Least privileged access</div></div></label>
+          <label class="answer"><input type="checkbox" name="q8" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Not using cloud for workloads</div></div></label>
+          <label class="answer exclusive-option"><input type="checkbox" name="q8" class="exclusive"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Not sure</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(8)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(8)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(8)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(8)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 9 -->
       <div id="q9" class="q-box" data-num="9">
         <div class="q-header">Do you have unified security and threat management for your on‑premises and cloud environments?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q9">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Fully unified</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q9">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Managed through separate tools</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="radio" name="q9" class="exclusive">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Not sure</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q9"><div class="radio"></div><div class="inner-wrap"><div class="text">Fully unified</div></div></label>
+          <label class="answer"><input type="radio" name="q9"><div class="radio"></div><div class="inner-wrap"><div class="text">Managed through separate tools</div></div></label>
+          <label class="answer exclusive-option"><input type="radio" name="q9" class="exclusive"><div class="radio"></div><div class="inner-wrap"><div class="text">Not sure</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(9)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(9)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(9)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(9)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 10 -->
       <div id="q10" class="q-box" data-num="10">
         <div class="q-header">What percentage of your organisation's employees work from home at least 2 days a week?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Up to 10%</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">11%–50%</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">51%–80%</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q10">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Over 80%</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q10"><div class="radio"></div><div class="inner-wrap"><div class="text">Up to 10%</div></div></label>
+          <label class="answer"><input type="radio" name="q10"><div class="radio"></div><div class="inner-wrap"><div class="text">11%–50%</div></div></label>
+          <label class="answer"><input type="radio" name="q10"><div class="radio"></div><div class="inner-wrap"><div class="text">51%–80%</div></div></label>
+          <label class="answer"><input type="radio" name="q10"><div class="radio"></div><div class="inner-wrap"><div class="text">Over 80%</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(10)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(10)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(10)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(10)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 11 -->
@@ -1200,46 +1038,13 @@
         <div class="q-header">Your organisation's security policy allows remote access to corporate applications</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer exclusive-option">
-            <input type="checkbox" name="q11" class="exclusive">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">We do not allow any remote access</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q11" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Employees with company managed laptops and/or mobile devices only</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q11" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">From personal mobile devices</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q11" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">From personal laptops</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q11" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">By third parties (contractors, consultants or partners)</div>
-            </div>
-          </label>
+          <label class="answer exclusive-option"><input type="checkbox" name="q11" class="exclusive"><div class="checkbox"></div><div class="inner-wrap"><div class="text">We do not allow any remote access</div></div></label>
+          <label class="answer"><input type="checkbox" name="q11" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Employees with company managed laptops and/or mobile devices only</div></div></label>
+          <label class="answer"><input type="checkbox" name="q11" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">From personal mobile devices</div></div></label>
+          <label class="answer"><input type="checkbox" name="q11" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">From personal laptops</div></div></label>
+          <label class="answer"><input type="checkbox" name="q11" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">By third parties (contractors, consultants or partners)</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(11)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(11)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(11)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(11)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 12 -->
@@ -1247,39 +1052,12 @@
         <div class="q-header">Connecting remote users to corporate applications in your company requires</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q12" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">SASE connection (cloud‑based service)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q12" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Device risk posture check</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q12" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Multi‑factor authentication</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q12" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">VPN connection</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q12" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">SASE connection (cloud‑based service)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q12" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Device risk posture check</div></div></label>
+          <label class="answer"><input type="checkbox" name="q12" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Multi‑factor authentication</div></div></label>
+          <label class="answer"><input type="checkbox" name="q12" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">VPN connection</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(12)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(12)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(12)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(12)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 13 -->
@@ -1287,53 +1065,14 @@
         <div class="q-header">How do you protect remote users while they are browsing the internet?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q13" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Sanitise potentially malicious downloads</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q13" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Real‑time scanning of online forms for phishing prevention</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q13" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Stop entering corporate credentials to non‑business websites</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q13" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Restrict access to certain websites (e.g. block access to adult and gambling sites)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q13" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Scan for data leakage</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q13" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Prevent access to URLs known as malicious</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q13" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Sanitise potentially malicious downloads</div></div></label>
+          <label class="answer"><input type="checkbox" name="q13" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Real‑time scanning of online forms for phishing prevention</div></div></label>
+          <label class="answer"><input type="checkbox" name="q13" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Stop entering corporate credentials to non‑business websites</div></div></label>
+          <label class="answer"><input type="checkbox" name="q13" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Restrict access to certain websites (e.g. block access to adult and gambling sites)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q13" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Scan for data leakage</div></div></label>
+          <label class="answer"><input type="checkbox" name="q13" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Prevent access to URLs known as malicious</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(13)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(13)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(13)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(13)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 14 -->
@@ -1341,99 +1080,27 @@
         <div class="q-header">How do you prevent sensitive business data from leaking outside the corporate?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q14" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Disk encryption on endpoint devices</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q14" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Scan files for sensitive content before uploaded to external websites/messaging apps</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q14" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Scan content that's uploaded in the browser</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q14" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Scan email and office applications for sensitive content before it is shared externally</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q14" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Permit safe use of Generative AI tools</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="checkbox" name="q14" class="exclusive">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">I don't know</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q14" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Disk encryption on endpoint devices</div></div></label>
+          <label class="answer"><input type="checkbox" name="q14" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Scan files for sensitive content before uploaded to external websites/messaging apps</div></div></label>
+          <label class="answer"><input type="checkbox" name="q14" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Scan content that's uploaded in the browser</div></div></label>
+          <label class="answer"><input type="checkbox" name="q14" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Scan email and office applications for sensitive content before it is shared externally</div></div></label>
+          <label class="answer"><input type="checkbox" name="q14" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Permit safe use of Generative AI tools</div></div></label>
+          <label class="answer exclusive-option"><input type="checkbox" name="q14" class="exclusive"><div class="checkbox"></div><div class="inner-wrap"><div class="text">I don't know</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(14)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(14)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(14)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(14)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 15 -->
       <div id="q15" class="q-box" data-num="15">
         <div class="q-header">Pick the applications your company's employees use for corporate email and cloud applications</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q15">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Office 365 + Google apps + Teams/SharePoint/OneDrive</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q15">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Gmail + Google Workspace</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q15">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Mixed modern SaaS (Office 365/Google + Zoom/Slack/Dropbox)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q15">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">On‑premises email (Microsoft Exchange) only</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q15">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Other apps only (Zoom/Slack/Dropbox etc.)</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q15"><div class="radio"></div><div class="inner-wrap"><div class="text">Office 365 + Google apps + Teams/SharePoint/OneDrive</div></div></label>
+          <label class="answer"><input type="radio" name="q15"><div class="radio"></div><div class="inner-wrap"><div class="text">Gmail + Google Workspace</div></div></label>
+          <label class="answer"><input type="radio" name="q15"><div class="radio"></div><div class="inner-wrap"><div class="text">Mixed modern SaaS (Office 365/Google + Zoom/Slack/Dropbox)</div></div></label>
+          <label class="answer"><input type="radio" name="q15"><div class="radio"></div><div class="inner-wrap"><div class="text">On‑premises email (Microsoft Exchange) only</div></div></label>
+          <label class="answer"><input type="radio" name="q15"><div class="radio"></div><div class="inner-wrap"><div class="text">Other apps only (Zoom/Slack/Dropbox etc.)</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(15)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(15)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(15)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(15)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 16 -->
@@ -1441,39 +1108,12 @@
         <div class="q-header">In the case of a ransomware attack, my organisation's endpoint protection can:</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q16" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Recover ransomware‑encrypted files</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q16" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Automatically detect and stop the attack</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q16" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Quarantine the infected endpoint</div>
-            </div>
-          </label>
-          <label class="answer exclusive-option">
-            <input type="checkbox" name="q16" class="exclusive">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">None of the above</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q16" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Recover ransomware‑encrypted files</div></div></label>
+          <label class="answer"><input type="checkbox" name="q16" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Automatically detect and stop the attack</div></div></label>
+          <label class="answer"><input type="checkbox" name="q16" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Quarantine the infected endpoint</div></div></label>
+          <label class="answer exclusive-option"><input type="checkbox" name="q16" class="exclusive"><div class="checkbox"></div><div class="inner-wrap"><div class="text">None of the above</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(16)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(16)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(16)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(16)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 17 -->
@@ -1481,113 +1121,29 @@
         <div class="q-header">Which of the following security solutions are being used in your company?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Endpoint Detection and Response / Extended Detection and Response / Managed Detection and Response (EDR/XDR/MDR)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Next‑Generation Antivirus / Endpoint Protection Platform (NGAV/EPP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud‑based security services (SASE)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Email security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Secure web gateway</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Mobile threat defence</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Endpoint and mobile vulnerability management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud‑based application posture check</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q17" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Collaboration apps security</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Endpoint Detection and Response / Extended Detection and Response / Managed Detection and Response (EDR/XDR/MDR)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Next‑Generation Antivirus / Endpoint Protection Platform (NGAV/EPP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud‑based security services (SASE)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Email security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Secure web gateway</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Mobile threat defence</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Endpoint and mobile vulnerability management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud‑based application posture check</div></div></label>
+          <label class="answer"><input type="checkbox" name="q17" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Collaboration apps security</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(17)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(17)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(17)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(17)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 18 -->
       <div id="q18" class="q-box" data-num="18">
         <div class="q-header">How many security vendors do you use to secure remote internet access, corporate access, email, identities, assets and data?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">1–3 vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">4–6 vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">7–9 vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q18">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">10+ vendors</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">1–3 vendors</div></div></label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">4–6 vendors</div></div></label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">7–9 vendors</div></div></label>
+          <label class="answer"><input type="radio" name="q18"><div class="radio"></div><div class="inner-wrap"><div class="text">10+ vendors</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(18)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(18)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(18)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(18)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 19 -->
@@ -1595,81 +1151,18 @@
         <div class="q-header">What endpoint protections are in use?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Endpoint Detection and Response (EDR)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Antivirus / Anti‑malware</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Full Disk Encryption + Removable Device Encryption</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Application Control</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Posture Management (vulnerability) with Patch Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">USB / Peripheral Control</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Browser Security with Content Filtering and Data Loss Prevention</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Mobile Device Management (MDM) + Mobile Device Security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Local Firewall and Host‑based Intrusion Detection System</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q19" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Device Policy Configuration and Control</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Endpoint Detection and Response (EDR)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Antivirus / Anti‑malware</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Full Disk Encryption + Removable Device Encryption</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Application Control</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Posture Management (vulnerability) with Patch Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">USB / Peripheral Control</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Browser Security with Content Filtering and Data Loss Prevention</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Mobile Device Management (MDM) + Mobile Device Security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Local Firewall and Host‑based Intrusion Detection System</div></div></label>
+          <label class="answer"><input type="checkbox" name="q19" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Device Policy Configuration and Control</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(19)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(19)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(19)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(19)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 20 -->
@@ -1677,81 +1170,18 @@
         <div class="q-header">To what extent are advanced cloud protections deployed?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Security Posture Management (CSPM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Workload Protection Platform (CWPP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Infrastructure Entitlement Management (CIEM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Encryption of Data at Rest and in Transit</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Network Segmentation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Firewall</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Web Application Firewall</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Container Security + Serverless (e.g., image scanning, runtime protection)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud‑Native Application Protection Platform (CNAPP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q20" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Cloud Access Security Broker (CASB)</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Security Posture Management (CSPM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Workload Protection Platform (CWPP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Infrastructure Entitlement Management (CIEM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Encryption of Data at Rest and in Transit</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Network Segmentation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Firewall</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Web Application Firewall</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Container Security + Serverless (e.g., image scanning, runtime protection)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud‑Native Application Protection Platform (CNAPP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q20" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Cloud Access Security Broker (CASB)</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(20)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(20)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(20)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(20)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 21 -->
@@ -1759,81 +1189,18 @@
         <div class="q-header">To what extent are your applications protected?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Web Application Firewall (WAF)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Static and Dynamic Application Security Testing (SAST/DAST)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Software Composition Analysis (SCA)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Secure Software Development Life Cycle Practices</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">API Security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Large Language Model Security</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Code Signing and Integrity Checks</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">DevSecOps Integration</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Penetration Testing</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q21" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">OWASP Top 10 Mitigation</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Web Application Firewall (WAF)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Static and Dynamic Application Security Testing (SAST/DAST)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Software Composition Analysis (SCA)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Secure Software Development Life Cycle Practices</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">API Security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Large Language Model Security</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Code Signing and Integrity Checks</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">DevSecOps Integration</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Penetration Testing</div></div></label>
+          <label class="answer"><input type="checkbox" name="q21" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">OWASP Top 10 Mitigation</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(21)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(21)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(21)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(21)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 22 -->
@@ -1841,81 +1208,18 @@
         <div class="q-header">Do you have advanced email and collaboration protection?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Email Security in place</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Phishing Protection and Simulation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Attachment Sandboxing + Encrypted Attachments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">URL Rewriting and Click Protection</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">DMARC, DKIM, SPF Enforcement</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Leakage Prevention (DLP) for Email and Collaboration</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Email Encryption</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Collaboration Tool Monitoring (e.g., Teams, Slack)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Impersonation and Spoofing Detection</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q22" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User Awareness Training</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Email Security in place</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Phishing Protection and Simulation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Attachment Sandboxing + Encrypted Attachments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">URL Rewriting and Click Protection</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">DMARC, DKIM, SPF Enforcement</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Leakage Prevention (DLP) for Email and Collaboration</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Email Encryption</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Collaboration Tool Monitoring (e.g., Teams, Slack)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Impersonation and Spoofing Detection</div></div></label>
+          <label class="answer"><input type="checkbox" name="q22" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User Awareness Training</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(22)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(22)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(22)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(22)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 23 -->
@@ -1923,81 +1227,18 @@
         <div class="q-header">To what extent is the company's critical data secured?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Classification and Labelling</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Loss Prevention (DLP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Encryption (at rest, in transit, and in use)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Tokenisation and Masking</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Access Governance</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Discovery and Mapping</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Data Residency and Sovereignty Controls</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Secure Data Disposal</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Privacy Impact Assessments (PIAs)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q23" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User Activity Monitoring on Sensitive Data</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Classification and Labelling</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Loss Prevention (DLP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Encryption (at rest, in transit, and in use)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Tokenisation and Masking</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Access Governance</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Discovery and Mapping</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Data Residency and Sovereignty Controls</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Secure Data Disposal</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Privacy Impact Assessments (PIAs)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q23" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User Activity Monitoring on Sensitive Data</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(23)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(23)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(23)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(23)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 24 -->
@@ -2005,81 +1246,18 @@
         <div class="q-header">To what extent do you have visibility and remediation steps on external risk?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Vendor Risk Assessments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Continuous Attack Surface Monitoring</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Vulnerability Management + Exposure Validation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Risk Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Dark Web Scanning for Sensitive Information</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Threat Intelligence</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Digital Brand and Risk Protection + Phishing / Social Media</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Third‑Party Access Controls</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Continuous Monitoring of Vendors</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q24" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Onboarding/Offboarding Procedures</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Vendor Risk Assessments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Continuous Attack Surface Monitoring</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Vulnerability Management + Exposure Validation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Risk Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Dark Web Scanning for Sensitive Information</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Threat Intelligence</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Digital Brand and Risk Protection + Phishing / Social Media</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Third‑Party Access Controls</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Continuous Monitoring of Vendors</div></div></label>
+          <label class="answer"><input type="checkbox" name="q24" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Onboarding/Offboarding Procedures</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(24)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(24)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(24)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(24)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 25 -->
@@ -2087,81 +1265,18 @@
         <div class="q-header">How do you ensure identities are trusted and ensure only access to what is needed to fulfil your role in the company?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Multi‑Factor Authentication (MFA)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Single Sign‑On (SSO)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Privileged Access Management (PAM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Role‑Based Access Control (RBAC)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Just‑In‑Time (JIT) Access</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Identity Federation and Federation Protocols (SAML, OIDC)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User Lifecycle Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Access Reviews and Recertification</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Password Policy Enforcement</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q25" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Behavioural Biometrics / Risk‑Based Authentication</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Multi‑Factor Authentication (MFA)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Single Sign‑On (SSO)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Privileged Access Management (PAM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Role‑Based Access Control (RBAC)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Just‑In‑Time (JIT) Access</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Identity Federation and Federation Protocols (SAML, OIDC)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User Lifecycle Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Access Reviews and Recertification</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Password Policy Enforcement</div></div></label>
+          <label class="answer"><input type="checkbox" name="q25" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Behavioural Biometrics / Risk‑Based Authentication</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(25)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(25)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(25)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(25)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 26 -->
@@ -2169,81 +1284,18 @@
         <div class="q-header">To what extent does your company monitor security events and use threat intelligence?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Security Information and Event Management (SIEM)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Security Orchestration, Automation and Response (SOAR)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Threat Intelligence Integration</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">User and Entity Behaviour Analytics (UEBA)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Log Aggregation and Retention</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Anomaly Detection</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Deception Technologies</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Threat Hunting Capabilities</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Real‑time Alerting and Correlation</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q26" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">MITRE ATT&CK Mapping</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Security Information and Event Management (SIEM)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Security Orchestration, Automation and Response (SOAR)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Threat Intelligence Integration</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">User and Entity Behaviour Analytics (UEBA)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Log Aggregation and Retention</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Anomaly Detection</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Deception Technologies</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Threat Hunting Capabilities</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Real‑time Alerting and Correlation</div></div></label>
+          <label class="answer"><input type="checkbox" name="q26" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">MITRE ATT&CK Mapping</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(26)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(26)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(26)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(26)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 27 -->
@@ -2251,81 +1303,18 @@
         <div class="q-header">To what extent do you have incident response and recovery?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Incident Response Plan (IRP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Tabletop Exercises and Simulations</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Forensics and Evidence Collection Tools</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Crisis Communication Plan</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Automated Virtual Patching</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Business Continuity Plan (BCP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Disaster Recovery Plan (DRP)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Playbooks for Common Scenarios</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Post‑Incident Review Process</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q27" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Ransomware Response Protocols</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Incident Response Plan (IRP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Tabletop Exercises and Simulations</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Forensics and Evidence Collection Tools</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Crisis Communication Plan</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Automated Virtual Patching</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Business Continuity Plan (BCP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Disaster Recovery Plan (DRP)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Playbooks for Common Scenarios</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Post‑Incident Review Process</div></div></label>
+          <label class="answer"><input type="checkbox" name="q27" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Ransomware Response Protocols</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(27)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(27)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(27)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(27)">NEXT →</button></div>
       </div>
       
       <!-- QUESTION 28 -->
@@ -2333,267 +1322,69 @@
         <div class="q-header">Operational security projects?</div>
         <div class="sub">Choose all that apply</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Business Impact Analyses</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Risk Assessments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Vulnerability Assessments</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Penetration Testing</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Continuous Threat and Exposure Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Unified Management</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">AI‑Assisted Security Tools + Management + Detect + Respond</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Open Garden Platform</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Security Operations Centre (SOC)</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="checkbox" name="q28" class="normal-option">
-            <div class="checkbox"></div>
-            <div class="inner-wrap">
-              <div class="text">Shared Indicators of Compromise</div>
-            </div>
-          </label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Business Impact Analyses</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Risk Assessments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Vulnerability Assessments</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Penetration Testing</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Continuous Threat and Exposure Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Unified Management</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">AI‑Assisted Security Tools + Management + Detect + Respond</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Open Garden Platform</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Security Operations Centre (SOC)</div></div></label>
+          <label class="answer"><input type="checkbox" name="q28" class="normal-option"><div class="checkbox"></div><div class="inner-wrap"><div class="text">Shared Indicators of Compromise</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(28)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(28)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(28)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(28)">NEXT →</button></div>
       </div>
       
-      <!-- QUESTION 29 - AI Security -->
+      <!-- QUESTION 29 -->
       <div id="q29" class="q-box" data-num="29">
         <div class="q-header">How effectively does your organisation implement runtime monitoring and protection mechanisms for AI systems, such as anomaly detection, input validation, and real‑time threat response?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">No AI models to protect</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">No runtime protections; reliant on basic firewalls or none at all.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Basic monitoring tools in use, but reactive and manual.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Standardised tools for anomaly detection deployed across key AI workloads.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Automated threat response with metrics tracking effectiveness.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q29">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">AI‑specific runtime defences integrated with predictive analytics and zero‑trust architecture.</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">No AI models to protect</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">No runtime protections; reliant on basic firewalls or none at all.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">Basic monitoring tools in use, but reactive and manual.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">Standardised tools for anomaly detection deployed across key AI workloads.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">Automated threat response with metrics tracking effectiveness.</div></div></label>
+          <label class="answer"><input type="radio" name="q29"><div class="radio"></div><div class="inner-wrap"><div class="text">AI‑specific runtime defences integrated with predictive analytics and zero‑trust architecture.</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(29)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(29)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(29)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(29)">NEXT →</button></div>
       </div>
       
-      <!-- QUESTION 30 - AI Security -->
+      <!-- QUESTION 30 -->
       <div id="q30" class="q-box" data-num="30">
         <div class="q-header">To what extent has your organisation developed and enforced governance frameworks for GenAI applications, including model approval processes, ethical guidelines, and audit trails?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">No formal governance; ad‑hoc development and deployment.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Basic policies exist but are not consistently applied.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Defined governance standards with regular reviews for all GenAI apps.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Governance integrated with risk assessments and compliance reporting.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q30">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Advanced governance with AI ethics boards, automated audits, and continuous policy evolution.</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">No formal governance; ad‑hoc development and deployment.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Basic policies exist but are not consistently applied.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Defined governance standards with regular reviews for all GenAI apps.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Governance integrated with risk assessments and compliance reporting.</div></div></label>
+          <label class="answer"><input type="radio" name="q30"><div class="radio"></div><div class="inner-wrap"><div class="text">Advanced governance with AI ethics boards, automated audits, and continuous policy evolution.</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(30)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(30)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(30)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(30)">NEXT →</button></div>
       </div>
       
-      <!-- QUESTION 31 - AI Security -->
+      <!-- QUESTION 31 -->
       <div id="q31" class="q-box" data-num="31">
         <div class="q-header">How comprehensively does your organisation apply DLP controls to AI‑related data, such as classification, encryption, and monitoring for exfiltration risks?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Minimal DLP; data handled without specific AI considerations.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Basic access controls and encryption for sensitive data.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">AI‑specific DLP policies with tools for data tagging and leakage detection.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Real‑time monitoring and automated blocking of DLP violations.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q31">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Integrated DLP with AI‑driven threat intelligence and zero‑data‑exposure architectures.</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Minimal DLP; data handled without specific AI considerations.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Basic access controls and encryption for sensitive data.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">AI‑specific DLP policies with tools for data tagging and leakage detection.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Real‑time monitoring and automated blocking of DLP violations.</div></div></label>
+          <label class="answer"><input type="radio" name="q31"><div class="radio"></div><div class="inner-wrap"><div class="text">Integrated DLP with AI‑driven threat intelligence and zero‑data‑exposure architectures.</div></div></label>
         </div>
-        <div class="btn-box-wrap">
-          <button class="button prev" onclick="prevQuestion(31)">← PREVIOUS</button>
-          <button class="button next" onclick="nextQuestion(31)">NEXT →</button>
-        </div>
+        <div class="btn-box-wrap"><button class="button prev" onclick="prevQuestion(31)">← PREVIOUS</button><button class="button next" onclick="nextQuestion(31)">NEXT →</button></div>
       </div>
       
-      <!-- QUESTION 32 - AI Security -->
+      <!-- QUESTION 32 -->
       <div id="q32" class="q-box" data-num="32">
         <div class="q-header">What is the maturity of your organisation's security measures for AI data centres, covering access controls, vulnerability management, and resilience against physical/cyber threats?</div>
         <div class="answer-wrap">
-          <label class="answer">
-            <input type="radio" name="q32">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Basic physical security; no AI‑specific data centre protections.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q32">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Standard network segmentation and patching routines.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q32">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Dedicated AI zones with multi‑factor authentication and regular audits.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q32">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Advanced monitoring with AI‑assisted vulnerability scanning and incident response.</div>
-            </div>
-          </label>
-          <label class="answer">
-            <input type="radio" name="q32">
-            <div class="radio"></div>
-            <div class="inner-wrap">
-              <div class="text">Fully resilient setup with supply chain verification, quantum‑resistant encryption, and automated failover.</div>
-            </div>
-          </label>
+          <label class="answer"><input type="radio" name="q32"><div class="radio"></div><div class="inner-wrap"><div class="text">Basic physical security; no AI‑specific data centre protections.</div></div></label>
+          <label class="answer"><input type="radio" name="q32"><div class="radio"></div><div class="inner-wrap"><div class="text">Standard network segmentation and patching routines.</div></div></label>
+          <label class="answer"><input type="radio" name="q32"><div class="radio"></div><div class="inner-wrap"><div class="text">Dedicated AI zones with multi‑factor authentication and regular audits.</div></div></label>
+          <label class="answer"><input type="radio" name="q32"><div class="radio"></div><div class="inner-wrap"><div class="text">Advanced monitoring with AI‑assisted vulnerability scanning and incident response.</div></div></label>
+          <label class="answer"><input type="radio" name="q32"><div class="radio"></div><div class="inner-wrap"><div class="text">Fully resilient setup with supply chain verification, quantum‑resistant encryption, and automated failover.</div></div></label>
         </div>
         <div class="btn-box-wrap">
           <button class="button prev" onclick="prevQuestion(32)">← PREVIOUS</button>
@@ -2614,6 +1405,13 @@
         <div class="maturity-level" id="maturity-level">Calculating...</div>
       </div>
       <div class="auto-email-notice" id="autoEmailNotice">📋 Your results have been saved to your profile.</div>
+      
+      <!-- Contributors Summary -->
+      <div id="contributors-summary" class="contributors-summary" style="display: none;">
+        <h4><i class="fas fa-users"></i> Contributors to this Assessment</h4>
+        <ul id="contributors-list-summary"></ul>
+      </div>
+      
       <h3 style="margin:1.5rem 0 1rem;font-size:1.2rem;">Security Pillar Results</h3>
       <div class="table-responsive">
         <table class="pillars-table" id="pillars-table">
@@ -2627,11 +1425,11 @@
   </div>
 
   <!-- Hidden PDF pages (for PDF generation) -->
-  <div id="pdf-page-1" class="pdf-page"><div class="pdf-header"><div class="pdf-logo">Cyber Security Maturity Model</div><h1>Assessment Report</h1></div><div class="pdf-date" id="pdf-date-1"></div><div class="pdf-score-summary"><div class="pdf-overall-score" id="pdf-overall-score-1">0%</div><div class="pdf-maturity-level" id="pdf-maturity-level-1">Limited Maturity</div></div><div class="pdf-section"><h2>Security Pillar Results</h2><table class="pdf-table" id="pdf-pillars-table-1"><thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead><tbody id="pdf-pillars-body-1"></tbody></table></div><div class="pdf-footer">Page 1 of 3 | Generated by Cyber Security Maturity Model Assessment Tool | <span id="pdf-footer-date-1"></span></div></div>
-  <div id="pdf-page-2" class="pdf-page"><div class="pdf-header"><div class="pdf-logo">Cyber Security Maturity Model</div><h1>Assessment Report</h1></div><div class="pdf-date" id="pdf-date-2"></div><div class="pdf-section"><h2>Personalised Recommendations (Page 2 of 3)</h2><div id="pdf-recommendations-1"></div></div><div class="pdf-footer">Page 2 of 3 | Generated by Cyber Security Maturity Model Assessment Tool | <span id="pdf-footer-date-2"></span></div></div>
-  <div id="pdf-page-3" class="pdf-page"><div class="pdf-header"><div class="pdf-logo">Cyber Security Maturity Model</div><h1>Assessment Report</h1></div><div class="pdf-date" id="pdf-date-3"></div><div class="pdf-section"><h2>Personalised Recommendations (Page 3 of 3)</h2><div id="pdf-recommendations-2"></div></div><div class="pdf-footer">Page 3 of 3 | Generated by Cyber Security Maturity Model Assessment Tool | <span id="pdf-footer-date-3"></span></div></div>
+  <div id="pdf-page-1" class="pdf-page"><div class="pdf-header"><div class="pdf-logo">Cyber Security Spot Check</div><h1>Assessment Report</h1></div><div class="pdf-date" id="pdf-date-1"></div><div class="pdf-score-summary"><div class="pdf-overall-score" id="pdf-overall-score-1">0%</div><div class="pdf-maturity-level" id="pdf-maturity-level-1">Limited Maturity</div></div><div class="pdf-section"><h2>Security Pillar Results</h2><table class="pdf-table" id="pdf-pillars-table-1"><thead><tr><th>Security Pillar</th><th>Score</th><th>Max</th><th>Maturity %</th><th>Progress</th></tr></thead><tbody id="pdf-pillars-body-1"></tbody></table></div><div class="pdf-footer">Page 1 of 3 | Generated by Cyber Security Spot Check Assessment Tool | <span id="pdf-footer-date-1"></span></div></div>
+  <div id="pdf-page-2" class="pdf-page"><div class="pdf-header"><div class="pdf-logo">Cyber Security Spot Check</div><h1>Assessment Report</h1></div><div class="pdf-date" id="pdf-date-2"></div><div class="pdf-section"><h2>Personalised Recommendations (Page 2 of 3)</h2><div id="pdf-recommendations-1"></div></div><div class="pdf-footer">Page 2 of 3 | Generated by Cyber Security Spot Check Assessment Tool | <span id="pdf-footer-date-2"></span></div></div>
+  <div id="pdf-page-3" class="pdf-page"><div class="pdf-header"><div class="pdf-logo">Cyber Security Spot Check</div><h1>Assessment Report</h1></div><div class="pdf-date" id="pdf-date-3"></div><div class="pdf-section"><h2>Personalised Recommendations (Page 3 of 3)</h2><div id="pdf-recommendations-2"></div></div><div class="pdf-footer">Page 3 of 3 | Generated by Cyber Security Spot Check Assessment Tool | <span id="pdf-footer-date-3"></span></div></div>
 
-<script>
+  <script>
     // ==================== SUPABASE CONFIG ====================
     const SUPABASE_URL = 'https://srqyuqhsjfedwulwlvhi.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_uyz4arnlDxpd70tkHxuCLQ_ghq9Zua8';
@@ -2641,6 +1439,7 @@
     let currentQuestion = 1;
     const totalQuestions = 32;
     let answers = {};
+    let contributors = [];
     let overallScore = 0;
     let pillarScores = {};
     let viewingMode = 'new';
@@ -2649,14 +1448,127 @@
     // Admin emails
     const ADMIN_EMAILS = ['nadine@cyberly.co.za', 'rudiv@checkpoint.com', 'ianv@checkpoint.com'];
 
-    // ==================== CHECK FOR PASSWORD RESET ON PAGE LOAD ====================
+    // ==================== TEST DATABASE CONNECTION ====================
+    async function testConnection() {
+      try {
+        console.log('Testing Supabase connection...');
+        const { data, error } = await supabaseClient
+          .from(TABLES.USERS)
+          .select('count')
+          .limit(1);
+        
+        if (error) {
+          console.error('Connection error:', error);
+        } else {
+          console.log('Connection successful!');
+        }
+      } catch (e) {
+        console.error('Exception:', e);
+      }
+    }
+
+    // ==================== CHECK RESULTS COUNT ====================
+    async function checkResultsCount() {
+      try {
+        const { count, error } = await supabaseClient
+          .from(TABLES.RESULTS)
+          .select('*', { count: 'exact', head: true });
+        
+        if (error) {
+          console.error('Error counting results:', error);
+        } else {
+          console.log('Total results in database:', count);
+          // Show a notification
+          const notice = document.createElement('div');
+          notice.style.position = 'fixed';
+          notice.style.bottom = '20px';
+          notice.style.right = '20px';
+          notice.style.backgroundColor = '#4CAF50';
+          notice.style.color = 'white';
+          notice.style.padding = '10px 20px';
+          notice.style.borderRadius = '5px';
+          notice.style.zIndex = '9999';
+          notice.innerHTML = `📊 Database has ${count} total results`;
+          document.body.appendChild(notice);
+          setTimeout(() => notice.remove(), 5000);
+        }
+      } catch (e) {
+        console.error('Exception counting results:', e);
+      }
+    }
+
+    // ==================== CONTRIBUTORS FUNCTIONS ====================
+    function showContributorsPage() {
+      document.getElementById('home').style.display = 'none';
+      document.getElementById('contributors-page').style.display = 'flex';
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('assessment').style.display = 'none';
+      
+      contributors = [''];
+      renderContributorFields();
+    }
+
+    function renderContributorFields() {
+      const container = document.getElementById('contributors-list');
+      container.innerHTML = '';
+      
+      contributors.forEach((name, index) => {
+        const div = document.createElement('div');
+        div.className = 'contributor-row';
+        div.innerHTML = `
+          <input type="text" class="auth-input" 
+                 placeholder="Full name of contributor ${index + 1}" 
+                 value="${name.replace(/"/g, '&quot;')}"
+                 onchange="updateContributor(${index}, this.value)">
+          ${contributors.length > 1 ? 
+            `<button class="remove-contributor" onclick="removeContributor(${index})">
+                <i class="fas fa-times"></i>
+            </button>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function updateContributor(index, value) {
+      contributors[index] = value;
+    }
+
+    function addContributorField() {
+      contributors.push('');
+      renderContributorFields();
+    }
+
+    function removeContributor(index) {
+      contributors.splice(index, 1);
+      renderContributorFields();
+    }
+
+    function saveContributorsAndStart() {
+      const validContributors = contributors.filter(name => name.trim() !== '');
+      
+      if (validContributors.length === 0) {
+        document.getElementById('contributors-error').textContent = 
+          'Please add at least one contributor name';
+        document.getElementById('contributors-error').style.display = 'block';
+        return;
+      }
+      
+      contributors = validContributors.map(name => ({
+        fullName: name.trim(),
+        timestamp: new Date().toISOString()
+      }));
+      
+      document.getElementById('contributors-error').style.display = 'none';
+      document.getElementById('contributors-page').style.display = 'none';
+      startAssessment();
+    }
+
+    // ==================== CHECK FOR PASSWORD RESET ====================
     async function handlePasswordReset() {
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const accessToken = hashParams.get('access_token');
       const type = hashParams.get('type');
       const refreshToken = hashParams.get('refresh_token');
-      
-      console.log('URL params:', { type, hasToken: !!accessToken });
       
       if (type === 'recovery' && accessToken) {
         try {
@@ -2690,8 +1602,10 @@
       document.getElementById('admin-dashboard').style.display = 'none';
       document.getElementById('results-container').style.display = 'none';
       document.getElementById('update-password-page').style.display = 'none';
+      document.getElementById('contributors-page').style.display = 'none';
       
       answers = {};
+      contributors = [];
       document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(i => { 
         i.checked = false; 
         i.closest('.answer')?.classList.remove('selected'); 
@@ -2704,7 +1618,6 @@
     }
 
     // ==================== PASSWORD RESET FUNCTIONS ====================
-
     async function sendPasswordReset() {
       const email = document.getElementById('forgot-email').value;
       const err = document.getElementById('forgot-error');
@@ -2718,8 +1631,6 @@
       }
 
       try {
-        console.log('Sending reset email to:', email);
-        
         const redirectUrl = window.location.origin + window.location.pathname;
         
         const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
@@ -2728,7 +1639,7 @@
 
         if (error) throw error;
 
-        suc.innerHTML = '✅ Password reset email sent! Please check your inbox (and spam folder).';
+        suc.innerHTML = '✅ Password reset email sent! Please check your inbox.';
         suc.style.display = 'block';
         err.style.display = 'none';
         
@@ -2740,14 +1651,7 @@
 
       } catch (error) {
         console.error('Password reset error:', error);
-        
-        if (error.message.includes('rate limit')) {
-          err.textContent = 'Too many attempts. Please wait a few minutes and try again.';
-        } else if (error.message.includes('Email not found')) {
-          err.textContent = 'No account found with this email address.';
-        } else {
-          err.textContent = error.message || 'Error sending reset email. Please try again.';
-        }
+        err.textContent = error.message || 'Error sending reset email';
         err.style.display = 'block';
         suc.style.display = 'none';
       }
@@ -2781,8 +1685,6 @@
       }
 
       try {
-        console.log('Updating password...');
-        
         const { error } = await supabaseClient.auth.updateUser({
           password: newPassword
         });
@@ -2805,7 +1707,7 @@
 
       } catch (error) {
         console.error('Password update error:', error);
-        err.textContent = error.message || 'Error updating password. Please try again.';
+        err.textContent = error.message || 'Error updating password';
         err.style.display = 'block';
         suc.style.display = 'none';
       }
@@ -2853,45 +1755,118 @@
 
     // ==================== AUTH ====================
     async function signup() {
-      const f=document.getElementById('signup-firstname').value, l=document.getElementById('signup-lastname').value, c=document.getElementById('signup-company').value, e=document.getElementById('signup-email').value, p=document.getElementById('signup-phone').value, pw=document.getElementById('signup-password').value, conf=document.getElementById('signup-confirm').value, err=document.getElementById('signup-error'), suc=document.getElementById('signup-success');
-      if(!f||!l||!c||!e||!pw||!conf) { err.textContent='Please fill all required fields'; err.style.display='block'; return; }
-      if(pw!==conf) { err.textContent='Passwords do not match'; err.style.display='block'; return; }
-      if(pw.length<6) { err.textContent='Password must be at least 6 characters'; err.style.display='block'; return; }
+      const f=document.getElementById('signup-firstname').value, 
+            l=document.getElementById('signup-lastname').value, 
+            c=document.getElementById('signup-company').value, 
+            e=document.getElementById('signup-email').value, 
+            p=document.getElementById('signup-phone').value, 
+            pw=document.getElementById('signup-password').value, 
+            conf=document.getElementById('signup-confirm').value, 
+            err=document.getElementById('signup-error'), 
+            suc=document.getElementById('signup-success');
+            
+      if(!f||!l||!c||!e||!pw||!conf) { 
+        err.textContent='Please fill all required fields'; 
+        err.style.display='block'; 
+        return; 
+      }
+      if(pw!==conf) { 
+        err.textContent='Passwords do not match'; 
+        err.style.display='block'; 
+        return; 
+      }
+      if(pw.length<6) { 
+        err.textContent='Password must be at least 6 characters'; 
+        err.style.display='block'; 
+        return; 
+      }
+      
       try {
-        const { data: existing } = await supabaseClient.from(TABLES.USERS).select('email').eq('email',e);
-        if(existing&&existing.length) { err.textContent='Email already registered'; err.style.display='block'; return; }
-        const { error } = await supabaseClient.from(TABLES.USERS).insert([{ first_name:f, last_name:l, company_name:c, email:e, phone_number:p||null, password:pw }]);
-        if(error) throw error;
-        suc.textContent='Account created! Please login.'; suc.style.display='block'; err.style.display='none';
+        // First create auth user
+        const { data: authData, error: authError } = await supabaseClient.auth.signUp({
+          email: e,
+          password: pw
+        });
+        
+        if (authError) throw authError;
+        
+        // Then add to users table
+        const { error } = await supabaseClient.from(TABLES.USERS).insert([{ 
+          first_name: f, 
+          last_name: l, 
+          company_name: c, 
+          email: e, 
+          phone_number: p || null,
+          password: pw 
+        }]);
+        
+        if (error) throw error;
+        
+        suc.textContent = 'Account created! Please login.'; 
+        suc.style.display = 'block'; 
+        err.style.display = 'none';
         document.querySelectorAll('#signup-section input').forEach(i=>i.value='');
         setTimeout(showLogin,2000);
-      } catch { err.textContent='Error creating account'; err.style.display='block'; }
+      } catch (error) { 
+        console.error('Signup error:', error);
+        err.textContent = error.message || 'Error creating account'; 
+        err.style.display = 'block'; 
+      }
     }
     
     async function login() {
-      const e=document.getElementById('login-email').value, pw=document.getElementById('login-password').value, err=document.getElementById('login-error');
-      if(!e||!pw) { err.textContent='Enter email and password'; err.style.display='block'; return; }
+      const e = document.getElementById('login-email').value;
+      const pw = document.getElementById('login-password').value;
+      const err = document.getElementById('login-error');
+      
+      if (!e || !pw) {
+        err.textContent = 'Enter email and password';
+        err.style.display = 'block';
+        return;
+      }
+      
       try {
-        const { data, error } = await supabaseClient.from(TABLES.USERS).select('*').eq('email',e).eq('password',pw);
-        if(error) throw error;
-        if(data&&data.length) {
-          currentUser=data[0]; err.style.display='none';
-          document.getElementById('auth').style.display='none'; 
+        // Directly query your users table
+        const { data, error } = await supabaseClient
+          .from(TABLES.USERS)
+          .select('*')
+          .eq('email', e)
+          .eq('password', pw);
+        
+        if (error) throw error;
+        
+        if (data && data.length > 0) {
+          currentUser = data[0];
+          err.style.display = 'none';
+          document.getElementById('auth').style.display = 'none';
           goToHomePage();
-          let full = `${currentUser.first_name||''} ${currentUser.last_name||''}`.trim();
-          document.getElementById('welcome-message').textContent = `Welcome, ${full||currentUser.email}`;
-          document.getElementById('my-results-btn').style.display='inline-block';
+          
+          let full = `${currentUser.first_name || ''} ${currentUser.last_name || ''}`.trim();
+          document.getElementById('welcome-message').textContent = `Welcome, ${full || currentUser.email}`;
+          document.getElementById('my-results-btn').style.display = 'inline-block';
           document.getElementById('admin-btn').style.display = ADMIN_EMAILS.includes(e) ? 'inline-block' : 'none';
-          if(document.getElementById('remember-me').checked) localStorage.setItem('rememberedEmail',e); else localStorage.removeItem('rememberedEmail');
-        } else { err.textContent='Invalid email or password'; err.style.display='block'; }
-      } catch { err.textContent='Error logging in'; err.style.display='block'; }
+          
+          if (document.getElementById('remember-me').checked) {
+            localStorage.setItem('rememberedEmail', e);
+          } else {
+            localStorage.removeItem('rememberedEmail');
+          }
+        } else {
+          err.textContent = 'Invalid email or password';
+          err.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        err.textContent = 'Error logging in';
+        err.style.display = 'block';
+      }
     }
 
     function logout() { 
       supabaseClient.auth.signOut();
-      currentUser=null; 
+      currentUser = null; 
       goToHomePage();
-      document.getElementById('auth').style.display='flex'; 
+      document.getElementById('auth').style.display = 'flex'; 
       showLogin(); 
     }
 
@@ -2908,92 +1883,187 @@
     }
     
     async function loadUserResults() {
-      const { data: results } = await supabaseClient.from(TABLES.RESULTS).select('*').eq('user_email',currentUser.email).order('created_at',{ascending:false});
-      displayUserResults(results||[]);
+      const { data: results } = await supabaseClient
+        .from(TABLES.RESULTS)
+        .select('*')
+        .eq('user_email', currentUser.email)
+        .order('created_at', {ascending: false});
+      displayUserResults(results || []);
     }
     
     function displayUserResults(results) {
-      const tbody=document.getElementById('user-results-body'); const statsDiv=document.getElementById('user-stats');
-      if(!results.length) {
-        tbody.innerHTML='<tr><td colspan="4" style="text-align:center;padding:2rem;">No past assessments. Take the assessment to see results.</td></tr>';
-        statsDiv.innerHTML='<div class="stat-card"><h3>Total Assessments</h3><div class="number">0</div></div>';
+      const tbody = document.getElementById('user-results-body'); 
+      const statsDiv = document.getElementById('user-stats');
+      
+      if (!results.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;">No past assessments. Take the assessment to see results.</td></tr>';
+        statsDiv.innerHTML = '<div class="stat-card"><h3>Total Assessments</h3><div class="number">0</div></div>';
         return;
       }
-      let total=results.length, avg=Math.round(results.reduce((s,r)=>s+r.overall_score,0)/total);
-      statsDiv.innerHTML=`<div class="stat-card"><h3>Total Assessments</h3><div class="number">${total}</div></div><div class="stat-card"><h3>Average Score</h3><div class="number">${avg}%</div></div>`;
-      tbody.innerHTML = results.map(r=>`<tr><td>${new Date(r.created_at).toLocaleDateString()}</td><td><strong>${r.overall_score}%</strong></td><td>${r.maturity_level||'N/A'}</td><td><button class="dashboard-action high" onclick="viewPastResult('${r.id}')">View Details</button></td></tr>`).join('');
+      
+      let total = results.length, 
+          avg = Math.round(results.reduce((s,r) => s + r.overall_score, 0) / total);
+      
+      statsDiv.innerHTML = `
+        <div class="stat-card"><h3>Total Assessments</h3><div class="number">${total}</div></div>
+        <div class="stat-card"><h3>Average Score</h3><div class="number">${avg}%</div></div>
+      `;
+      
+      tbody.innerHTML = results.map(r => {
+        let contributorsHtml = '';
+        if (r.contributors && Array.isArray(r.contributors)) {
+          contributorsHtml = r.contributors.map(c => 
+            `<span class="badge">${c.fullName || c}</span>`
+          ).join('');
+        } else {
+          contributorsHtml = '<span class="badge">No contributors listed</span>';
+        }
+        
+        return `<tr>
+          <td>${new Date(r.created_at).toLocaleDateString()}</td>
+          <td><strong>${r.overall_score}%</strong></td>
+          <td>${r.maturity_level || 'N/A'}</td>
+          <td class="contributors-cell">${contributorsHtml}</td>
+          <td><button class="dashboard-action high" onclick="viewPastResult('${r.id}')">View Details</button></td>
+        </tr>`;
+      }).join('');
     }
     
     async function viewPastResult(resultId) {
-      const { data } = await supabaseClient.from(TABLES.RESULTS).select('*').eq('id',resultId).single();
-      if(data) {
+      const { data } = await supabaseClient
+        .from(TABLES.RESULTS)
+        .select('*')
+        .eq('id', resultId)
+        .single();
+        
+      if (data) {
         viewingMode = 'historical';
         viewingResultId = resultId;
         answers = data.answers || {};
         overallScore = data.overall_score;
+        contributors = data.contributors || [];
         pillarScores = calculatePillarScores();
-        document.getElementById('user-dashboard').style.display='none';
-        document.getElementById('results-container').style.display='block';
-        document.getElementById('overall-score').textContent = overallScore+'%';
-        document.getElementById('maturity-level').textContent = data.maturity_level||getMaturityLevel(overallScore);
+        
+        document.getElementById('user-dashboard').style.display = 'none';
+        document.getElementById('results-container').style.display = 'block';
+        document.getElementById('overall-score').textContent = overallScore + '%';
+        document.getElementById('maturity-level').textContent = data.maturity_level || getMaturityLevel(overallScore);
+        
+        if (contributors.length > 0) {
+          document.getElementById('contributors-summary').style.display = 'block';
+          const list = document.getElementById('contributors-list-summary');
+          list.innerHTML = contributors.map(c => 
+            `<li><i class="fas fa-user"></i> ${c.fullName || c}</li>`
+          ).join('');
+        }
+        
         displayPillarScores(pillarScores);
-        generateRecommendations(pillarScores,overallScore);
+        generateRecommendations(pillarScores, overallScore);
       }
     }
 
     // ==================== ADMIN DASHBOARD ====================
     async function showAdminDashboard() {
-      if(!currentUser || !ADMIN_EMAILS.includes(currentUser.email)) {
+      if (!currentUser || !ADMIN_EMAILS.includes(currentUser.email)) {
         alert('You do not have admin access');
         return;
       }
-      document.getElementById('auth').style.display='none'; 
-      document.getElementById('home').style.display='none'; 
-      document.getElementById('assessment').style.display='none'; 
-      document.getElementById('user-dashboard').style.display='none'; 
-      document.getElementById('results-container').style.display='none';
-      document.getElementById('admin-dashboard').style.display='block';
+      document.getElementById('auth').style.display = 'none'; 
+      document.getElementById('home').style.display = 'none'; 
+      document.getElementById('assessment').style.display = 'none'; 
+      document.getElementById('user-dashboard').style.display = 'none'; 
+      document.getElementById('results-container').style.display = 'none';
+      document.getElementById('admin-dashboard').style.display = 'block';
       await loadAdminData();
+      await checkResultsCount();
     }
     
     async function loadAdminData() {
       const { data: users } = await supabaseClient.from(TABLES.USERS).select('*');
-      const { data: results } = await supabaseClient.from(TABLES.RESULTS).select('*').order('created_at',{ascending:false});
-      const enriched = (results||[]).map(r=>({...r, user_details:(users||[]).find(u=>u.email===r.user_email)||{}}));
+      const { data: results } = await supabaseClient
+        .from(TABLES.RESULTS)
+        .select('*')
+        .order('created_at', {ascending: false});
+        
+      console.log('Raw results from database:', results);
+        
+      const enriched = (results || []).map(r => ({
+        ...r, 
+        user_details: (users || []).find(u => u.email === r.user_email) || {}
+      }));
+      
       window.allResults = enriched;
       updateAdminStats(enriched);
       displayAdminResults(enriched);
     }
     
     function updateAdminStats(r) {
-      if(!r.length) { document.getElementById('admin-stats').innerHTML='<div class="stat-card"><h3>Total</h3><div class="number">0</div></div>'; return; }
-      let total=r.length, unique=new Set(r.map(x=>x.user_email)).size, avg=Math.round(r.reduce((s,x)=>s+x.overall_score,0)/total);
-      document.getElementById('admin-stats').innerHTML=`<div class="stat-card"><h3>Total Assessments</h3><div class="number">${total}</div></div><div class="stat-card"><h3>Unique Users</h3><div class="number">${unique}</div></div><div class="stat-card"><h3>Average Score</h3><div class="number">${avg}%</div></div>`;
+      if (!r.length) { 
+        document.getElementById('admin-stats').innerHTML = '<div class="stat-card"><h3>Total</h3><div class="number">0</div></div>'; 
+        return; 
+      }
+      let total = r.length, 
+          unique = new Set(r.map(x => x.user_email)).size, 
+          avg = Math.round(r.reduce((s,x) => s + x.overall_score, 0) / total);
+          
+      document.getElementById('admin-stats').innerHTML = `
+        <div class="stat-card"><h3>Total Assessments</h3><div class="number">${total}</div></div>
+        <div class="stat-card"><h3>Unique Users</h3><div class="number">${unique}</div></div>
+        <div class="stat-card"><h3>Average Score</h3><div class="number">${avg}%</div></div>
+      `;
     }
     
     function displayAdminResults(r) {
-      const tbody=document.getElementById('results-body');
-      if(!r.length) { tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:2rem;">No results</td></tr>'; return; }
-      tbody.innerHTML = r.map(res=>{ 
-        let u=res.user_details||{}, name=`${u.first_name||''} ${u.last_name||''}`.trim()||'N/A'; 
+      const tbody = document.getElementById('results-body');
+      if (!r.length) { 
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;">No results</td></tr>'; 
+        return; 
+      }
+      
+      // Show ALL results - NO LIMIT
+      tbody.innerHTML = r.map(res => { 
+        let u = res.user_details || {}, 
+            name = `${u.first_name || ''} ${u.last_name || ''}`.trim() || 'N/A';
+        
+        let contributorsHtml = '';
+        if (res.contributors && Array.isArray(res.contributors)) {
+          contributorsHtml = res.contributors.map(c => 
+            `<span class="badge">${c.fullName || c}</span>`
+          ).join('');
+        } else {
+          contributorsHtml = '<span class="badge">None</span>';
+        }
+        
         return `<tr>
           <td>${new Date(res.created_at).toLocaleDateString()}</td>
           <td>${name}</td>
-          <td>${u.company_name||'N/A'}</td>
+          <td>${u.company_name || 'N/A'}</td>
           <td>${res.user_email}</td>
-          <td>${u.phone_number||'N/A'}</td>
+          <td>${u.phone_number || 'N/A'}</td>
           <td><strong>${res.overall_score}%</strong></td>
-          <td>${res.maturity_level||'N/A'}</td>
+          <td>${res.maturity_level || 'N/A'}</td>
+          <td class="contributors-cell">${contributorsHtml}</td>
           <td><button class="dashboard-action high" onclick="viewAdminResult('${res.id}')">View</button></td>
         </tr>`; 
       }).join('');
+      
+      console.log('Displayed results count:', r.length);
     }
     
     function filterResults() {
-      let term=document.getElementById('search-filter').value.toLowerCase(), date=document.getElementById('date-filter').value, filtered=window.allResults||[];
-      if(term) filtered=filtered.filter(r=>{ let u=r.user_details||{}, n=(u.first_name+u.last_name).toLowerCase(); return n.includes(term)||r.user_email.toLowerCase().includes(term); });
-      if(date) filtered=filtered.filter(r=>new Date(r.created_at).toISOString().split('T')[0]===date);
-      displayAdminResults(filtered); updateAdminStats(filtered);
+      let term = document.getElementById('search-filter').value.toLowerCase(), 
+          date = document.getElementById('date-filter').value, 
+          filtered = window.allResults || [];
+          
+      if (term) filtered = filtered.filter(r => { 
+        let u = r.user_details || {}, 
+            n = (u.first_name + u.last_name).toLowerCase(); 
+        return n.includes(term) || r.user_email.toLowerCase().includes(term); 
+      });
+      
+      if (date) filtered = filtered.filter(r => new Date(r.created_at).toISOString().split('T')[0] === date);
+      displayAdminResults(filtered); 
+      updateAdminStats(filtered);
     }
     
     function exportToCSV() {
@@ -3013,12 +2083,18 @@
         'Phone',
         'Overall Score (%)',
         'Maturity Level',
+        'Contributors',
         'Assessment ID'
       ];
 
       const rows = results.map(result => {
         const user = result.user_details || {};
         const date = new Date(result.created_at).toLocaleDateString();
+        
+        let contributorsStr = '';
+        if (result.contributors && Array.isArray(result.contributors)) {
+          contributorsStr = result.contributors.map(c => c.fullName || c).join('; ');
+        }
         
         return [
           date,
@@ -3029,6 +2105,7 @@
           user.phone_number || '',
           result.overall_score || 0,
           result.maturity_level || '',
+          contributorsStr,
           result.id || ''
         ];
       });
@@ -3036,8 +2113,8 @@
       const csvContent = [
         headers.join(','),
         ...rows.map(row => row.map(cell => {
-          if (typeof cell === 'string' && cell.includes(',')) {
-            return `"${cell}"`;
+          if (typeof cell === 'string' && (cell.includes(',') || cell.includes('"'))) {
+            return `"${cell.replace(/"/g, '""')}"`;
           }
           return cell;
         }).join(','))
@@ -3056,35 +2133,51 @@
     }
     
     async function viewAdminResult(id) {
-      const { data } = await supabaseClient.from(TABLES.RESULTS).select('*').eq('id',id).single();
-      if(data) {
+      const { data } = await supabaseClient
+        .from(TABLES.RESULTS)
+        .select('*')
+        .eq('id', id)
+        .single();
+        
+      if (data) {
         viewingMode = 'historical';
         viewingResultId = id;
         answers = data.answers || {};
         overallScore = data.overall_score;
+        contributors = data.contributors || [];
         pillarScores = calculatePillarScores();
-        document.getElementById('admin-dashboard').style.display='none';
-        document.getElementById('results-container').style.display='block';
-        document.getElementById('overall-score').textContent = overallScore+'%';
-        document.getElementById('maturity-level').textContent = data.maturity_level||getMaturityLevel(overallScore);
+        
+        document.getElementById('admin-dashboard').style.display = 'none';
+        document.getElementById('results-container').style.display = 'block';
+        document.getElementById('overall-score').textContent = overallScore + '%';
+        document.getElementById('maturity-level').textContent = data.maturity_level || getMaturityLevel(overallScore);
+        
+        if (contributors.length > 0) {
+          document.getElementById('contributors-summary').style.display = 'block';
+          const list = document.getElementById('contributors-list-summary');
+          list.innerHTML = contributors.map(c => 
+            `<li><i class="fas fa-user"></i> ${c.fullName || c}</li>`
+          ).join('');
+        }
+        
         displayPillarScores(pillarScores);
-        generateRecommendations(pillarScores,overallScore);
+        generateRecommendations(pillarScores, overallScore);
       }
     }
 
     // ==================== ASSESSMENT ====================
     function startAssessment() {
-      answers={}; 
-      document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(i=>{ 
-        i.checked=false; 
+      answers = {}; 
+      document.querySelectorAll('input[type=checkbox],input[type=radio]').forEach(i => { 
+        i.checked = false; 
         i.closest('.answer')?.classList.remove('selected'); 
       });
       document.getElementById('white-bg').classList.add('active'); 
       document.getElementById('question-bg').classList.remove('active');
-      document.getElementById('home').style.display='none'; 
-      document.getElementById('assessment').style.display='flex';
-      currentQuestion=1; 
-      document.querySelectorAll('.q-box').forEach(b=>b.classList.remove('active')); 
+      document.getElementById('home').style.display = 'none'; 
+      document.getElementById('assessment').style.display = 'flex';
+      currentQuestion = 1; 
+      document.querySelectorAll('.q-box').forEach(b => b.classList.remove('active')); 
       document.getElementById('q1').classList.add('active');
       viewingMode = 'new';
       viewingResultId = null;
@@ -3094,40 +2187,40 @@
     
     function retakeAssessment() { 
       document.getElementById('results-container').style.display = 'none';
-      startAssessment();
+      showContributorsPage();
     }
     
     function updateProgress() { 
-      document.getElementById('question-progress-bar').style.width=(currentQuestion/totalQuestions*100)+'%';
+      document.getElementById('question-progress-bar').style.width = (currentQuestion / totalQuestions * 100) + '%';
       updateQuestionCounter();
     }
     
     function nextQuestion(q) {
-      const box=document.getElementById(`q${q}`); 
-      if(!box.querySelectorAll('input:checked').length) { 
+      const box = document.getElementById(`q${q}`); 
+      if (!box.querySelectorAll('input:checked').length) { 
         alert('Please select at least one answer'); 
         return; 
       }
-      let selected=[]; 
-      box.querySelectorAll('input:checked').forEach(ch=>selected.push(ch.closest('.answer').querySelector('.text').textContent.trim()));
-      answers[`q${q}`]=selected; 
+      let selected = []; 
+      box.querySelectorAll('input:checked').forEach(ch => selected.push(ch.closest('.answer').querySelector('.text').textContent.trim()));
+      answers[`q${q}`] = selected; 
       box.classList.remove('active'); 
-      currentQuestion=q+1;
-      if(currentQuestion<=totalQuestions) {
+      currentQuestion = q + 1;
+      if (currentQuestion <= totalQuestions) {
         document.getElementById(`q${currentQuestion}`).classList.add('active');
         updateQuestionCounter();
       } else { 
-        document.getElementById('final').style.display='block'; 
-        setTimeout(()=>document.getElementById('progress-bar').style.width='100%',100); 
-        setTimeout(showResultsPage,3000); 
+        document.getElementById('final').style.display = 'block'; 
+        setTimeout(() => document.getElementById('progress-bar').style.width = '100%', 100); 
+        setTimeout(showResultsPage, 3000); 
       }
       updateProgress();
     }
     
     function prevQuestion(q) { 
-      if(q<=1) return; 
+      if (q <= 1) return; 
       document.getElementById(`q${q}`).classList.remove('active'); 
-      currentQuestion=q-1; 
+      currentQuestion = q - 1; 
       document.getElementById(`q${currentQuestion}`).classList.add('active'); 
       updateProgress(); 
       updateQuestionCounter();
@@ -3202,59 +2295,131 @@
 
     // ==================== SCORING & RESULTS ====================
     function calculatePillarScores() {
-      let ps={}; mainPillars.forEach(p=>ps[p]={score:0,maxScore:0,percentage:0});
-      for(let i=1;i<=32;i++) {
-        let qk=`q${i}`, pillar=questionPillarMapping[qk]||'General';
-        let score = (answers[qk]?.length||0) * 2;
+      let ps = {}; 
+      mainPillars.forEach(p => ps[p] = {score: 0, maxScore: 0, percentage: 0});
+      
+      for (let i = 1; i <= 32; i++) {
+        let qk = `q${i}`, pillar = questionPillarMapping[qk] || 'General';
+        let score = (answers[qk]?.length || 0) * 2;
         ps[pillar].score += score;
         ps[pillar].maxScore += 10;
       }
-      Object.keys(ps).forEach(p=>{ if(ps[p].maxScore>0) ps[p].percentage=Math.min(Math.round((ps[p].score/ps[p].maxScore)*100),100); });
+      
+      Object.keys(ps).forEach(p => { 
+        if (ps[p].maxScore > 0) ps[p].percentage = Math.min(Math.round((ps[p].score / ps[p].maxScore) * 100), 100); 
+      });
       return ps;
     }
     
-    function getMaturityLevel(p) { if(p>=90) return 'Advanced Maturity'; if(p>=75) return 'Established Maturity'; if(p>=60) return 'Developing Maturity'; if(p>=40) return 'Initial Maturity'; return 'Limited Maturity'; }
+    function getMaturityLevel(p) { 
+      if (p >= 90) return 'Advanced Maturity'; 
+      if (p >= 75) return 'Established Maturity'; 
+      if (p >= 60) return 'Developing Maturity'; 
+      if (p >= 40) return 'Initial Maturity'; 
+      return 'Limited Maturity'; 
+    }
     
     function displayPillarScores(ps) {
-      let tbody=document.getElementById('pillars-body'); tbody.innerHTML='';
-      mainPillars.filter(p=>ps[p]&&ps[p].maxScore>0).forEach(p=>{
-        let d=ps[p]; tbody.innerHTML+=`<tr><td class="pillar-name">${p}</td><td class="score-cell">${d.score}</td><td class="score-cell">${d.maxScore}</td><td class="score-cell"><strong>${d.percentage}%</strong></td><td><div class="score-bar-container"><div class="score-bar" style="width:${d.percentage}%; background:${d.percentage>=80?'#2E7D32':d.percentage>=60?'#FF9800':'#D32F2F'};"></div></div></td></tr>`;
+      let tbody = document.getElementById('pillars-body'); 
+      tbody.innerHTML = '';
+      mainPillars.filter(p => ps[p] && ps[p].maxScore > 0).forEach(p => {
+        let d = ps[p]; 
+        tbody.innerHTML += `<tr>
+          <td class="pillar-name">${p}</td>
+          <td class="score-cell">${d.score}</td>
+          <td class="score-cell">${d.maxScore}</td>
+          <td class="score-cell"><strong>${d.percentage}%</strong></td>
+          <td><div class="score-bar-container"><div class="score-bar" style="width:${d.percentage}%; background:${d.percentage >= 80 ? '#2E7D32' : d.percentage >= 60 ? '#FF9800' : '#D32F2F'};"></div></div></td>
+        </tr>`;
       });
     }
     
     function generateRecommendations(ps, overall) {
-      let grid=document.getElementById('recommendations-grid'), noRec=document.getElementById('no-recommendations'), header=document.getElementById('recommendations-header');
-      grid.innerHTML='';
-      if(overall===100) { header.style.display='none'; grid.style.display='none'; noRec.style.display='block'; return; }
-      header.style.display='block'; grid.style.display='grid'; noRec.style.display='none';
-      let pillarsNeeding = mainPillars.filter(p=>ps[p]&&ps[p].maxScore>0&&ps[p].percentage<80).sort((a,b)=>ps[a].percentage-ps[b].percentage);
-      pillarsNeeding.forEach(pillar=>{
-        let perc=ps[pillar].percentage, recs=pillarRecommendations[pillar]||[];
-        let applicable=recs.filter(r=>perc<r.threshold).sort((a,b)=>(a.priority==='critical'?1:b.priority==='critical'?1:0)).slice(0,3);
-        if(applicable.length) {
-          let card=document.createElement('div'); card.className='recommendation-card';
-          card.innerHTML=`<h4>${pillar} <span class="priority-badge priority-${applicable[0].priority}">Priority: ${applicable[0].priority.toUpperCase()}</span></h4><p><strong>Current Maturity: ${perc}%</strong></p><div class="recommendation-list">`+applicable.map(r=>`<div class="recommendation-item recommendation-${r.priority}">${r.text}</div>`).join('')+'</div>';
+      let grid = document.getElementById('recommendations-grid'), 
+          noRec = document.getElementById('no-recommendations'), 
+          header = document.getElementById('recommendations-header');
+          
+      grid.innerHTML = '';
+      if (overall === 100) { 
+        header.style.display = 'none'; 
+        grid.style.display = 'none'; 
+        noRec.style.display = 'block'; 
+        return; 
+      }
+      header.style.display = 'block'; 
+      grid.style.display = 'grid'; 
+      noRec.style.display = 'none';
+      
+      let pillarsNeeding = mainPillars.filter(p => ps[p] && ps[p].maxScore > 0 && ps[p].percentage < 80)
+          .sort((a, b) => ps[a].percentage - ps[b].percentage);
+          
+      pillarsNeeding.forEach(pillar => {
+        let perc = ps[pillar].percentage, 
+            recs = pillarRecommendations[pillar] || [];
+        let applicable = recs.filter(r => perc < r.threshold)
+            .sort((a, b) => (a.priority === 'critical' ? 1 : b.priority === 'critical' ? 1 : 0))
+            .slice(0, 3);
+        if (applicable.length) {
+          let card = document.createElement('div'); 
+          card.className = 'recommendation-card';
+          card.innerHTML = `<h4>${pillar} <span class="priority-badge priority-${applicable[0].priority}">Priority: ${applicable[0].priority.toUpperCase()}</span></h4>
+              <p><strong>Current Maturity: ${perc}%</strong></p>
+              <div class="recommendation-list">` +
+              applicable.map(r => `<div class="recommendation-item recommendation-${r.priority}">${r.text}</div>`).join('') +
+              '</div>';
           grid.appendChild(card);
         }
       });
-      if(grid.children.length===0) grid.innerHTML='<div class="recommendation-card"><h4>Great Progress!</h4><p>Continue to monitor and improve.</p></div>';
+      if (grid.children.length === 0) grid.innerHTML = '<div class="recommendation-card"><h4>Great Progress!</h4><p>Continue to monitor and improve.</p></div>';
     }
     
     async function showResultsPage() {
-      document.getElementById('final').style.display='none';
-      document.getElementById('assessment').style.display='none';
-      document.getElementById('results-container').style.display='block';
+      document.getElementById('final').style.display = 'none';
+      document.getElementById('assessment').style.display = 'none';
+      document.getElementById('results-container').style.display = 'block';
+      
       pillarScores = calculatePillarScores(); 
-      overallScore = Math.round(Object.values(pillarScores).reduce((s,p)=>s+p.percentage,0) / mainPillars.length);
-      overallScore = Math.min(overallScore,100);
-      document.getElementById('overall-score').textContent = overallScore+'%';
+      overallScore = Math.round(Object.values(pillarScores).reduce((s, p) => s + p.percentage, 0) / mainPillars.length);
+      overallScore = Math.min(overallScore, 100);
+      
+      document.getElementById('overall-score').textContent = overallScore + '%';
       document.getElementById('maturity-level').textContent = getMaturityLevel(overallScore);
-      displayPillarScores(pillarScores); generateRecommendations(pillarScores,overallScore);
-      if(currentUser && viewingMode === 'new') {
+      
+      if (contributors.length > 0) {
+        document.getElementById('contributors-summary').style.display = 'block';
+        const list = document.getElementById('contributors-list-summary');
+        list.innerHTML = contributors.map(c => 
+          `<li><i class="fas fa-user"></i> ${c.fullName || c}</li>`
+        ).join('');
+      }
+      
+      displayPillarScores(pillarScores); 
+      generateRecommendations(pillarScores, overallScore);
+      
+      if (currentUser && viewingMode === 'new') {
         try {
-          await supabaseClient.from(TABLES.RESULTS).insert([{ user_email:currentUser.email, overall_score:overallScore, maturity_level:getMaturityLevel(overallScore), answers }]);
-          document.getElementById('autoEmailNotice').textContent='✅ Results saved to your profile'; document.getElementById('autoEmailNotice').style.display='block';
-        } catch(e){ console.error(e); }
+          // Make sure contributors is an array, even if empty
+          const contributorsToSave = Array.isArray(contributors) ? contributors : [];
+          
+          const { error } = await supabaseClient.from(TABLES.RESULTS).insert([{ 
+            user_email: currentUser.email, 
+            overall_score: overallScore, 
+            maturity_level: getMaturityLevel(overallScore), 
+            answers: answers,
+            contributors: contributorsToSave
+          }]);
+          
+          if (error) throw error;
+          
+          document.getElementById('autoEmailNotice').innerHTML = 
+            '✅ Results saved to your profile with ' + contributorsToSave.length + ' contributor(s)';
+          document.getElementById('autoEmailNotice').style.display = 'block';
+        } catch(e){ 
+          console.error('Error saving results:', e);
+          document.getElementById('autoEmailNotice').innerHTML = 
+            '❌ Error saving results: ' + (e.message || 'Please try again');
+          document.getElementById('autoEmailNotice').style.display = 'block';
+        }
       }
     }
 
@@ -3321,7 +2486,7 @@
           <td>${d.score}</td>
           <td>${d.maxScore}</td>
           <td><strong>${d.percentage}%</strong></td>
-          <td><div class="pdf-progress-bar"><div class="pdf-progress-fill" style="width:${d.percentage}%; background:${d.percentage>=80?'#2E7D32':d.percentage>=60?'#FF9800':'#D32F2F'};"></div></div></td>
+          <td><div class="pdf-progress-bar"><div class="pdf-progress-fill" style="width:${d.percentage}%; background:${d.percentage >= 80 ? '#2E7D32' : d.percentage >= 60 ? '#FF9800' : '#D32F2F'};"></div></div></td>
         </tr>`;
         pdfPillarsBody.innerHTML += row;
       });
@@ -3333,8 +2498,8 @@
         let perc = pillarScores[pillar].percentage;
         let applicable = (pillarRecommendations[pillar] || [])
           .filter(r => perc < r.threshold)
-          .sort((a,b) => (a.priority==='critical'?1:b.priority==='critical'?1:0))
-          .slice(0,3);
+          .sort((a, b) => (a.priority === 'critical' ? 1 : b.priority === 'critical' ? 1 : 0))
+          .slice(0, 3);
         
         if (applicable.length) {
           let recBlock = `<div class="pdf-recommendation"><h3>${pillar} (Current Maturity: ${perc}%)</h3>`;
@@ -3345,7 +2510,7 @@
           });
           recBlock += '</div>';
           
-          if (index < Math.ceil(pillarsNeeding.length/2)) {
+          if (index < Math.ceil(pillarsNeeding.length / 2)) {
             recsHTML1 += recBlock;
           } else {
             recsHTML2 += recBlock;
@@ -3362,15 +2527,35 @@
     }
 
     // ==================== INIT ====================
-    document.addEventListener('DOMContentLoaded',()=>{
+    document.addEventListener('DOMContentLoaded', () => {
+      testConnection();
       showLogin();
-      if(localStorage.getItem('rememberedEmail')) document.getElementById('login-email').value=localStorage.getItem('rememberedEmail');
-      document.querySelectorAll('.answer input').forEach(inp=>{
-        inp.addEventListener('change',function(){
-          let ans=this.closest('.answer'); if(ans) ans.classList.toggle('selected',this.checked);
-          if(this.classList.contains('exclusive')&&this.checked) document.querySelectorAll(`input[name="${this.name}"]:not(.exclusive)`).forEach(oi=>{ oi.checked=false; oi.closest('.answer')?.classList.remove('selected'); });
-          else if(!this.classList.contains('exclusive')) document.querySelectorAll(`input[name="${this.name}"].exclusive`).forEach(ei=>{ ei.checked=false; ei.closest('.answer')?.classList.remove('selected'); });
-          if(this.type==='radio') document.querySelectorAll(`input[name="${this.name}"]`).forEach(r=>{ if(r!==this) r.closest('.answer')?.classList.remove('selected'); });
+      if (localStorage.getItem('rememberedEmail')) {
+        document.getElementById('login-email').value = localStorage.getItem('rememberedEmail');
+      }
+      
+      document.querySelectorAll('.answer input').forEach(inp => {
+        inp.addEventListener('change', function() {
+          let ans = this.closest('.answer'); 
+          if (ans) ans.classList.toggle('selected', this.checked);
+          
+          if (this.classList.contains('exclusive') && this.checked) {
+            document.querySelectorAll(`input[name="${this.name}"]:not(.exclusive)`).forEach(oi => { 
+              oi.checked = false; 
+              oi.closest('.answer')?.classList.remove('selected'); 
+            });
+          } else if (!this.classList.contains('exclusive')) {
+            document.querySelectorAll(`input[name="${this.name}"].exclusive`).forEach(ei => { 
+              ei.checked = false; 
+              ei.closest('.answer')?.classList.remove('selected'); 
+            });
+          }
+          
+          if (this.type === 'radio') {
+            document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => { 
+              if (r !== this) r.closest('.answer')?.classList.remove('selected'); 
+            });
+          }
         });
       });
       updateQuestionCounter();
@@ -3378,6 +2563,3 @@
   </script>
 </body>
 </html>
-
-
-
